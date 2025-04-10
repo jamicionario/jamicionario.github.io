@@ -1,0 +1,16 @@
+
+:host {
+    display: block;
+}
+
+.error {
+    font-style: italic;
+    color: #A00000;
+}
+
+.description {
+    border-left: dashed grey 2px;
+    padding-left: 1em;
+    margin-left: 1em;
+    white-space: pre-wrap;
+}

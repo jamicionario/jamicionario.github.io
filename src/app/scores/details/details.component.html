@@ -1,0 +1,12 @@
+
+<article>
+    @let score = score$ | async;
+    @if (!score) {
+        <p class="error">Not found.</p>
+    } @else {
+        <header>{{score.title}}</header>
+        @if (score.description) {
+            <p class="description">{{score.description}}</p>
+        }
+    }
+</article>

@@ -1,16 +1,38 @@
-# Jamicionario
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+# Jamicionario
 
 ## Development server
 
-To start a local development server, run:
+To start a local development server, run in console:
 
 ```bash
 ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Deploying
+
+Deploy with:
+
+`ng deploy --base-href=/pages/ --repo=https://github.com/<username>/<repositoryname>.git`
+
+## Installing
+
+These are instructions for your one-time setup.
+
+### MacOS
+
+1. Install [HomeBrew](https://brew.sh/):
+    `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+2. Install node via brew:
+    `brew install node`
+
+3. Install Angular:
+    `npm install -g @angular/cli`
+
+You can see the NPM installed packages with `npm list -g`
 
 ## Code scaffolding
 
