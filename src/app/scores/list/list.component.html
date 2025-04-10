@@ -3,7 +3,10 @@
     <header>Available scores:</header>
     <ol>
         @for (score of scores; track score.id) {
-            <li><a routerLink="/scores/{{score.id}}">{{score.title}}</a></li>
+            <li><a routerLink="/scores/{{score.id}}"
+                   routerLinkActive="active"
+                   ariaCurrentWhenActive="page"
+                   >{{score.title}}</a></li>
         } @empty {
             <li><em>No scores found</em></li>
         }
