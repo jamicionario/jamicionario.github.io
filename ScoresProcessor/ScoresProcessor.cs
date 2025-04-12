@@ -1,0 +1,17 @@
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+
+namespace ScoresProcessor;
+internal class ScoresProcessor
+{
+    internal static ILoggerFactory LogFactory {get;} = LoggerFactory.Create(builder => builder.AddConsole());
+    private static ILogger Logger { get; } = LogFactory.CreateLogger<ScoresProcessor>();
+    private static void Main(string[] args)
+    {
+        ScoresConfig config = new();
+        Target[] targets = DataFinder.FindData(config);
+        Logger.LogDebug("Found {Count} files.", targets.Length);
+        Exporter exporter = new(config, LogFactory.CreateLogger<Exporter>());
+        exporter.Export(targets);
+    }
+}

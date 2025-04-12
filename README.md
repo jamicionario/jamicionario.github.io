@@ -1,6 +1,16 @@
 
 # Jamicionario
 
+## Deploying
+
+When data is updated, it's necessary to update and deploy:
+
+1. Update data with the Scores Processor — see the [README](ScoresProcessor/README.md) file there.
+2. WIP: ???
+3. Save changes with git: commit, push.
+4. Then deploy with:  
+`ng deploy --base-href=/pages/ --repo=https://github.com/<username>/<repositoryname>.git`
+
 ## Development server
 
 To start a local development server, run in console:
@@ -11,17 +21,16 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Deploying
-
-Deploy with:
-
-`ng deploy --base-href=/pages/ --repo=https://github.com/<username>/<repositoryname>.git`
-
 ## Installing
 
 These are instructions for your one-time setup.
 
+1. Install git.
+2. Then install Angular following the instructions below according to your <abbr title="Operating System">OS</abbr>.
+
 ### MacOS
+
+Install Angular:
 
 1. Install [HomeBrew](https://brew.sh/):
     `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
