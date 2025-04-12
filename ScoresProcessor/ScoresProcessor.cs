@@ -12,7 +12,11 @@ internal class ScoresProcessor
         Target[] targets = DataFinder.FindData(config);
         Logger.LogDebug("Found {Count} files. Processing.", targets.Length);
         Exporter exporter = new(config, LogFactory.CreateLogger<Exporter>());
-        Result[] results = exporter.Export(targets).ToArray();
+        Result[] results = exporter.Export(targets)
+            .ToArray();
         Logger.LogInformation("Exported {Count} scores successfully.", results.Length);
+        MetadataBuilder metaBuilder = new(config);
+        metaBuilder.ExportMetadata(results);
+        Logger.LogTrace("Finished.");
     }
 }

@@ -36,6 +36,11 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
             }
 
             Result result = DataFinder.GatherExportsFor(target);
+            logger.LogTrace(
+                "Exported successfully the score {ScoreName}. {PNG Count} exported PNGs found.",
+                result.ScoreName,
+                result.ScoreImages.Length
+                );
             yield return result;
         }
     }
@@ -45,16 +50,16 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
     private void EnsureFolderExistsFor(Target target)
     {
         // Note: we must check for this collision _even_ if the folder already exists.
-        if (previousScoreNamesChecked.Contains(target.ScoreFileName))
+        if (previousScoreNamesChecked.Contains(target.ScoreName))
         {
             logger.LogError(
-                "There is already a score named {ScoreFileName}. Cannot process '{DuplicateFileName}'.",
-                target.ScoreFileName,
+                "There is already a score named {ScoreName}. Cannot process '{Duplicate file name}'.",
+                target.ScoreName,
                 target.Mscz
                 );
-            throw new FileNameException($"There is already a score named '{target.ScoreFileName}'.");
+            throw new FileNameException($"There is already a score named '{target.ScoreName}'.");
         }
-        previousScoreNamesChecked.Add(target.ScoreFileName);
+        previousScoreNamesChecked.Add(target.ScoreName);
 
         if (checkedFolders.Contains(target.DestinationFolder))
         {
