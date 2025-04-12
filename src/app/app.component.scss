@@ -2,3 +2,15 @@
 :host {
     display: block;
 }
+
+header::before {
+    content: "work in progress";
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-color: #689F38;
+    border-radius: 0 0 0 10px;
+    color: white;
+    padding: 0.5em 1.5em;
+}
