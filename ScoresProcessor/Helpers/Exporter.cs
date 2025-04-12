@@ -1,6 +1,7 @@
 
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
 
@@ -8,39 +9,33 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
 {
     public IEnumerable<Result> Export(Target[] targets)
     {
-        // TODO: convert in batch via JSON file.
+        // Generate the JSON job file.
+        var conversionInstructions = targets.Select(target => new
+        {
+            @in = target.Mscz,
+            @out = target.FullDestination
+        });
+        string json = JsonConvert.SerializeObject(conversionInstructions, Formatting.Indented);
+        string jobFileName = Path.GetTempFileName();
+        File.WriteAllText(jobFileName, json);
 
+        // Ask MuseScore to do the work in that job file.
+        logger.LogInformation("⚙️ Starting export of {Count} scores.", targets.Length);
+        Process process = Process.Start(config.MuseScoreExecutablePath, arguments: [
+            "-F", // Use factory settings - this avoids that user configs affect this script.
+            "-j",
+            jobFileName,
+        ])
+            ?? throw new LaunchException($"Could not start file conversion.");
+
+        // Wait for MuseScore to finish. Around 1 minute...
+        process.WaitForExit();
+        logger.LogInformation("✅ Exported {Count} scores.", targets.Length);
+
+        // Compile the produced files, and return them.
         foreach (var target in targets)
         {
-            // Thanks MuseScore. >_> I would expect at least an error like "could not create file"!
-            EnsureFolderExistsFor(target);
-
-            // mscore -o camposa.png camposa.mscz
-            ProcessStartInfo startInfo = new(config.MuseScoreExecutablePath, [
-                "-F", // Use factory settings - this avoids that user configs affect this script.
-                "-o",
-                target.FullDestination,
-                target.Mscz,
-            ])
-            {
-                // WindowStyle = ProcessWindowStyle.Hidden,
-            };
-            Process process = Process.Start(startInfo)
-                ?? throw new LaunchException($"Could not start file conversion for {target.Mscz}");
-
-            bool completed = process.WaitForExit(config.ConversionTimeout);
-            if (!completed)
-            {
-                logger.LogWarning("Conversion timeout reached, file might not have been converted: {Mscz}", target.Mscz);
-                continue;
-            }
-
             Result result = DataFinder.GatherExportsFor(target);
-            logger.LogTrace(
-                "Exported successfully the score {ScoreName}. {PNG Count} exported PNGs found.",
-                result.ScoreName,
-                result.ScoreImages.Length
-                );
             yield return result;
         }
     }
