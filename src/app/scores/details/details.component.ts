@@ -1,7 +1,7 @@
-import { Component, inject, Input } from '@angular/core';
-import { Score, ScoreService } from '../scores.service';
+import { Component, inject } from '@angular/core';
+import { ScoreService } from '../scores.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -16,7 +16,15 @@ export class DetailsComponent {
   private service = inject(ScoreService);
   private route = inject(ActivatedRoute);
   score$ = this.route.paramMap.pipe(
-    map(paramMap => Number(paramMap.get('id'))),
-    map(scoreId => this.service.getScore(scoreId)),
+    map(paramMap => Number(paramMap.get('number'))),
+    map(scoreNumber => this.service.getScore(scoreNumber)),
+  );
+
+  scoreTitle$ = this.score$.pipe(
+    map(score =>
+        score?.Pages.length === 1
+        ? "1 page:"
+        : (score?.Pages.length ?? 0) + " pages:"
+      ),
   );
 }

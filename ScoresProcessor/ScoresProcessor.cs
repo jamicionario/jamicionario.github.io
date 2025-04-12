@@ -15,8 +15,8 @@ internal class ScoresProcessor
         Result[] results = exporter.Export(targets)
             .ToArray();
         Logger.LogInformation("Exported {Count} scores successfully.", results.Length);
-        MetadataBuilder metaBuilder = new(config);
-        metaBuilder.ExportMetadata(results);
+        MetadataBuilder metaBuilder = new(config, LogFactory.CreateLogger<MetadataBuilder>());
+        metaBuilder.ExportMetadataFor(results);
         Logger.LogTrace("Finished.");
     }
 }

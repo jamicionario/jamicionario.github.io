@@ -2,11 +2,11 @@
 <nav>
     <header>Available scores:</header>
     <ol>
-        @for (score of scores; track score.id) {
-            <li><a routerLink="/scores/{{score.id}}"
+        @for (score of scores; track score.Number) {
+            <li><a routerLink="/scores/{{score.Number}}"
                    routerLinkActive="active"
                    ariaCurrentWhenActive="page"
-                   >{{score.title}}</a></li>
+                   >{{score.Name}}</a></li>
         } @empty {
             <li><em>No scores found</em></li>
         }

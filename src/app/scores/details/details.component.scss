@@ -8,9 +8,10 @@
     color: #A00000;
 }
 
-.description {
-    border-left: dashed grey 2px;
-    padding-left: 1em;
-    margin-left: 1em;
-    white-space: pre-wrap;
+.scores {
+    display: grid;
+    max-width: 80vw;
+    margin: 0 auto;
+    grid-template-columns: min(800px, 80vw);
+    justify-content: center;
 }
