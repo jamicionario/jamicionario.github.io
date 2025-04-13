@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-tree',
   imports: [
-    TreeComponent,
     CommonModule,
   ],
   templateUrl: './tree.component.html',

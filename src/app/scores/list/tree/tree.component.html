@@ -1,13 +1,3 @@
-<!-- <ul>
-    @for (group of groups; track $index) {
-        <li>{{group.name}}
-            @if (group.branches.length) {
-                <app-tree [groups]="group.branches"></app-tree>
-            }
-        </li>
-    }
-</ul> -->
-
 <ng-container *ngTemplateOutlet="tree; context:{branches: groups}">
 </ng-container>
 
@@ -18,7 +8,7 @@
             <span>{{branch.name}}</span>
             <ul *ngIf="branch.leaves.length > 0">
                 <li *ngFor="let leaf of branch.leaves">
-                    <a href="/scores/{{leaf.Number}}">{{leaf.Name}}</a>
+                    {{leaf.Number}} <a href="/scores/{{leaf.Number}}">{{leaf.Name}}</a>
                 </li>
             </ul>
             <ng-container *ngTemplateOutlet="tree;context:{branches: branch.branches}">
