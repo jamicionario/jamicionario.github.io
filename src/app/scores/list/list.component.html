@@ -24,8 +24,15 @@
             <app-tree [groups]="groupedScores"></app-tree>
         }
         @default {
+            <div class="filter">
+                <input type="text" autofocus class="form-control"
+                    placeholder="search"
+                    [(ngModel)]="searchText" name="searchText" id="scoreSearch"
+                    (ngModelChange)="this.search$.next($event)" />
+            </div>
+
             <ol>
-                @for (score of scores; track $index) {
+                @for (score of scoresFiltered$ | async; track $index) {
                     <li><a href="/scores/{{score.Number}}">{{score.Name}}</a></li>
                 }
             </ol>

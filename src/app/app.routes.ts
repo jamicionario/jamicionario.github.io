@@ -4,11 +4,8 @@ import { DetailsComponent } from './scores/details/details.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/scores', pathMatch: 'full', },
-    { path: 'scores', title: 'Jamicionário', component: ListComponent,
-        children: [
-            { path: ':number', title: 'Score details', component: DetailsComponent },
-        ],
-    },
+    { path: 'scores', title: 'Jamicionário', component: ListComponent, },
+    { path: 'scores/:number', title: 'Score details', component: DetailsComponent },
     // Redirect any broken paths back to the main page.
     { path: '**', redirectTo: '/scores' },
 ];

@@ -43,11 +43,17 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
                 Number = index + 1,
                 Name = item.ScoreName,
+                SearchableName = NormalizeStringForSearch(item.ScoreName),
                 Mscz = PathAsRelativeToPublic(item.Mscz),
                 Pages = item.ScoreImages.Select(PathAsRelativeToPublic),
                 Categories = SelectCategoriesFor(item),
             });
         return JsonConvert.SerializeObject(information, Formatting.Indented);
+    }
+
+    private static string NormalizeStringForSearch(string scoreName)
+    {
+        return scoreName.ToLowerInvariant().Trim();
     }
 
     private string GetAbsolutePathToPublic()

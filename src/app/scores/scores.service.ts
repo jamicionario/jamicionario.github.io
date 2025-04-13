@@ -14,6 +14,7 @@ export class ScoreGroup {
 export type Score = {
   Number: number,
   Name: string,
+  SearchableName: string,
   Mscz: string,
   Pages: string[],
   Categories: string[],
