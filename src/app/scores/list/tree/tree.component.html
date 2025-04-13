@@ -1,0 +1,29 @@
+<!-- <ul>
+    @for (group of groups; track $index) {
+        <li>{{group.name}}
+            @if (group.branches.length) {
+                <app-tree [groups]="group.branches"></app-tree>
+            }
+        </li>
+    }
+</ul> -->
+
+<ng-container *ngTemplateOutlet="tree; context:{branches: groups}">
+</ng-container>
+
+<ng-template #tree let-branches="branches">
+  <ul *ngIf="branches.length > 0">
+    @for (branch of branches; track $index) {
+        <li>
+            <span>{{branch.name}}</span>
+            <ul *ngIf="branch.leaves.length > 0">
+                <li *ngFor="let leaf of branch.leaves">
+                    <a href="/scores/{{leaf.Number}}">{{leaf.Name}}</a>
+                </li>
+            </ul>
+            <ng-container *ngTemplateOutlet="tree;context:{branches: branch.branches}">
+            </ng-container>
+        </li>
+    }
+  </ul>
+</ng-template>

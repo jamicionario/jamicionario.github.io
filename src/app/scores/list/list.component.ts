@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Score, ScoreService } from '../scores.service';
+import { ScoreGroup, ScoreService } from '../scores.service';
+import { CommonModule } from '@angular/common';
+import { TreeComponent } from './tree/tree.component';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +10,8 @@ import { Score, ScoreService } from '../scores.service';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
+    CommonModule,
+    TreeComponent,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
@@ -15,5 +19,5 @@ import { Score, ScoreService } from '../scores.service';
 export class ListComponent {
   private readonly service = inject(ScoreService);
 
-  scores: Score[] = this.service.getScores();
+  groupedScores: ScoreGroup[] = this.service.getGroupedScores();
 }

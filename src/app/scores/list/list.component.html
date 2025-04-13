@@ -1,16 +1,7 @@
 
 <nav>
     <header>Available scores:</header>
-    <ol>
-        @for (score of scores; track score.Number) {
-            <li><a routerLink="/scores/{{score.Number}}"
-                   routerLinkActive="active"
-                   ariaCurrentWhenActive="page"
-                   >{{score.Name}}</a></li>
-        } @empty {
-            <li><em>No scores found</em></li>
-        }
-    </ol>
+    <app-tree [groups]="groupedScores"></app-tree>
 </nav>
 
 <router-outlet />

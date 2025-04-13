@@ -10,11 +10,14 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
     public IEnumerable<Result> Export(Target[] targets)
     {
         // Generate the JSON job file.
-        var conversionInstructions = targets.Select(target => new
-        {
-            @in = target.Mscz,
-            @out = target.FullDestination
-        });
+        var conversionInstructions = targets
+            // Order by title, to make it easier for the frontend.
+            .OrderBy(target => target.ScoreName)
+            .Select(target => new
+            {
+                @in = target.Mscz,
+                @out = target.FullDestination
+            });
         string json = JsonConvert.SerializeObject(conversionInstructions, Formatting.Indented);
         string jobFileName = Path.GetTempFileName();
         File.WriteAllText(jobFileName, json);
