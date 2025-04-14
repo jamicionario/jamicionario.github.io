@@ -9,7 +9,9 @@ When data is updated, it's necessary to update and deploy:
 2. WIP: ???
 3. Save changes with git: commit, push.
 4. Then deploy with:  
-`ng deploy --base-href=/pages/ --repo=https://github.com/<username>/<repositoryname>.git`
+`ng deploy --repo=https://github.com/jam-icionario/jam-icionario.github.io.git`
+
+For more information, see the [angular-cli-ghpages documentation](https://www.npmjs.com/package/angular-cli-ghpages).
 
 ## Development server
 
@@ -26,7 +28,8 @@ Once the server is running, open your browser and navigate to `http://localhost:
 These are instructions for your one-time setup.
 
 1. Install git.
-2. Then install Angular following the instructions below according to your <abbr title="Operating System">OS</abbr>.
+2. Install Angular following the instructions below according to your <abbr title="Operating System">OS</abbr>.
+3. Install angular-cli-ghpages: `npm install -g angular-cli-ghpages`
 
 ### MacOS
 
