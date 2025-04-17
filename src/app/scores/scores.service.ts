@@ -16,9 +16,11 @@ export class ScoreGroup {
   branches: ScoreGroup[] = [];
   leaves: Score[] = [];
   isCollapsed: boolean = false;
+  isPortuguese: boolean;
 
-  constructor(name: string) {
+  constructor(name: string, isPortuguese: boolean) {
     this.name = name;
+    this.isPortuguese = isPortuguese;
   }
 };
 
@@ -57,7 +59,7 @@ export class ScoreService {
 
   private static groupScores(scores: Score[]): ScoreGroup[] {
     // Create a base dummy node where all the Groups will hang.
-    let root = new ScoreGroup("All");
+    let root = new ScoreGroup("All", false);
     root.branches = [];
 
     // Add each score to the groups tree, one by one.
@@ -71,11 +73,11 @@ export class ScoreService {
       const allCategories = [nationality, score.category].concat(score.subcategories);
       allCategories.forEach(category => {
         // Does it exist?
-        branch = branches.find(branch => branch.name === category);
+        branch = branches.find(branch => branch.name === category && branch.isPortuguese == score.isPortuguese);
 
         // If not, we create a new one and add it.
         if (branch === undefined) {
-          branch = new ScoreGroup(category);
+          branch = new ScoreGroup(category, score.isPortuguese);
           branches.push(branch);
         }
         // Then we dive in this branch, to take care of the next category.
@@ -87,6 +89,10 @@ export class ScoreService {
 
     // In the end we have a large tree.
     // We want to return all its branches - the set of groups.
+
+    // But first we want to swap the portuguese dances to the top.
+    // We must have pride! ;)
+    root.branches.sort((one, _other) => one.isPortuguese  === true ? -1 : 1);
     return root.branches;
   }
 

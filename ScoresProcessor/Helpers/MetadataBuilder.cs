@@ -57,6 +57,8 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
             };
         }
         var information = results
+            // Order alphabetically.
+            .OrderBy(result => result.Mscz)
             .Select(ProcessInfo);
         return JsonConvert.SerializeObject(information, Formatting.Indented);
     }
