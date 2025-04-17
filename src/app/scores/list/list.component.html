@@ -12,6 +12,13 @@
         </label>
         <label>
             <input type="radio"
+                [checked]="selectionType === SelectionType.Categories"
+                (change)="changeSelectionTypeTo(SelectionType.Categories)"
+                />
+            Show by category
+        </label>
+        <label>
+            <input type="radio"
                 [checked]="selectionType === SelectionType.Tree"
                 (change)="changeSelectionTypeTo(SelectionType.Tree)"
                 />
@@ -19,21 +26,35 @@
         </label>
     </div>
 
+
+    <div class="filter" *ngIf="selectionType !== SelectionType.Tree">
+        <input type="text" autofocus class="form-control"
+            placeholder="search"
+            [(ngModel)]="searchText" name="searchText" id="scoreSearch"
+            (ngModelChange)="this.search$.next($event)" />
+    </div>
     @switch (selectionType) {
         @case (SelectionType.Tree) {
             <app-tree [groups]="groupedScores"></app-tree>
         }
+        @case (SelectionType.Categories) {
+            <ul>
+                @for (category of categoriesFiltered$ | async; track $index) {
+                    <li>{{category.name}}
+                        <ul>
+                            @for (score of category.scores; track $index) {
+                                <li><a href="/scores/{{score.number}}">{{score.name}}</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <app-tree [groups]="groupedScores"></app-tree>
+        }
         @default {
-            <div class="filter">
-                <input type="text" autofocus class="form-control"
-                    placeholder="search"
-                    [(ngModel)]="searchText" name="searchText" id="scoreSearch"
-                    (ngModelChange)="this.search$.next($event)" />
-            </div>
-
             <ol>
                 @for (score of scoresFiltered$ | async; track $index) {
-                    <li><a href="/scores/{{score.Number}}">{{score.Name}}</a></li>
+                    <li><a href="/scores/{{score.number}}">{{score.name}}</a></li>
                 }
             </ol>
         }

@@ -37,17 +37,27 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
             return folders;
         }
         // string SubfolderToPublic(string ab);
-        var information = results
-            .Select((item, index) => new
+        object ProcessInfo(Result item, int index)
+        {
+            var categories = SelectCategoriesFor(item);
+            bool isPortuguese = categories[0].Contains("Danças portuguesas", StringComparison.InvariantCultureIgnoreCase);
+            string category = categories[1];
+            string[] subcategories = categories.Skip(2).ToArray();
+            return new
             {
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
-                Number = index + 1,
-                Name = item.ScoreName,
-                SearchableName = NormalizeStringForSearch(item.ScoreName),
-                Mscz = PathAsRelativeToPublic(item.Mscz),
-                Pages = item.ScoreImages.Select(PathAsRelativeToPublic),
-                Categories = SelectCategoriesFor(item),
-            });
+                number = index + 1,
+                name = item.ScoreName,
+                searchableName = NormalizeStringForSearch(item.ScoreName),
+                // mscz = PathAsRelativeToPublic(item.Mscz),
+                pages = item.ScoreImages.Select(PathAsRelativeToPublic),
+                isPortuguese,
+                category,
+                subcategories,
+            };
+        }
+        var information = results
+            .Select(ProcessInfo);
         return JsonConvert.SerializeObject(information, Formatting.Indented);
     }
 

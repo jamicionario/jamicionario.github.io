@@ -8,7 +8,7 @@
             <span>{{branch.name}}</span>
             <ul *ngIf="branch.leaves.length > 0">
                 <li *ngFor="let leaf of branch.leaves">
-                    {{leaf.Number}} <a href="/scores/{{leaf.Number}}">{{leaf.Name}}</a>
+                    {{leaf.Number}} <a href="/scores/{{leaf.number}}">{{leaf.name}}</a>
                 </li>
             </ul>
             <ng-container *ngTemplateOutlet="tree;context:{branches: branch.branches}">

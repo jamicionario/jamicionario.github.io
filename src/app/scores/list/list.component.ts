@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Score, ScoreGroup, ScoreService } from '../scores.service';
+import { Category, Score, ScoreGroup, ScoreService } from '../scores.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
@@ -9,6 +9,7 @@ import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
 export enum SelectionType {
   List,
   Tree,
+  Categories,
 }
 
 function normalizeStringForSearch(value: string): string {
@@ -32,16 +33,30 @@ export class ListComponent {
 
   searchText: string = "";
   search$ = new BehaviorSubject<string>(this.searchText);
-
-  scores: Score[] = this.service.getScores();
-  groupedScores: ScoreGroup[] = this.service.getGroupedScores();
-
-  scoresFiltered$ = this.search$
+  normalizedSearch$ = this.search$
     .pipe(
       debounceTime(200),
       map(str => normalizeStringForSearch(str)),
       distinctUntilChanged(),
-      map(str => this.scores.filter(score => str.length === 0 ||score.SearchableName.includes(str))),
+    );
+
+  scores: Score[] = this.service.getScores();
+  groupedScores: ScoreGroup[] = this.service.getGroupedScores();
+  categories: Category[] = this.service.getCategories();
+
+  scoresFiltered$ = this.normalizedSearch$
+    .pipe(
+      map(str => this.scores.filter(score => str.length === 0 ||score.searchableName.includes(str))),
+    );
+
+  categoriesFiltered$ = this.normalizedSearch$
+    .pipe(
+      map(str => this.categories
+        .map(category => new Category(
+          category.name,
+          this.scores.filter(score => str.length === 0 ||score.searchableName.includes(str)))
+        )),
+      map(cats => cats.filter(cat => cat.scores.length > 0)),
     );
 
   selectionType: SelectionType = SelectionType.Tree;

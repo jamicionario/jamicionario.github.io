@@ -4,13 +4,13 @@
     @if (!score) {
         <p class="error">Score not found.</p>
     } @else {
-        <header><h2>{{score.Name}}</h2></header>
-        @if (!score.Pages.length) {
+        <header><h2>{{score.name}}</h2></header>
+        @if (!score.pages.length) {
             <p class="error">This music has no pages.</p>
         } @else {
             <div class="title">{{scoreTitle$ | async}}</div>
             <div class="pages">
-                @for (page of score.Pages; track $index) {
+                @for (page of score.pages; track $index) {
                     <img src="{{page}}" alt="page {{$index}}" />
                 }
             </div>

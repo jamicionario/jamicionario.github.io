@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import metadata from '@public/score-metadata.json';
 
+export class Category {
+  name: string;
+  scores: Score[];
+
+  constructor(name: string, scores: Score[] = []) {
+    this.name = name;
+    this.scores = scores;
+  }
+}
 export class ScoreGroup {
   name: string;
   branches: ScoreGroup[] = [];
@@ -12,25 +21,36 @@ export class ScoreGroup {
 };
 
 export type Score = {
-  Number: number,
-  Name: string,
-  SearchableName: string,
-  Mscz: string,
-  Pages: string[],
-  Categories: string[],
+  number: number,
+  name: string,
+  searchableName: string,
+  // mscz: string,
+  pages: string[],
+  isPortuguese: boolean,
+  category: string,
+  subcategories: string[],
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreService {
-  private scoreGroups?: ScoreGroup[] = undefined;
+  private grouped?: ScoreGroup[] = undefined;
+  private byCategory?: Category[] = undefined;
+
+  getScores(): Score[] {
+    return metadata;
+  }
+
+  getScore(scoreId: number): Score | undefined {
+    return metadata.find(score => score.number === scoreId);
+  }
 
   getGroupedScores(): ScoreGroup[] {
-    if (this.scoreGroups === undefined) {
-      this.scoreGroups = ScoreService.groupScores(this.getScores());
+    if (this.grouped === undefined) {
+      this.grouped = ScoreService.groupScores(this.getScores());
     }
-    return this.scoreGroups;
+    return this.grouped;
   }
 
   private static groupScores(scores: Score[]): ScoreGroup[] {
@@ -45,7 +65,7 @@ export class ScoreService {
 
       // For each category, find or add the needed branch in the tree,
       // then dive inside that branch to handle the next category.
-      score.Categories.forEach(category => {
+      score.subcategories.forEach(category => {
         // Does it exist?
         branch = branches.find(branch => branch.name === category);
 
@@ -66,11 +86,23 @@ export class ScoreService {
     return root.branches;
   }
 
-  getScores(): Score[] {
-    return metadata;
+  getCategories(): Category[] {
+    if (this.byCategory === undefined) {
+      this.byCategory = ScoreService.getCategories(this.getScores());
+    }
+    return this.byCategory;
   }
 
-  getScore(scoreId: number): Score | undefined {
-    return metadata.find(score => score.Number === scoreId);
+  private static getCategories(scores: Score[]): Category[] {
+    const categories: Category[] = [];
+    scores.forEach(score => {
+      let existing = categories.find(c => c.name == score.category);
+      if (existing === undefined) {
+        existing = new Category(score.category);
+        categories.push(existing);
+      }
+      existing.scores.push(score);
+    });
+    return categories;
   }
 }

@@ -22,9 +22,9 @@ export class DetailsComponent {
 
   scoreTitle$ = this.score$.pipe(
     map(score =>
-        score?.Pages.length === 1
+        score?.pages.length === 1
         ? "1 page:"
-        : (score?.Pages.length ?? 0) + " pages:"
+        : (score?.pages.length ?? 0) + " pages:"
       ),
   );
 }
