@@ -7,6 +7,7 @@
         <li class="collapsable" [class.collapsed]="branch.isCollapsed">
             <label (click)="branch.isCollapsed = !branch.isCollapsed">
                 {{branch.name}}
+                <span class="count">({{branch.numberOfScores}})</span>
             </label>
             <ul *ngIf="branch.leaves.length > 0">
                 <li *ngFor="let leaf of branch.leaves">
