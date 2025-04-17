@@ -4,8 +4,10 @@
 <ng-template #tree let-branches="branches">
   <ul *ngIf="branches.length > 0">
     @for (branch of branches; track $index) {
-        <li>
-            <span>{{branch.name}}</span>
+        <li class="collapsable" [class.collapsed]="branch.isCollapsed">
+            <label (click)="branch.isCollapsed = !branch.isCollapsed">
+                {{branch.name}}
+            </label>
             <ul *ngIf="branch.leaves.length > 0">
                 <li *ngFor="let leaf of branch.leaves">
                     {{leaf.Number}} <a href="/scores/{{leaf.number}}">{{leaf.name}}</a>

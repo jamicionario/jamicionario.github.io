@@ -46,7 +46,7 @@ export class ListComponent {
 
   scoresFiltered$ = this.normalizedSearch$
     .pipe(
-      map(str => this.scores.filter(score => str.length === 0 ||score.searchableName.includes(str))),
+      map(str => this.scores.filter(score => str.length === 0 || score.searchableName.includes(str))),
     );
 
   categoriesFiltered$ = this.normalizedSearch$
@@ -54,8 +54,9 @@ export class ListComponent {
       map(str => this.categories
         .map(category => new Category(
           category.name,
-          this.scores.filter(score => str.length === 0 ||score.searchableName.includes(str)))
-        )),
+          category.scores.filter(score => str.length === 0 || score.searchableName.includes(str)))
+          )
+        ),
       map(cats => cats.filter(cat => cat.scores.length > 0)),
     );
 

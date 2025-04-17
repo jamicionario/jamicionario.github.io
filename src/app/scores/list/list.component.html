@@ -40,23 +40,26 @@
         @case (SelectionType.Categories) {
             <ul>
                 @for (category of categoriesFiltered$ | async; track $index) {
-                    <li>{{category.name}}
+                    <li class="collapsable" [class.collapsed]="category.isCollapsed">
+                        <label (click)="category.isCollapsed = !category.isCollapsed">
+                            {{category.name}}
+                            <span class="count">({{category.scores.length}})</span>
+                        </label>
                         <ul>
-                            @for (score of category.scores; track $index) {
-                                <li><a href="/scores/{{score.number}}">{{score.name}}</a></li>
+                            @for (score of category.scores; track score.number) {
+                                <li><a href="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
                             }
                         </ul>
                     </li>
                 }
             </ul>
-            <app-tree [groups]="groupedScores"></app-tree>
         }
         @default {
-            <ol>
+            <ul>
                 @for (score of scoresFiltered$ | async; track $index) {
-                    <li><a href="/scores/{{score.number}}">{{score.name}}</a></li>
+                    <li><a href="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
                 }
-            </ol>
+            </ul>
         }
     }
 </nav>

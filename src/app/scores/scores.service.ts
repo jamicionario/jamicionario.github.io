@@ -4,6 +4,7 @@ import metadata from '@public/score-metadata.json';
 export class Category {
   name: string;
   scores: Score[];
+  isCollapsed: boolean = false;
 
   constructor(name: string, scores: Score[] = []) {
     this.name = name;
@@ -14,6 +15,7 @@ export class ScoreGroup {
   name: string;
   branches: ScoreGroup[] = [];
   leaves: Score[] = [];
+  isCollapsed: boolean = false;
 
   constructor(name: string) {
     this.name = name;
@@ -65,7 +67,9 @@ export class ScoreService {
 
       // For each category, find or add the needed branch in the tree,
       // then dive inside that branch to handle the next category.
-      score.subcategories.forEach(category => {
+      const nationality = score.isPortuguese ? "Danças Portuguesas" : "Danças Estrangeiras";
+      const allCategories = [nationality, score.category].concat(score.subcategories);
+      allCategories.forEach(category => {
         // Does it exist?
         branch = branches.find(branch => branch.name === category);
 

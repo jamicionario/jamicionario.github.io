@@ -3,3 +3,39 @@
 img {
     max-width: 100%;
 }
+
+
+
+.collapsable label,
+.collapsable a {
+    display: block;
+    &:hover {
+        color: #2a9d8f;
+    }
+}
+
+.collapsable label {
+    cursor: zoom-out;
+
+    &::before {
+        content: "🐵";
+    }
+    .count {
+        display: none;
+    }
+}
+
+.collapsable.collapsed label {
+    cursor: zoom-in;
+    color: darkgray;
+    &::before {
+        content: "🙈";
+    }
+    .count {
+        display: unset;
+    }
+}
+
+.collapsable.collapsed > ul{
+    display: none;
+}
