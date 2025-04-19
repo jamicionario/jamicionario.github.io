@@ -4,7 +4,11 @@ using Microsoft.Extensions.Logging;
 namespace ScoresProcessor;
 internal class ScoresProcessor
 {
-    internal static ILoggerFactory LogFactory {get;} = LoggerFactory.Create(builder => builder.AddConsole());
+    internal static ILoggerFactory LogFactory { get; } = LoggerFactory.Create(
+        builder => builder
+            .AddConsole()
+            .AddFilter("ScoresProcessor", LogLevel.Debug)
+        );
     private static ILogger Logger { get; } = LogFactory.CreateLogger<ScoresProcessor>();
     private static void Main(string[] args)
     {
