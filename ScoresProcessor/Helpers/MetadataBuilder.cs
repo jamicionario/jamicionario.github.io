@@ -2,7 +2,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
-
 public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logger)
 {
     /// <summary>
@@ -26,7 +25,7 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
 
         string[] SelectCategoriesFor(Target item)
         {
-            string relativeMsczPath = Path.GetRelativePath(config.DataFolder, item.Mscz);
+            string relativeMsczPath = Path.GetRelativePath(config.MasterDataFolder, item.Mscz);
             string dirName = Path.GetDirectoryName(relativeMsczPath)
                 ?? throw new FolderException("Could not parse folder path into separate folder names.");
             string[] folders = dirName
@@ -49,7 +48,7 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
                 number = index + 1,
                 name = item.ScoreName,
                 searchableName = NormalizeStringForSearch(item.ScoreName),
-                // mscz = PathAsRelativeToPublic(item.Mscz),
+                // mscz = Path.GetRelativePath(config.MasterDataFolder, item.Mscz),
                 pages = item.ScoreImages.Select(PathAsRelativeToPublic),
                 isPortuguese,
                 category,

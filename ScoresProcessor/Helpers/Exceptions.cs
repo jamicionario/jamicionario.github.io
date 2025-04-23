@@ -1,3 +1,4 @@
+
 namespace ScoresProcessor.Helpers;
 
 public class ConfigurationException(string message) : ArgumentException(message)

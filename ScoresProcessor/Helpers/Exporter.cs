@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
-
 public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
 {
     public IEnumerable<Result> Export(Target[] targets)
@@ -23,17 +22,18 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
         File.WriteAllText(jobFileName, json);
 
         // Ask MuseScore to do the work in that job file.
-        logger.LogInformation("⚙️ Starting export of {Count} scores.", targets.Length);
-        Process process = Process.Start(config.MuseScoreExecutablePath, arguments: [
-            "-F", // Use factory settings - this avoids that user configs affect this script.
-            "-j",
-            jobFileName,
-        ])
+        string museScoreExecutable = config.MuseScoreExecutablePath ?? "mscore";
+        Process process = Process.Start(
+            museScoreExecutable,
+            arguments: [
+                "-F", // Use factory settings - this avoids that user configs affect this script.
+                "--job",
+                jobFileName,
+            ])
             ?? throw new LaunchException($"Could not start file conversion.");
 
         // Wait for MuseScore to finish. Around 1 minute...
         process.WaitForExit();
-        logger.LogInformation("✅ Exported {Count} scores.", targets.Length);
 
         // Compile the produced files, and return them.
         foreach (var target in targets)
@@ -51,7 +51,7 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
         if (previousScoreNamesChecked.Contains(target.ScoreName))
         {
             logger.LogError(
-                "There is already a score named {ScoreName}. Cannot process '{Duplicate file name}'.",
+                "There is already a score named {ScoreName}. Cannot process '{path of duplicate}'.",
                 target.ScoreName,
                 target.Mscz
                 );

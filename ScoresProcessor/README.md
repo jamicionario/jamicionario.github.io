@@ -30,3 +30,23 @@ This can also be run in [VS Code](https://code.visualstudio.com/), which allows 
 ## Installing
 
 To run the project, you will need to have the [.Net SDK](https://dotnet.microsoft.com/download).
+
+## Configuring
+
+The settings can be configured via JSON file or environment variables.
+
+The available settings can be checked in the file [ScoresConfig.cs](ScoresConfig.cs).  
+They are documented.
+
+### Via JSON file
+
+To configure via JSON file, create a `config.json` file and add the relevant setting there.
+
+There file [config.sample.json](config.sample.json) is a sample of this settings file.  
+It is included in the build's output.
+
+### Via ENV vars
+
+To configure via environment variables, set them in the operating system.
+
+They use a prefix "jamicionario__", such as "jamicionario__MuseScoreExecutablePath".

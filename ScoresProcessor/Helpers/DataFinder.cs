@@ -2,7 +2,6 @@
 // using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
-
 public static class DataFinder
 {
 	// private static ILogger Logger { get; } =
@@ -48,7 +47,7 @@ public static class DataFinder
 
 	public static Target[] FindData(ScoresConfig config)
 	{
-		string[] files = Directory.GetFiles(config.DataFolder, "*.mscz", SearchOption.AllDirectories);
+		string[] files = Directory.GetFiles(config.MasterDataFolder, "*.mscz", SearchOption.AllDirectories);
 		return files
 			.Select(file => Target.For(file, config))
 			.ToArray();
