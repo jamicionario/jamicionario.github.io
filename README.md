@@ -1,27 +1,47 @@
 
 # Jamicionario
 
+See also [the README file of the ScoresProcessor](ScoresProcessor/README.md) sub-project.
+
 ## Deploying
 
 When data is updated, it's necessary to update and deploy:
 
 1. Update data with the Scores Processor — see the [README](ScoresProcessor/README.md) file there.
-2. WIP: ???
-3. Save changes with git: commit, push.
-4. Then deploy with:  
-`ng deploy --repo=https://github.com/jam-icionario/jam-icionario.github.io.git`
+2. Save changes with git: commit, push.
+3. Then deploy with:  
+`ng deploy`
 
 For more information, see the [angular-cli-ghpages documentation](https://www.npmjs.com/package/angular-cli-ghpages).
 
-## Development server
+## Running locally
 
-To start a local development server, run in console:
+You can run the Jamicionário on your local machine.  
+It can be run from the console or from VS Code.
 
-```bash
-ng serve
-```
+First, you will need to:
+
+- Install the needed tools — see the section _Installing_ below.
+- Generate the data using the Scores Processor — check the information on [its README](ScoresProcessor/README.md) file.
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+### From console
+
+To run the Jamicionário from console:
+
+- Open a terminal;
+- run with `ng serve`
+
+### From VS Code
+
+To run or debug the Jamicionário from VS Code:
+
+  1. Select the "Run and Debug" tab on the left;
+  2. Choose the option "ng serve" on the dropdown.
+  3. Start debugging with the green ▶️ "Run" button.
+
+![screenshot of running in VS Code from the root folder](../docs/processing%20data%20from%20VS%20Code.png)
 
 ## Installing
 
