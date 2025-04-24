@@ -1,4 +1,5 @@
 
+
 namespace ScoresProcessor;
 public record class ScoresConfig()
 {
@@ -29,6 +30,14 @@ public record class ScoresConfig()
     // The remaining properties are automatically calculated:
 
 
+    /// <summary>
+    /// The folder in Jamicionario where the generated data will be saved.
+    /// </summary>
     public string TargetFolder => Path.Combine(JamicionarioPublicFolder, "scores");
     public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
+
+    /// <summary>
+    /// The full path to export a target to, such as "/.../scores/Hanter Dro.mscz".
+    /// </summary>
+    public string GetDestinationFor(Target target) => Path.Combine(TargetFolder, target.ImageName);
 }

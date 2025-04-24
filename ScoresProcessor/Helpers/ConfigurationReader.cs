@@ -2,15 +2,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
-public class ConfigurationHelper
+public class ConfigurationReader(ILogger logger)
 {
     const string ConfigFile = "config.json";
     const string SampleFile = "config.sample.json";
-    private static ILogger Logger { get; } = ScoresProcessor.LogFactory.CreateLogger<ScoresProcessor>();
+
+    public static ScoresConfig ReadConfig(ILogger logger)
+    {
+        ConfigurationReader helper = new(logger);
+        return helper.ReadConfig();
+    }
 
     // TODO: validate.
     // See: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-9.0#options-validation
-    public static ScoresConfig ReadConfig()
+    public ScoresConfig ReadConfig()
     {
         IConfigurationRoot built = new ConfigurationBuilder()
             .AddJsonFile(ConfigFile, optional: true)
@@ -22,11 +27,11 @@ public class ConfigurationHelper
         ScoresConfig? config = built.Get<ScoresConfig>();
         if (config != null)
         {
-            Logger.LogDebug("Found configuration, overriding values.");
+            logger.LogDebug("Found configuration, overriding values.");
         }
         else
         {
-            Logger.LogInformation("No configuration found, using defaults."
+            logger.LogInformation("No configuration found, using defaults."
                 + $" To configure the application, copy the file {SampleFile} to {ConfigFile}, and edit it."
                 );
             config = new()
@@ -36,17 +41,19 @@ public class ConfigurationHelper
             };
         }
 
-        return config with
+        var converted = config with
         {
             JamicionarioPublicFolder = UnixSafe(config.JamicionarioPublicFolder),
             MasterDataFolder = UnixSafe(config.MasterDataFolder),
         };
+        logger.LogTrace("Configuration value read: {config}", converted);
+        return converted;
     }
 
     /// <summary>
     /// Checks if a path is a "~/..." unix-path and converts it to an absolute path if it is.
     /// </summary>
-    private static string UnixSafe(string path)
+    private string UnixSafe(string path)
     {
         if (!path.StartsWith('~'))
         {

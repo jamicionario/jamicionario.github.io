@@ -2,25 +2,37 @@
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor;
-internal class ScoresProcessor
+public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, ILogger Logger, ILoggerFactory loggerFactory)
 {
-    internal static ILoggerFactory LogFactory { get; } = LoggerFactory.Create(
-        builder => builder
-            .AddConsole()
-            .AddFilter("ScoresProcessor", LogLevel.Debug)
-        );
-    private static ILogger Logger { get; } = LogFactory.CreateLogger<ScoresProcessor>();
-    private static void Main(string[] args)
+    public void ProcessJamicionarioData()
     {
         Stopwatch counter = Stopwatch.StartNew();
 
-        ScoresConfig config = ConfigurationHelper.ReadConfig();
+        Logger.LogDebug("Starting process. Instructions: {instructions}", instructions);
+        DataFinder dataFinder = new(config);
+        Target[] targets = dataFinder.FindData();
+        Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
-        Target[] targets = DataFinder.FindData(config);
-        Logger.LogDebug("Found {Count} files.", targets.Length);
+        Exporter exporter = new(config, dataFinder);
+        if (instructions.HasFlag(ProcessingSteps.ExportScores))
+        {
+            exporter.ExportImagesFor(targets);
+        }
 
-        Exporter exporter = new(config, LogFactory.CreateLogger<Exporter>());
-        Result[] results = exporter.Export(targets)
+        RebuildMetadata(exporter, targets);
+
+        counter.Stop();
+        Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
+    }
+
+    private void RebuildMetadata(Exporter exporter, Target[] targets)
+    {
+        if (!instructions.HasFlag(ProcessingSteps.RebuildMetadata))
+        {
+            return;
+        }
+
+        Result[] results = exporter.GatherExportResultsFor(targets)
             .ToArray();
         Logger.LogDebug("Exported {Count} scores.", results.Length);
         if (results.Length != targets.Length)
@@ -34,10 +46,7 @@ internal class ScoresProcessor
         }
 
         Logger.LogDebug("Generating and exporting metadata.");
-        MetadataBuilder metaBuilder = new(config, LogFactory.CreateLogger<MetadataBuilder>());
+        MetadataBuilder metaBuilder = new(config, loggerFactory.CreateLogger<MetadataBuilder>());
         metaBuilder.ExportMetadataFor(results);
-
-        counter.Stop();
-        Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
     }
 }

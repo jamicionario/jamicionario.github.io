@@ -1,13 +1,24 @@
 
 using System.Diagnostics;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
-public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
+public class Exporter(ScoresConfig config, DataFinder dataFinder)
 {
-    public IEnumerable<Result> Export(Target[] targets)
+    public IEnumerable<Result> GatherExportResultsFor(Target[] targets) {
+        // Compile the produced files, and return them.
+        foreach (var target in targets)
+        {
+            Result result = dataFinder.GatherExportsFor(target);
+            yield return result;
+        }
+    }
+
+    public void ExportImagesFor(Target[] targets)
     {
+        // Ensure folder exists. Otherwise MuseScore fails silently.
+        Directory.CreateDirectory(config.TargetFolder);
+
         // Generate the JSON job file.
         var conversionInstructions = targets
             // Order by title, to make it easier for the frontend.
@@ -15,7 +26,7 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
             .Select(target => new
             {
                 @in = target.Mscz,
-                @out = target.FullDestination
+                @out = config.GetDestinationFor(target),
             });
         string json = JsonConvert.SerializeObject(conversionInstructions, Formatting.Indented);
         string jobFileName = Path.GetTempFileName();
@@ -34,36 +45,11 @@ public class Exporter(ScoresConfig config, ILogger<Exporter> logger)
 
         // Wait for MuseScore to finish. Around 1 minute...
         process.WaitForExit();
-
-        // Compile the produced files, and return them.
-        foreach (var target in targets)
-        {
-            Result result = DataFinder.GatherExportsFor(target);
-            yield return result;
-        }
     }
 
-    private readonly HashSet<string> checkedFolders = [];
-    private readonly HashSet<string> previousScoreNamesChecked = [];
-    private void EnsureFolderExistsFor(Target target)
-    {
-        // Note: we must check for this collision _even_ if the folder already exists.
-        if (previousScoreNamesChecked.Contains(target.ScoreName))
-        {
-            logger.LogError(
-                "There is already a score named {ScoreName}. Cannot process '{path of duplicate}'.",
-                target.ScoreName,
-                target.Mscz
-                );
-            throw new FileNameException($"There is already a score named '{target.ScoreName}'.");
-        }
-        previousScoreNamesChecked.Add(target.ScoreName);
-
-        if (checkedFolders.Contains(target.DestinationFolder))
-        {
-            return;
-        }
-        Directory.CreateDirectory(target.DestinationFolder);
-        checkedFolders.Add(target.DestinationFolder);
-    }
+    // public void ExportInfoFor(Target[] targets)
+    // {
+    //     // TODO: export metajson.
+    //     // TODO: export custom properties from MSCX ?
+    // }
 }
