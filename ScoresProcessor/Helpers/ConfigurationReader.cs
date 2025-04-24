@@ -59,10 +59,20 @@ public class ConfigurationReader(ILogger logger)
         {
             return path;
         }
-        return Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            // Substring from the second character to the end.
-            path[1..]
-            );
+        string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        switch (path)
+        {
+            case "~":
+                return userFolder;
+            case not null when path.StartsWith("~/"):
+                return Path.Combine(
+                    userFolder,
+                    // Substring from the third character to the end: remove "~/" from the start.
+                    path[2..]
+                    );
+            default:
+                logger.LogError("Configuration path starts with ~, but is not '~' or '~/...'. Cannot understand it, breaking.");
+                throw new ConfigurationException("Configuration path is not understood.");
+        }
     }
 }
