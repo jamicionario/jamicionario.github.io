@@ -21,7 +21,7 @@ public class ConfigurationReader(ILogger logger)
             .AddJsonFile(ConfigFile, optional: true)
             // Settings can be configured with env vars.
             // Example: set "JAMICIONARIO__MuseScoreExecutablePath" to "<...>/MuseScore4".
-            // It should be case insensitive, but I haven't tested it.
+            // It should be case insensitive, but that has not been tested.
             .AddEnvironmentVariables(prefix: "jamicionario")
             .Build();
         ScoresConfig? config = built.Get<ScoresConfig>();
@@ -47,7 +47,31 @@ public class ConfigurationReader(ILogger logger)
             MasterDataFolder = UnixSafe(config.MasterDataFolder),
         };
         logger.LogTrace("Configuration value read: {config}", converted);
+        Validate(converted);
         return converted;
+    }
+
+    /// <summary>
+    /// Validate that the 
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    private void Validate(ScoresConfig config)
+    {
+        // The way that we are binding/getting the options does not allow us to automatically validate them.
+        // Otherwise we would use the regular automatic validation provided by the framework:
+        // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-9.0#options-validation
+        
+        if (!Directory.Exists(config.JamicionarioPublicFolder))
+        {
+            logger.LogError("The configured Jamicionário public folder does not seem to exist.");
+            throw new ConfigurationException("The configured JamicionarioPublicFolder does not exist.");
+        }
+
+        if (!Directory.Exists(config.MasterDataFolder))
+        {
+            logger.LogError("The configured master data folder does not seem to exist.");
+            throw new ConfigurationException("The configured MasterDataFolder does not exist.");
+        }
     }
 
     /// <summary>
