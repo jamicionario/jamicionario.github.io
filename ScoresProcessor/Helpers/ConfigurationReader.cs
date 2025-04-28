@@ -13,8 +13,6 @@ public class ConfigurationReader(ILogger logger)
         return helper.ReadConfig();
     }
 
-    // TODO: validate.
-    // See: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-9.0#options-validation
     public ScoresConfig ReadConfig()
     {
         IConfigurationRoot built = new ConfigurationBuilder()
@@ -52,9 +50,9 @@ public class ConfigurationReader(ILogger logger)
     }
 
     /// <summary>
-    /// Validate that the 
+    /// Validate that the configuration meets some requirements.
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <exception cref="ConfigurationException">Thrown if the a setting is not well configured.</exception>
     private void Validate(ScoresConfig config)
     {
         // The way that we are binding/getting the options does not allow us to automatically validate them.
@@ -71,6 +69,11 @@ public class ConfigurationReader(ILogger logger)
         {
             logger.LogError("The configured master data folder does not seem to exist.");
             throw new ConfigurationException("The configured MasterDataFolder does not exist.");
+        }
+
+        if (config.JamicionarioPublicFolder.IndexOf("/public/") <= 0)
+        {
+            logger.LogWarning("The configured Jamicionario public folder does not seem to be a path like .../public/ . This may cause errors.");
         }
     }
 

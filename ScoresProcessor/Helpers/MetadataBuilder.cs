@@ -15,14 +15,6 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
 
     private string GenerateMetadataFor(IEnumerable<Result> results)
     {
-        // The absolute path to the "public" folder.
-        string pathToPublic = GetAbsolutePathToPublic();
-        string PathAsRelativeToPublic(string absoluteLocalPath)
-        {
-            string relative = Path.GetRelativePath(pathToPublic, absoluteLocalPath);
-            return relative;
-        }
-
         string[] SelectCategoriesFor(Target item)
         {
             string relativeMsczPath = Path.GetRelativePath(config.MasterDataFolder, item.Mscz);
@@ -35,7 +27,6 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
                 );
             return folders;
         }
-        // string SubfolderToPublic(string ab);
         object ProcessInfo(Result item, int index)
         {
             var categories = SelectCategoriesFor(item);
@@ -48,8 +39,7 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
                 number = index + 1,
                 name = item.ScoreName,
                 searchableName = NormalizeStringForSearch(item.ScoreName),
-                // mscz = Path.GetRelativePath(config.MasterDataFolder, item.Mscz),
-                pages = item.ScoreImages.Select(PathAsRelativeToPublic),
+                pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score)),
                 isPortuguese,
                 category,
                 subcategories,
@@ -67,19 +57,4 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
         return scoreName.ToLowerInvariant().Trim();
     }
 
-    private string GetAbsolutePathToPublic()
-    {
-        const string publicFolder = "/public/";
-        int publicIndex = config.TargetFolder.IndexOf(publicFolder);
-
-        // TODO: make this check when the Config is loaded.
-        if (publicIndex <= 0)
-        {
-            logger.LogError("Cannot generate metadata as the configured TargetFolder is not in .../public/ .");
-            throw new ConfigurationException("Error: TargetFolder must be in Jamicionário's /public/ folder.");
-        }
-
-        string pathToPublic = config.TargetFolder[..(publicIndex + publicFolder.Length)];
-        return pathToPublic;
-    }
 }
