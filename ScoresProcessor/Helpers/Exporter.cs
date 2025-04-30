@@ -32,7 +32,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         Dictionary<Target, string> locations = targets.ToDictionary(x => x, target => $"{target.ScoreName}.mscx");
         ExportFor(targets, target => Path.Combine(tempDir.FullName, locations[target]));
 
-        Regex metadataParser = new(@"<metaTag name=""(?<name>\w+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
+        Regex metadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
         Dictionary<string, string> GetLabelsFor(Target target)
         {
             string fileName = locations[target];

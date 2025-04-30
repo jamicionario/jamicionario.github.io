@@ -40,6 +40,11 @@ public record class ScoresConfig
     /// The path for the file where the scores' metadata is saved (number, name, images, etc).
     /// </summary>
     public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
+    /// <summary>
+    /// The path for the file where the scores' search categories is saved.
+    /// It saves the interesting categories (country, type, etc) and their values present in the data.
+    /// </summary>
+    public string SearchCategoriesFileName => Path.Combine(JamicionarioPublicFolder, "search-categories.json");
 
     #endregion
 

@@ -1,19 +1,27 @@
-using Microsoft.Extensions.Logging;
+using System.Collections.Immutable;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
 public class MetadataBuilder(ScoresConfig config)
 {
+    private static readonly HashSet<string> CategoriesOfInterest = new([
+        "region",
+        "type of dance"
+    ], StringComparer.InvariantCultureIgnoreCase);
+
+    private record class Metadata(string Scores, string Categories);
+
     /// <summary>
     /// Generates and exports the metadata corresponding to the data in <paramref name="results"/>.
     /// </summary>
     public void ExportMetadataFor(IEnumerable<Result> results)
     {
-        string metadata = GenerateMetadataFor(results);
-        File.WriteAllText(config.MetadataFileName, metadata);
+        Metadata metadata = GenerateMetadataFor(results);
+        File.WriteAllText(config.MetadataFileName, metadata.Scores);
+        File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories);
     }
 
-    private string GenerateMetadataFor(IEnumerable<Result> results)
+    private Metadata GenerateMetadataFor(IEnumerable<Result> results)
     {
         string[] SelectCategoriesFor(Target item)
         {
@@ -48,11 +56,30 @@ public class MetadataBuilder(ScoresConfig config)
                 labels = item.Labels,
             };
         }
-        var information = results
-            // Order alphabetically.
-            .OrderBy(result => result.Mscz)
-            .Select(ProcessInfo);
-        return JsonConvert.SerializeObject(information, Formatting.Indented);
+
+        var scoresMetadata = results
+                // Order scores alphabetically.
+                .OrderBy(result => result.Mscz)
+                .Select(ProcessInfo)
+                .ToArray();
+        var categoriesMetadata = results
+            .SelectMany(item => item.Labels)
+            .Where(item => CategoriesOfInterest.Contains(item.Key))
+            .GroupBy(item => item.Key, item => item.Value, StringComparer.InvariantCultureIgnoreCase)
+            .Select(group => new {
+                // Each category has a name...
+                name = group.Key,
+                // ... and a set of values being used.
+                values = group
+                    // Order category values alphabetically.
+                    .OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase)
+                    .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                    .ToArray(),
+            });
+
+        string scoresMetadataJson = JsonConvert.SerializeObject(scoresMetadata, Formatting.Indented);
+        string categoriesMetadataJson = JsonConvert.SerializeObject(categoriesMetadata, Formatting.Indented);
+        return new Metadata(scoresMetadataJson, categoriesMetadataJson);
     }
 
     private static string NormalizeStringForSearch(string scoreName)
