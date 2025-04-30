@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ScoreService } from '../scores.service';
+import { ScoreService } from '@services/scores.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';

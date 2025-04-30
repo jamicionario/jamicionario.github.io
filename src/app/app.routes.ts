@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ListComponent } from './scores/list/list.component';
-import { DetailsComponent } from './scores/details/details.component';
+import { ListComponent } from './components/scores/list/list.component';
+import { DetailsComponent } from './components/scores/details/details.component';
 
 export const routes: Routes = [
     { path: '', title: 'Jamicionário', component: ListComponent, pathMatch: 'full' },

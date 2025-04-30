@@ -1,59 +1,9 @@
 import { Injectable } from '@angular/core';
 import metadata from '@public/score-metadata.json';
+import { Category } from '@models/category';
+import { ScoreGroup } from '@models/score-group';
+import { Score } from '@models/score';
 
-export class Category {
-  name: string;
-  scores: Score[];
-  isCollapsed: boolean = false;
-
-  constructor(name: string, scores: Score[] = []) {
-    this.name = name;
-    this.scores = scores;
-  }
-}
-export class ScoreGroup {
-  name: string;
-  branches: ScoreGroup[] = [];
-  leaves: Score[] = [];
-  isCollapsed: boolean = false;
-  isPortuguese: boolean;
-  numberOfScores: number = 0;
-  parent?: ScoreGroup;
-
-  constructor(name: string, isPortuguese: boolean, parent: ScoreGroup | undefined) {
-    this.name = name;
-    this.isPortuguese = isPortuguese;
-    this.parent = parent;
-  }
-
-  /**
-   * Adds a new score to this group, incrementing the count of scores properly in this group and all its ancestors.
-   * @param score The score to add.
-   */
-  addScore(score: Score): void {
-    this.leaves.push(score);
-    let node: ScoreGroup | undefined = this;
-    while (node !== undefined) {
-      node.numberOfScores++;
-      node = node.parent;
-    }
-  }
-
-  addBranch(branch: ScoreGroup): void {
-    this.branches.push(branch);
-  }
-};
-
-export type Score = {
-  number: number,
-  name: string,
-  searchableName: string,
-  // mscz: string,
-  pages: string[],
-  isPortuguese: boolean,
-  category: string,
-  subcategories: string[],
-};
 
 @Injectable({
   providedIn: 'root'

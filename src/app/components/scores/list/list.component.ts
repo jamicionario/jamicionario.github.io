@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Category, Score, ScoreGroup, ScoreService } from '../scores.service';
+import { ScoreService } from '@services/scores.service';
+import { Score } from '@models/score';
+import { ScoreGroup } from '@models/score-group';
+import { Category } from '@models/category';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';

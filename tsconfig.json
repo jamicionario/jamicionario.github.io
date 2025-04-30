@@ -20,6 +20,9 @@
     "resolveJsonModule": true,
     "paths": {
       "@public/*": ["./public/*"],
+      "@services/*": ["./src/app/services/*"],
+      "@models/*": ["./src/app/models/*"],
+      "@components/*": ["./src/app/components/*"],
     },
   },
   "angularCompilerOptions": {
