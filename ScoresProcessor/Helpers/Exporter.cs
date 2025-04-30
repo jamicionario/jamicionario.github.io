@@ -69,7 +69,9 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         Process process = Process.Start(
             museScoreExecutable,
             arguments: [
-                "-F", // Use factory settings - this avoids that user configs affect this script.
+                // Use factory settings - this avoids that user configs affect this script.
+                // Confront with -F, which uses the factory settings AND deletes user preferences.
+                "-R",
                 "--job",
                 jobFileName,
             ])
