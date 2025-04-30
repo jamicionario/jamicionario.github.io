@@ -1,11 +1,6 @@
 namespace ScoresProcessor.Model;
 
-public record class Result : Target
+public record class Result(Target original, string[] ScoreImages)
+	: Target(original)
 {
-	public string[] ScoreImages;
-	public Result(Target original, string[] scoreImages)
-		: base(original)
-	{
-		ScoreImages = scoreImages;
-	}
 }

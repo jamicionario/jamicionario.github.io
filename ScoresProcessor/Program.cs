@@ -20,7 +20,7 @@ public static class Program
         ScoresConfig config = ConfigurationReader.ReadConfig(readerLogger);
         ILogger logger = loggerFactory.CreateLogger<ScoresProcessor>();
 
-        ScoresProcessor processor = new(ProcessingSteps.All, config, logger, loggerFactory);
+        ScoresProcessor processor = new(ProcessingSteps.ExportInfo, config, logger, loggerFactory);
         processor.ProcessJamicionarioData();
     }
 }

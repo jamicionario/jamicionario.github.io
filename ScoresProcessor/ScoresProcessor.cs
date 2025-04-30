@@ -14,18 +14,25 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
         Exporter exporter = new(config, dataFinder);
+        MetadataBuilder metaBuilder = new(config, loggerFactory.CreateLogger<MetadataBuilder>());
+
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
             exporter.ExportImagesFor(targets);
         }
+        if (instructions.HasFlag(ProcessingSteps.ExportInfo))
+        {
+            LabeledTarget[] labelInfo = exporter.LoadLabelInfoFor(targets);
+            metaBuilder.ExportLabels(labelInfo);
+        }
 
-        RebuildMetadata(exporter, targets);
+        RebuildMetadata(metaBuilder, exporter, targets);
 
         counter.Stop();
         Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
     }
 
-    private void RebuildMetadata(Exporter exporter, Target[] targets)
+    private void RebuildMetadata(MetadataBuilder metaBuilder, Exporter exporter, Target[] targets)
     {
         if (!instructions.HasFlag(ProcessingSteps.RebuildMetadata))
         {
@@ -46,7 +53,6 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         }
 
         Logger.LogDebug("Generating and exporting metadata.");
-        MetadataBuilder metaBuilder = new(config, loggerFactory.CreateLogger<MetadataBuilder>());
         metaBuilder.ExportMetadataFor(results);
     }
 }

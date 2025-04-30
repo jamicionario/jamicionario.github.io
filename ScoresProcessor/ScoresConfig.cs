@@ -36,7 +36,14 @@ public record class ScoresConfig
     /// The folder in Jamicionario where the generated data will be saved.
     /// </summary>
     public string TargetFolder => Path.Combine(JamicionarioPublicFolder, "scores");
+    /// <summary>
+    /// The path for the file where the scores' metadata is saved (number, name, images, etc).
+    /// </summary>
     public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
+    /// <summary>
+    /// The path for the file where the scores' labels are saved (difficulty: hard; creationDate: 2025-04-20, etc).
+    /// </summary>
+    public string LabelsFileName => Path.Combine(JamicionarioPublicFolder, "score-labels.json");
 
     #endregion
 
