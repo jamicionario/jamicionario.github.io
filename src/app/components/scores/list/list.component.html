@@ -27,7 +27,7 @@
     </div>
 
 
-    <div class="filter" *ngIf="selectionType !== SelectionType.Tree">
+    <div class="filter">
         <input type="text" autofocus class="form-control"
             placeholder="search"
             [(ngModel)]="searchText" name="searchText" id="scoreSearch"
@@ -35,7 +35,13 @@
     </div>
     @switch (selectionType) {
         @case (SelectionType.Tree) {
-            <app-tree [groups]="groupedScores"></app-tree>
+            @let groups = groupedScoresFiltered$ | async;
+            @if (groups && groups.length) { 
+                <app-tree [groups]="groups"></app-tree>
+            }
+            @else {
+                <em>No items found.</em>
+            }
         }
         @case (SelectionType.Categories) {
             <ul>

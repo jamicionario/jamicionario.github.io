@@ -15,6 +15,10 @@ export class ScoreGroup {
     this.parent = parent;
   }
 
+  get isEmpty(): boolean {
+    return this.branches.length === 0 && this.leaves.length === 0;
+  }
+
   /**
    * Adds a new score to this group, incrementing the count of scores properly in this group and all its ancestors.
    * @param score The score to add.
