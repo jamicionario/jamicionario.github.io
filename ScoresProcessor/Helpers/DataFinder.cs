@@ -26,10 +26,10 @@ public class DataFinder(ScoresConfig config)
 	/// <returns>
 	/// 	The actual data that was found to be exported.
 	/// </returns>
-	public Result GatherExportsFor(Target target)
+	public string[] FindExportedImagesFor(Target target)
 	{
 		string searchPattern = target.GetPngSearchPattern();
 		string[] scoreImages = Directory.GetFiles(config.TargetFolder, searchPattern);
-		return new Result(target, scoreImages);
+		return scoreImages;
 	}
 }

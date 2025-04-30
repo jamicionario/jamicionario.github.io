@@ -1,48 +1,26 @@
 import { Injectable } from '@angular/core';
-import rawMetadata from '@public/score-metadata.json';
-import labels from '@public/score-labels.json';
+import metadata from '@public/score-metadata.json';
 import { Category } from '@models/category';
 import { ScoreGroup } from '@models/score-group';
 import { Score } from '@models/score';
-
-
-function getMetadata(): Score[] {
-  // First we clone and initialize all metadata to ensure they have empty labels.
-  const metadata: Score[] = rawMetadata.map(item => new Score(Object.assign({ labels: new Map() }, item)));
-
-  // Then we find the existing labels, and assign them to the Scores.
-  addLabelsToMetadata(metadata);
-  return metadata;
-}
-
-function addLabelsToMetadata(metadata: Score[]): void {
-  // In this bag we'll store any label that has a problem, so we can notify the user at the end.
-  const notFoundScores: string[] = [];
-  labels.forEach((element) => {
-    const metadataToLabel: Score | undefined = metadata.find(item => item.name == element.scoreName);
-    if (metadataToLabel === undefined) {
-      notFoundScores.push(element.scoreName);
-    } else {
-      metadataToLabel.labels = new Map(Object.entries(element.labels));
-    }
-  });
-
-  if (notFoundScores.length > 0) {
-    // We want to notify of everything at once in a single line, instead of throwing 200 debug log lines if something is broken.
-    console.debug(`${notFoundScores.length} labels could not be associated with their scores.`, notFoundScores);
-  }
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreService {
-  private metadata!: Score[];
+  private readonly metadata: Score[];
   private grouped?: ScoreGroup[] = undefined;
   private byCategory?: Category[] = undefined;
 
   constructor() {
-    this.metadata = getMetadata();
+    this.metadata = metadata.map(item => {
+      let clone: Score = Object.create(item);
+      // We have to convert the { [name: string]: string } to a Map...
+      // I don't know how to use the untyped Dictionary otherwise.
+      // Because it is loaded untyped from JSON.
+      Object.assign(clone, {labels: new Map<string, string>(Object.entries(item.labels))});
+      return clone;
+    });
   }
 
   getScores(): Score[] {

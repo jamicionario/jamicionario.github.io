@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
-public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logger)
+public class MetadataBuilder(ScoresConfig config)
 {
     /// <summary>
     /// Generates and exports the metadata corresponding to the data in <paramref name="results"/>.
@@ -45,6 +45,7 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
                 isPortuguese,
                 category,
                 subcategories,
+                labels = item.Labels,
             };
         }
         var information = results
@@ -57,28 +58,6 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
     private static string NormalizeStringForSearch(string scoreName)
     {
         return scoreName.ToLowerInvariant().Trim();
-    }
-
-    /// <summary>
-    /// Exports the label information for the scores.
-    /// </summary>
-    public void ExportLabels(LabeledTarget[] labelInfo)
-    {
-        var information = labelInfo
-            // Order alphabetically.
-            .OrderBy(info => info.ScoreName)
-            .Select(info => new
-            {
-                scoreName = info.ScoreName,
-                labels = info.Labels,
-            });
-        // Unless the config asks to include them, let's exclude the scores without labels:
-        if (config.IncludeEmptyLabelsInExport != true)
-        {
-            information = information.Where(info => info.labels.Count != 0);
-        }
-        string json = JsonConvert.SerializeObject(information, Formatting.Indented);
-        File.WriteAllText(config.LabelsFileName, json);
     }
 
     public static Dictionary<string, string> ProcessLabels(IEnumerable<(string name, string value)> matches)

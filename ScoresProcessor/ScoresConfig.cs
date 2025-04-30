@@ -28,13 +28,6 @@ public record class ScoresConfig
     /// </summary>
     public required string MasterDataFolder { get; set; }
 
-    /// <summary>
-    ///     When exporting Score labels (e.g. "difficulty") to score-labels.json ,
-    ///     if this config is <see langword="true" /> all scores will be included even when they have no labels.
-    ///     Otherwise, scores without labels are not exported to that file — to keep the file thinner.
-    /// </summary>
-    public bool? IncludeEmptyLabelsInExport {get;set;}
-
 
     // The remaining properties are automatically calculated:
     #region Calculated properties
@@ -47,10 +40,6 @@ public record class ScoresConfig
     /// The path for the file where the scores' metadata is saved (number, name, images, etc).
     /// </summary>
     public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
-    /// <summary>
-    /// The path for the file where the scores' labels are saved (difficulty: hard; creationDate: 2025-04-20, etc).
-    /// </summary>
-    public string LabelsFileName => Path.Combine(JamicionarioPublicFolder, "score-labels.json");
 
     #endregion
 
