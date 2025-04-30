@@ -1,23 +1,56 @@
 import { Injectable } from '@angular/core';
-import metadata from '@public/score-metadata.json';
+import rawMetadata from '@public/score-metadata.json';
+import labels from '@public/score-labels.json';
 import { Category } from '@models/category';
 import { ScoreGroup } from '@models/score-group';
 import { Score } from '@models/score';
 
 
+function getMetadata(): Score[] {
+  // First we clone and initialize all metadata to ensure they have empty labels.
+  const metadata: Score[] = rawMetadata.map(item => new Score(Object.assign({ labels: new Map() }, item)));
+
+  // Then we find the existing labels, and assign them to the Scores.
+  addLabelsToMetadata(metadata);
+  return metadata;
+}
+
+function addLabelsToMetadata(metadata: Score[]): void {
+  // In this bag we'll store any label that has a problem, so we can notify the user at the end.
+  const notFoundScores: string[] = [];
+  labels.forEach((element) => {
+    const metadataToLabel: Score | undefined = metadata.find(item => item.name == element.scoreName);
+    if (metadataToLabel === undefined) {
+      notFoundScores.push(element.scoreName);
+    } else {
+      metadataToLabel.labels = new Map(Object.entries(element.labels));
+    }
+  });
+
+  if (notFoundScores.length > 0) {
+    // We want to notify of everything at once in a single line, instead of throwing 200 debug log lines if something is broken.
+    console.debug(`${notFoundScores.length} labels could not be associated with their scores.`, notFoundScores);
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreService {
+  private metadata!: Score[];
   private grouped?: ScoreGroup[] = undefined;
   private byCategory?: Category[] = undefined;
 
+  constructor() {
+    this.metadata = getMetadata();
+  }
+
   getScores(): Score[] {
-    return metadata;
+    return this.metadata;
   }
 
   getScore(scoreId: number): Score | undefined {
-    return metadata.find(score => score.number === scoreId);
+    return this.metadata.find(score => score.number === scoreId);
   }
 
   getGroupedScores(): ScoreGroup[] {
