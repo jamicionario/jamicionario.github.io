@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { ScoreService } from '@services/scores.service';
 import { Score } from '@models/score';
 import { ScoreGroup } from '@models/score-group';
@@ -23,6 +23,7 @@ function normalizeStringForSearch(value: string): string {
   selector: 'app-list',
   imports: [
     RouterOutlet,
+    RouterLink,
     CommonModule,
     TreeComponent,
     FormsModule,
