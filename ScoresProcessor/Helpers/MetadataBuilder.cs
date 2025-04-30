@@ -67,10 +67,16 @@ public class MetadataBuilder(ScoresConfig config, ILogger<MetadataBuilder> logge
         var information = labelInfo
             // Order alphabetically.
             .OrderBy(info => info.ScoreName)
-            .Select(info => new {
+            .Select(info => new
+            {
                 scoreName = info.ScoreName,
                 labels = info.Labels,
             });
+        // Unless the config asks to include them, let's exclude the scores without labels:
+        if (config.IncludeEmptyLabelsInExport != true)
+        {
+            information = information.Where(info => info.labels.Count != 0);
+        }
         string json = JsonConvert.SerializeObject(information, Formatting.Indented);
         File.WriteAllText(config.LabelsFileName, json);
     }

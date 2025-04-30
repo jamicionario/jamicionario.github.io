@@ -28,6 +28,13 @@ public record class ScoresConfig
     /// </summary>
     public required string MasterDataFolder { get; set; }
 
+    /// <summary>
+    ///     When exporting Score labels (e.g. "difficulty") to score-labels.json ,
+    ///     if this config is <see langword="true" /> all scores will be included even when they have no labels.
+    ///     Otherwise, scores without labels are not exported to that file — to keep the file thinner.
+    /// </summary>
+    public bool? IncludeEmptyLabelsInExport {get;set;}
+
 
     // The remaining properties are automatically calculated:
     #region Calculated properties
