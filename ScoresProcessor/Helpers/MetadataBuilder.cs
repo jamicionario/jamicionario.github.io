@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 namespace ScoresProcessor.Helpers;
 public class MetadataBuilder(ScoresConfig config)
 {
+    // TODO: export all this data-configuration to a prominent place.
+    //       In its own file, not here in the middle of the code and down by SeemsToHaveValue() etc...
     private static class Categories
     {
         // Keep synchronized with CategoriesOfInterest in file categories.service.ts .
@@ -59,7 +61,8 @@ public class MetadataBuilder(ScoresConfig config)
             var labels = item
                 .Labels
                 // Exclude the extracted properties: region, etc.
-                .Where(kvp => !Categories.IsKnown(kvp.Key));
+                .Where(kvp => !Categories.IsKnown(kvp.Key))
+                .ToDictionary();
 
             return new
             {
@@ -71,7 +74,7 @@ public class MetadataBuilder(ScoresConfig config)
                 pages,
                 region,
                 typeOfDance,
-                labels = item.Labels,
+                labels,
 
                 folderStructure,
             };
@@ -119,6 +122,8 @@ public class MetadataBuilder(ScoresConfig config)
     private static readonly HashSet<string> LabelNamesToSkip = [
         "mscVersion",
         "platform",
+        // No use in it. Last-update could be interesting, but not this.
+        "creationDate",
     ];
     // These are found values that are in effect empty.
     private static readonly HashSet<string> PseudoEmptyValues = [

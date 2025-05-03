@@ -43,6 +43,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             return MetadataBuilder.ProcessLabels(matches);
         }
         var labeled = targets
+            // TODO: humanize the label names.
             .Select(target => new LabeledTarget(target, GetLabelsFor(target)))
             .ToArray();
         return labeled;
