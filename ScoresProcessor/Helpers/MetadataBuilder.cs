@@ -1,13 +1,21 @@
-using System.Collections.Immutable;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
 public class MetadataBuilder(ScoresConfig config)
 {
-    private static readonly HashSet<string> CategoriesOfInterest = new([
-        "region",
-        "type of dance"
-    ], StringComparer.InvariantCultureIgnoreCase);
+    private static class Categories
+    {
+        // Keep synchronized with CategoriesOfInterest in file categories.service.ts .
+        private static readonly HashSet<string> All = [
+            Region,
+            TypeOfDance,
+        ];
+
+        public const string Region = "region";
+        public const string TypeOfDance = "type of dance";
+
+        public static bool IsKnown(string category) => All.Contains(category, StringComparer.InvariantCultureIgnoreCase);
+    }
 
     private record class Metadata(string Scores, string Categories);
 
@@ -23,7 +31,7 @@ public class MetadataBuilder(ScoresConfig config)
 
     private Metadata GenerateMetadataFor(IEnumerable<Result> results)
     {
-        string[] SelectCategoriesFor(Target item)
+        string[] GetFolderStructureFor(Target item)
         {
             string relativeMsczPath = Path.GetRelativePath(config.MasterDataFolder, item.Mscz);
             string dirName = Path.GetDirectoryName(relativeMsczPath)
@@ -33,27 +41,39 @@ public class MetadataBuilder(ScoresConfig config)
                     [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar],
                     StringSplitOptions.RemoveEmptyEntries
                 );
-            return folders;
+            return folders
+                // Ignore the first folder, "Danças portuguesas" / "Non-portuguese dances".
+                .Skip(1)
+                .ToArray();
         }
         object ProcessInfo(Result item, int index)
         {
-            string[] categories = SelectCategoriesFor(item);
-            bool isPortuguese = categories[0].Contains("Danças portuguesas", StringComparison.InvariantCultureIgnoreCase);
-            string category = categories[1];
-            string[] subcategories = categories.Skip(2).ToArray();
+            string[] folderStructure = GetFolderStructureFor(item);
             string searchableName = NormalizeStringForSearch(item.ScoreName);
             var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
+
+            // Get the region and type of dance for this score.
+            item.Labels.TryGetValue(Categories.Region, out string? region);
+            item.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
+
+            var labels = item
+                .Labels
+                // Exclude the extracted properties: region, etc.
+                .Where(kvp => !Categories.IsKnown(kvp.Key));
+
             return new
             {
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
                 number = index + 1,
                 name = item.ScoreName,
                 searchableName,
+
                 pages,
-                isPortuguese,
-                category,
-                subcategories,
+                region,
+                typeOfDance,
                 labels = item.Labels,
+
+                folderStructure,
             };
         }
 
@@ -64,9 +84,10 @@ public class MetadataBuilder(ScoresConfig config)
                 .ToArray();
         var categoriesMetadata = results
             .SelectMany(item => item.Labels)
-            .Where(item => CategoriesOfInterest.Contains(item.Key))
+            .Where(item => Categories.IsKnown(item.Key))
             .GroupBy(item => item.Key, item => item.Value, StringComparer.InvariantCultureIgnoreCase)
-            .Select(group => new {
+            .Select(group => new
+            {
                 // Each category has a name...
                 name = group.Key,
                 // ... and a set of values being used.
