@@ -5,13 +5,11 @@ export class ScoreGroup {
   branches: ScoreGroup[] = [];
   leaves: Score[] = [];
   isCollapsed: boolean = false;
-  isPortuguese: boolean;
   numberOfScores: number = 0;
   parent?: ScoreGroup;
 
-  constructor(name: string, isPortuguese: boolean, parent: ScoreGroup | undefined) {
+  constructor(name: string, parent: ScoreGroup | undefined) {
     this.name = name;
-    this.isPortuguese = isPortuguese;
     this.parent = parent;
   }
 

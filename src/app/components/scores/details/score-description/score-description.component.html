@@ -1,0 +1,23 @@
+
+@if(score.typeOfDance && score.region) {
+    <p>
+        A
+        <a routerLink="/categories/{{score.typeOfDance}}">{{ score.typeOfDance }}</a>
+        from {{score.region}}.
+    </p>
+} @else if (score.region) {
+    <p>From {{ score.region }}. Of an <em class="missing data">unknown type</em>.</p>
+} @else {
+    <p class="missing data">No known region or type.</p>
+}
+
+@if (!score.labels.size) {
+    <p class="missing data">No metadata.</p>
+} @else {
+    <dl>
+        @for (label of score.labels; track $index) {
+            <dt>{{label[0]}}</dt>
+            <dd>{{label[1]}}</dd>
+        }
+    </dl>
+}

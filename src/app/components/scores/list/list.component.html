@@ -3,69 +3,75 @@
     <header><h3>Available scores</h3></header>
 
     <div class="selectionType">
+        Grouping:
         <label>
             <input type="radio"
                 [checked]="selectionType === SelectionType.List"
                 (change)="changeSelectionTypeTo(SelectionType.List)"
                 />
-            Show as list
+            none
         </label>
         <label>
             <input type="radio"
                 [checked]="selectionType === SelectionType.Categories"
                 (change)="changeSelectionTypeTo(SelectionType.Categories)"
                 />
-            Show by category
+            by category
         </label>
         <label>
             <input type="radio"
                 [checked]="selectionType === SelectionType.Tree"
                 (change)="changeSelectionTypeTo(SelectionType.Tree)"
                 />
-            Show as tree
+            as tree
         </label>
     </div>
 
-
-    <div class="filter">
+    <section class="search">
+        <label for="scoreSearch">Search:</label>
         <input type="text" autofocus class="form-control"
-            placeholder="search"
+            placeholder="e.g. Chappeloise"
             [(ngModel)]="searchText" name="searchText" id="scoreSearch"
             (ngModelChange)="this.search$.next($event)" />
-    </div>
-    @switch (selectionType) {
-        @case (SelectionType.Tree) {
-            @let groups = groupedScoresFiltered$ | async;
-            @if (groups && groups.length) { 
-                <app-tree [groups]="groups"></app-tree>
-            }
-            @else {
-                <em>No items found.</em>
-            }
-        }
-        @case (SelectionType.Categories) {
-            <ul>
-                @for (category of categoriesFiltered$ | async; track $index) {
-                    <li class="collapsable" [class.collapsed]="category.isCollapsed">
-                        <label (click)="category.isCollapsed = !category.isCollapsed">
-                            {{category.name}}
-                            <span class="count">({{category.scores.length}})</span>
-                        </label>
-                        <ul>
-                            @for (score of category.scores; track score.number) {
-                                <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
-                            }
-                        </ul>
-                    </li>
+    </section>
+
+    <section class="selection {{selectionType}}">
+        @switch (selectionType) {
+            @case (SelectionType.Tree) {
+                @let groups = groupedScoresFiltered$ | async;
+                @if (groups && groups.length) { 
+                    <app-tree [groups]="groups"></app-tree>
                 }
-            </ul>
-        }
-        @default {
-            <ul>
-                @for (score of scoresFiltered$ | async; track $index) {
-                    <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
+                @else {
+                    <p class="missing data">No items found.</p>
                 }
-            </ul>
+            }
+            @case (SelectionType.Categories) {
+                <ul>
+                    @for (category of categoriesFiltered$ | async; track $index) {
+                        <li class="collapsable" [class.collapsed]="category.isCollapsed">
+                            <label (click)="category.isCollapsed = !category.isCollapsed">
+                                {{category.name}}
+                                <span class="count"> — {{category.scores.length}}</span>
+                            </label>
+                            <ul>
+                                @for (score of category.scores; track score.number) {
+                                    <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    } @empty {
+                        <li class="missing data">No items found.</li>
+                    }
+                </ul>
+            }
+            @default {
+                <ul>
+                    @for (score of scoresFiltered$ | async; track $index) {
+                        <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{score.name}}</a></li>
+                    }
+                </ul>
+            }
         }
-    }
+    </section>
 </nav>

@@ -8,16 +8,9 @@
         @if (!score.pages.length) {
             <p class="error">This music has no pages.</p>
         } @else {
-            @if (score.labels.size > 0) {
-                <section>
-                    <header><h3>{{score.labels.size}} labels:</h3></header>
-                    <ul>
-                        @for (label of score.labels; track $index) {
-                            <li>{{label[0]}}: {{label[1]}}</li>
-                        }
-                    </ul>
-                </section>
-            }
+            <section class="info">
+                <app-score-description [score]="score"></app-score-description>
+            </section>
 
             <section class="score">
                 <header><h3>{{scoreTitle$ | async}}</h3></header>

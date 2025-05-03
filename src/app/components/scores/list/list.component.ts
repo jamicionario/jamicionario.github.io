@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ScoreService } from '@services/scores.service';
+import { ScoresService } from '@services/scores.service';
 import { Score } from '@models/score';
 import { ScoreGroup } from '@models/score-group';
 import { Category } from '@models/category';
@@ -8,11 +8,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { CategoriesService } from '@services/categories.service';
+import { CategoryCardComponent } from "../../categories/category-card/category-card.component";
 
 export enum SelectionType {
-  List,
-  Tree,
-  Categories,
+  List = 'list',
+  Tree = 'tree',
+  Categories = 'categories',
 }
 
 function normalizeStringForSearch(value: string): string {
@@ -24,14 +26,16 @@ function normalizeStringForSearch(value: string): string {
   imports: [
     RouterLink,
     CommonModule,
-    TreeComponent,
     FormsModule,
-  ],
+    TreeComponent,
+    CategoryCardComponent,
+],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  private readonly service = inject(ScoreService);
+  private readonly scoreService = inject(ScoresService);
+  private readonly categoriesService = inject(CategoriesService);
   readonly SelectionType = SelectionType;
 
   searchText: string = "";
@@ -43,9 +47,9 @@ export class ListComponent {
       distinctUntilChanged(),
     );
 
-  scores: Score[] = this.service.getScores();
-  groupedScores: ScoreGroup[] = this.service.getGroupedScores();
-  categories: Category[] = this.service.getCategories();
+  scores: Score[] = this.scoreService.getAll();
+  groupedScores: ScoreGroup[] = this.scoreService.getGroupedScores();
+  categories: Category[] = this.categoriesService.getAll();
 
   scoresFiltered$ = this.normalizedSearch$
     .pipe(
@@ -69,7 +73,7 @@ export class ListComponent {
       map(groups => groups.filter(group => group.isEmpty === false)),
     );
 
-  selectionType: SelectionType = SelectionType.Tree;
+  selectionType: SelectionType = SelectionType.Categories;
   changeSelectionTypeTo(type: SelectionType): void {
     this.selectionType = type;
   }
@@ -93,7 +97,7 @@ export class ListComponent {
       .map(branch => this.refilterGroupedScore(search, branch))
       .filter(branch => branch.isEmpty === false);
     const filteredLeaves = this.refilterScores(search, group.leaves);
-    const filtered = new ScoreGroup(group.name, group.isPortuguese, group.parent);
+    const filtered = new ScoreGroup(group.name, group.parent);
     Object.assign(filtered, group, {
       branches: filteredBranches,
       leaves: filteredLeaves,

@@ -11,4 +11,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  readonly pages = [
+    {title: 'Home', url: '/categories'},
+    {title: 'Search', url: '/scores'},
+  ];
 }

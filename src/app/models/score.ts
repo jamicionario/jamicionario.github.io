@@ -3,10 +3,11 @@ export type Score = {
   number: number,
   name: string,
   searchableName: string,
-  pages: string[],
-  isPortuguese: boolean,
-  category: string,
-  subcategories: string[],
 
+  pages: string[],
+  region: string,
+  typeOfDance: string,
   labels: Map<string, string>,
+
+  folderStructure: string[],
 };

@@ -5,3 +5,10 @@
 :link.active {
     font-weight: bold;
 }
+
+.search {
+    display: grid;
+    grid-template-columns: 60px 400px auto;
+    gap: 1em;
+    margin: 1em 0;
+}

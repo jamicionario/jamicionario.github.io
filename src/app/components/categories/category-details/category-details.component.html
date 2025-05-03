@@ -1,0 +1,19 @@
+
+<article>
+    @let category = category$ | async;
+    @if (!category) {
+        <p class="error">Category '{{ categoryName$ | async }}' not found.</p>
+    } @else {
+        <header><h2>{{category.name}}</h2></header>
+        @if (!category.scores.length) {
+            <p class="error">Found no scores for this category.</p>
+        } @else {
+            {{category.scores.length}} scores in this category:
+            <ul class="scores">
+                @for (score of category.scores; track $index) {
+                    <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{ score.name }}</a></li>
+                }
+            </ul>
+        }
+    }
+</article>
