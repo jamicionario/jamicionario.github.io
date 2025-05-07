@@ -1,3 +1,4 @@
+using Humanizer;
 using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
@@ -115,7 +116,10 @@ public class MetadataBuilder(ScoresConfig config)
     {
         return matches
             .Where(SeemsToHaveValue)
-            .ToDictionary(match => match.name, match => match.value);
+            .ToDictionary(
+                match => match.name.Humanize(LetterCasing.Sentence),
+                match => match.value
+                );
     }
 
     // These labels/metaTags are of no interest to Jamicionário.
