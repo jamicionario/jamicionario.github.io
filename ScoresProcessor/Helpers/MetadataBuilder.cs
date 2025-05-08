@@ -25,14 +25,14 @@ public class MetadataBuilder(ScoresConfig config)
     /// <summary>
     /// Generates and exports the metadata corresponding to the data in <paramref name="results"/>.
     /// </summary>
-    public void ExportMetadataFor(IEnumerable<Result> results)
+    public void ExportMetadataFor(IEnumerable<ExportedTarget> results)
     {
         Metadata metadata = GenerateMetadataFor(results);
         File.WriteAllText(config.MetadataFileName, metadata.Scores);
         File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories);
     }
 
-    private Metadata GenerateMetadataFor(IEnumerable<Result> results)
+    private Metadata GenerateMetadataFor(IEnumerable<ExportedTarget> results)
     {
         string[] GetFolderStructureFor(Target item)
         {
@@ -49,7 +49,7 @@ public class MetadataBuilder(ScoresConfig config)
                 .Skip(1)
                 .ToArray();
         }
-        object ProcessInfo(Result item, int index)
+        object ProcessInfo(ExportedTarget item, int index)
         {
             string[] folderStructure = GetFolderStructureFor(item);
             string searchableName = NormalizeStringForSearch(item.ScoreName);

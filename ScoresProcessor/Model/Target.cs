@@ -1,8 +1,9 @@
 namespace ScoresProcessor.Model;
 
-/// <param name="Mscz">The path to the original MSCZ file, such as "/.../data/.../Hanter Dro.mscz".</param>
 /// <param name="ScoreName">The clean name of the score, such as "Hanter Dro".</param>
-public record class Target(string Mscz, string ScoreName)
+/// <param name="Mscz">The path to the original MSCZ file, such as "/.../data/.../Hanter Dro.mscz".</param>
+/// <param name="Pdf">The path to the PDF that is expected to be next to the original <paramref name="Mscz"/> file.</param>
+public record class Target(string ScoreName, string Mscz, string Pdf)
 {
 	/// <summary>
 	/// The name of the image file to create, such as "Hanter Dro.png".
@@ -22,7 +23,12 @@ public record class Target(string Mscz, string ScoreName)
 	/// </summary>
 	public string GetPngSearchPattern() => $"{ScoreName}*.png";
 
-	public static Target For(string mscz, ScoresConfig config)
+	/// <summary>
+	/// Builds a <see cref="Target"/> from a file path. 
+	/// </summary>
+	/// <param name="mscz">The file path to an MSCZ file.</param>
+	/// <exception cref="FileNameException">Thrown if the file does not appear to be an MSCZ — a MuseScore file.</exception>
+	public static Target For(string mscz)
 	{
 		string scoreName = Path.GetFileNameWithoutExtension(mscz);
 		if (!mscz.EndsWith(".mscz"))
@@ -31,7 +37,8 @@ public record class Target(string Mscz, string ScoreName)
 				$"File does not seem to be an mscz: {scoreName}. Failing, to avoid unexpected problems with '{scoreName}'."
 				);
 		}
-		return new(mscz, scoreName);
+		string pdf = mscz[..^".mscz".Length] + ".pdf";
+		return new(scoreName, mscz, pdf);
 	}
 
 	public override string ToString() => ScoreName;

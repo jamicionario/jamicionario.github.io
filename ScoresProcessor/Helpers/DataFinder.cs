@@ -6,7 +6,7 @@ public class DataFinder(ScoresConfig config)
 	{
 		string[] files = Directory.GetFiles(config.MasterDataFolder, "*.mscz", SearchOption.AllDirectories);
 		return files
-			.Select(file => Target.For(file, config))
+			.Select(Target.For)
 			.ToArray();
 	}
 

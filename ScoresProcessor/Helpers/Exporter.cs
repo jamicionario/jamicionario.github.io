@@ -6,13 +6,18 @@ using Newtonsoft.Json;
 namespace ScoresProcessor.Helpers;
 public class Exporter(ScoresConfig config, DataFinder dataFinder)
 {
-    public IEnumerable<Result> GatherExportResultsFor(LabeledTarget[] targets)
+    public IEnumerable<ExportedTarget> GatherExportResultsFor(LabeledTarget[] targets)
     {
         // Compile the produced files, and return them.
         foreach (var target in targets)
         {
             string[] scoreImages = dataFinder.FindExportedImagesFor(target);
-            yield return new Result(target, target.Labels, scoreImages);
+            string? pdfFile = target.Pdf;
+            if (!File.Exists(pdfFile))
+            {
+                pdfFile = null;
+            }
+            yield return new ExportedTarget(target, target.Labels, scoreImages, pdfFile);
         }
     }
 

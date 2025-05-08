@@ -33,13 +33,20 @@ public record class ScoresConfig
     #region Calculated properties
 
     /// <summary>
+    /// The path for the Jamicionário itself, the PDF with all the scores.
+    /// </summary>
+    public string JamicionarioPdfFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.pdf");
+
+    /// <summary>
     /// The folder in Jamicionario where the generated data will be saved.
     /// </summary>
     public string TargetFolder => Path.Combine(JamicionarioPublicFolder, "scores");
+
     /// <summary>
     /// The path for the file where the scores' metadata is saved (number, name, images, etc).
     /// </summary>
     public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
+
     /// <summary>
     /// The path for the file where the scores' search categories is saved.
     /// It saves the interesting categories (country, type, etc) and their values present in the data.

@@ -14,31 +14,44 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
         Exporter exporter = new(config, dataFinder);
-        MetadataBuilder metaBuilder = new(config);
 
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
+            Logger.LogDebug("Exporting available scores as images.");
             exporter.ExportImagesFor(targets);
         }
 
-        RebuildMetadata(metaBuilder, exporter, targets);
+        Lazy<ExportedTarget[]> exportedTargets = new(() => CompileExportedTargets(exporter, targets));
+
+        if (instructions.HasFlag(ProcessingSteps.RebuildMetadata))
+        {
+            Logger.LogDebug("Generating and exporting metadata.");
+            MetadataBuilder metaBuilder = new(config);
+            metaBuilder.ExportMetadataFor(exportedTargets.Value);
+        }
+
+        if (instructions.HasFlag(ProcessingSteps.ExportJamicionarioPdf))
+        {
+            Logger.LogDebug("Generating and exporting Jamicionário PDF.");
+            PdfCompiler pdfCompiler = new(
+                config,
+                loggerFactory.CreateLogger<PdfCompiler>()
+                );
+            pdfCompiler.CompileJamicionario(exportedTargets.Value);
+        }
 
         counter.Stop();
         Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
     }
 
-    private void RebuildMetadata(MetadataBuilder metaBuilder, Exporter exporter, Target[] targets)
+    private ExportedTarget[] CompileExportedTargets(Exporter exporter, Target[] targets)
     {
-        if (!instructions.HasFlag(ProcessingSteps.RebuildMetadata))
-        {
-            return;
-        }
-
         LabeledTarget[] labeledTargets = exporter.LoadLabelInfoFor(targets);
-        Result[] results = exporter
+        ExportedTarget[] results = exporter
             .GatherExportResultsFor(labeledTargets)
             .ToArray();
-        Logger.LogDebug("Exported {Count} scores.", results.Length);
+        Logger.LogDebug("Found {Count} exported scores.", results.Length);
+
         if (results.Length != targets.Length)
         {
             Logger.LogWarning(
@@ -48,8 +61,6 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
                 targets.Length
                 );
         }
-
-        Logger.LogDebug("Generating and exporting metadata.");
-        metaBuilder.ExportMetadataFor(results);
+        return results;
     }
 }
