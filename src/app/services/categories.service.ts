@@ -6,8 +6,8 @@ import { Score } from '@models/score';
 
 // Keep synchronized with Categories class in file MetadataBuilder.cs .
 export enum CategoriesOfInterest {
-  Region = 'region',
-  TypeOfDance = 'type of dance',
+  Region = 'Region',
+  TypeOfDance = 'Type of dance',
 }
 
 @Injectable({

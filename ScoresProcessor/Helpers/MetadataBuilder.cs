@@ -14,8 +14,8 @@ public class MetadataBuilder(ScoresConfig config)
             TypeOfDance,
         ];
 
-        public const string Region = "region";
-        public const string TypeOfDance = "type of dance";
+        public const string Region = "Region";
+        public const string TypeOfDance = "Type of dance";
 
         public static bool IsKnown(string category) => All.Contains(category, StringComparer.InvariantCultureIgnoreCase);
     }

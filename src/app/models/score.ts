@@ -5,8 +5,8 @@ export type Score = {
   searchableName: string,
 
   pages: string[],
-  region: string,
-  typeOfDance: string,
+  region: string | null,
+  typeOfDance: string | null,
   labels: Map<string, string>,
 
   folderStructure: string[],
