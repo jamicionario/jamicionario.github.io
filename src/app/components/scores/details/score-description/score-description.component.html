@@ -16,7 +16,7 @@
 } @else {
     <dl>
         @for (label of score.labels; track $index) {
-            <dt>{{label[0]}}</dt>
+            <dt [class.important]="label[0] == 'License'">{{label[0]}}</dt>
             <dd>{{label[1]}}</dd>
         }
     </dl>
