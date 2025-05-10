@@ -15,5 +15,6 @@ export class AppComponent {
     {title: 'Home', url: '/categories'},
     {title: 'Search', url: '/scores'},
     {title: 'Download', url: '/download'},
+    {title: 'About', url: '/about'},
   ];
 }
