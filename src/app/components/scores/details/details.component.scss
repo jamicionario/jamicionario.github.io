@@ -8,10 +8,14 @@
     color: #A00000;
 }
 
-.scores {
+.pages {
     display: grid;
     max-width: 80vw;
     margin: 0 auto;
     grid-template-columns: min(800px, 80vw);
     justify-content: center;
+}
+
+.pages img {
+    border: solid 3px lightgray;
 }
