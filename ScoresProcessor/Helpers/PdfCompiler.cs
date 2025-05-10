@@ -29,21 +29,27 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         AddStartingPagesTo(jamicionario);
 
         // Add all the scores.
-        foreach (ExportedTarget target in targets)
+        var targetsByTypeOfDance = targets
+            .OrderBy(item => item.ScoreName, StringComparer.InvariantCultureIgnoreCase)
+            .GroupBy(MetadataBuilder.GetTypeOfDanceFor)
+            .OrderBy(group => group.Key, StringComparer.InvariantCultureIgnoreCase);
+        foreach (var group in targetsByTypeOfDance)
         {
-            if (target.ScorePdf == null)
+            string? typeOfDance = group.Key;
+            foreach (ExportedTarget target in group)
             {
-                logger.LogWarning("No PDF found for score '{Score}'!", target.ScoreName);
-                continue;
+                if (target.ScorePdf == null)
+                {
+                    logger.LogWarning("No PDF found for score '{Score}'!", target.ScoreName);
+                    continue;
+                }
+                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
             }
-            AddPdfTo(jamicionario, target.ScorePdf, bookmarkName: target.ScoreName);
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
     }
 
-    private void AddPdfTo(PdfDocument jamicionario, string path, string bookmarkName,
-        Func<PdfPage, PdfOutlineCollection>? getOutlines = null
-        )
+    private void AddPdfTo(PdfDocument jamicionario, string path, string? bookmarkGroup, string bookmarkName)
     {
         using PdfDocument pdf = PdfReader.Open(path, PdfDocumentOpenMode.Import);
 
@@ -59,10 +65,33 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             logger.LogError("The PDF has no pages: '{Path}'.", path);
             throw new ConfigurationException("The pdf has no pages.");
         }
-        // Add outline/bookmark for the PDF added.
-        var outlines = getOutlines?.Invoke(firstPage)
-            ?? jamicionario.Outlines;
-        outlines.Add(bookmarkName, firstPage);
+
+        AddOutline(jamicionario, bookmarkGroup, bookmarkName, firstPage);
+    }
+
+    /// <summary>
+    ///     Adds an outline/bookmark to the chosen <paramref name="targetPage"/>,
+    ///     with the chosen name,
+    ///     and under the header with the title of the <paramref name="bookmarkGroup"/>.
+    /// </summary>
+    private void AddOutline(PdfDocument jamicionario,
+        string? bookmarkGroup, string bookmarkName,
+        PdfPage targetPage) {
+
+        PdfOutlineCollection GetOutlines()
+        {
+            if (bookmarkGroup == null)
+            {
+                return jamicionario.Outlines;
+            }
+            PdfOutline? existing = jamicionario.Outlines
+                .FirstOrDefault(outline => outline.Title == bookmarkGroup);
+            existing ??= jamicionario.Outlines.Add(bookmarkGroup, targetPage);
+            return existing.Outlines;
+        }
+
+        var outlines = GetOutlines();
+        outlines.Add(bookmarkName, targetPage);
     }
 
     private void AddStartingPagesTo(PdfDocument jamicionario)
@@ -72,26 +101,16 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             if (item is IntroPage extraPage)
             {
                 string path = Path.Combine(config.MasterDataFolder, extraPage.RelativePath);
-                AddPdfTo(jamicionario, path, extraPage.BookmarkName);
+                AddPdfTo(jamicionario, path, null, extraPage.BookmarkName);
                 continue;
             }
 
             // If it's not an IntroPage, it has to be a group.
             PageGroup group = (PageGroup)item;
-            PdfOutline? groupOutline = null;
-            PdfOutlineCollection getOutlines(PdfPage firstPage)
-            {
-                if (groupOutline == null)
-                {
-                    groupOutline = jamicionario.Outlines.Add(group.BookmarkName, firstPage);
-                }
-                return groupOutline.Outlines;
-            }
-
             foreach (var page in group.Children)
             {
                 string path = Path.Combine(config.MasterDataFolder, page.RelativePath);
-                AddPdfTo(jamicionario, path, page.BookmarkName, getOutlines);
+                AddPdfTo(jamicionario, path, group.BookmarkName, page.BookmarkName);
             }
         }
     }

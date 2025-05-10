@@ -1,3 +1,4 @@
+
 namespace ScoresProcessor.Model;
 
 public record class ExportedTarget(Target Original, Dictionary<string, string> Labels,

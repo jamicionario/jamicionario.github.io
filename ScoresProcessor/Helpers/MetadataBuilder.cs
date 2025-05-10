@@ -32,6 +32,12 @@ public class MetadataBuilder(ScoresConfig config)
         File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories);
     }
 
+    public static string? GetTypeOfDanceFor(LabeledTarget target)
+    {
+        target.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
+        return typeOfDance;
+    }
+
     private Metadata GenerateMetadataFor(IEnumerable<ExportedTarget> results)
     {
         string[] GetFolderStructureFor(Target item)
