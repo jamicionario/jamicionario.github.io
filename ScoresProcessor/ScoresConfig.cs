@@ -33,6 +33,10 @@ public record class ScoresConfig
     /// The path for the Jamicionário itself, the PDF with all the scores.
     /// </summary>
     public string JamicionarioPdfFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.pdf");
+    /// <summary>
+    /// The path for the metadata about the Jamicionário PDF: version, generation date, etc.
+    /// </summary>
+    public string JamicionarioMetadataFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.metadata.json");
 
     /// <summary>
     /// The folder in Jamicionario where the generated data will be saved.

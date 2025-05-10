@@ -1,5 +1,7 @@
 
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using NodaTime;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 
@@ -26,6 +28,8 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     {
         using PdfDocument jamicionario = new();
 
+        AddAuthoringTo(jamicionario, out VersionInfo version);
+
         AddStartingPagesTo(jamicionario);
 
         // Add all the scores.
@@ -47,6 +51,32 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             }
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
+        string jsonVersion = JsonConvert.SerializeObject(version, Formatting.Indented);
+        File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion);
+    }
+
+    private void AddAuthoringTo(PdfDocument jamicionario, out VersionInfo versionInfo)
+    {
+        int previousVersion = 0;
+        if (File.Exists(config.JamicionarioMetadataFileName))
+        {
+            string data = File.ReadAllText(config.JamicionarioMetadataFileName);
+            var read = JsonConvert.DeserializeObject<VersionInfo>(data);
+            if (read != null)
+            {
+                previousVersion = read.Version;
+            }
+        }
+        versionInfo = new VersionInfo(
+            previousVersion + 1,
+            SystemClock.Instance.GetCurrentInstant()
+            );
+
+        jamicionario.Info.Creator = "";
+        // jamicionario.Info.Producer = "";
+        jamicionario.Info.Elements.SetString("/Producer", "");
+        jamicionario.Info.Title = $"Jamicionário v{versionInfo.Version}";
+        jamicionario.Info.CreationDate = versionInfo.GenerationDate.ToDateTimeUtc();
     }
 
     private void AddPdfTo(PdfDocument jamicionario, string path, string? bookmarkGroup, string bookmarkName)
@@ -76,7 +106,8 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     /// </summary>
     private void AddOutline(PdfDocument jamicionario,
         string? bookmarkGroup, string bookmarkName,
-        PdfPage targetPage) {
+        PdfPage targetPage)
+    {
 
         PdfOutlineCollection GetOutlines()
         {
