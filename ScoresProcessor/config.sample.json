@@ -2,5 +2,6 @@
     "__comment1": "If the program is not in $PATH, you can put here the program's absolute path.",
     "MuseScoreExecutablePath": "mscore",
     "__comment2": "The absolute path to the root folder of the Jamicionário.",
-    "RootFolder": "~/code/jamicionario/"
+    "JamicionarioPublicFolder": "~/code/jamicionario/public/",
+    "MasterDataFolder": "~/code/jamicionario/public/data/"
 }
