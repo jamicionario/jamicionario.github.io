@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { CategoriesService } from '@services/categories.service';
-import { CategoryCardComponent } from "../../categories/category-card/category-card.component";
 
 export enum SelectionType {
   List = 'list',
@@ -28,7 +27,6 @@ function normalizeStringForSearch(value: string): string {
     CommonModule,
     FormsModule,
     TreeComponent,
-    CategoryCardComponent,
 ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'

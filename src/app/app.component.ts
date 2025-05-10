@@ -14,5 +14,6 @@ export class AppComponent {
   readonly pages = [
     {title: 'Home', url: '/categories'},
     {title: 'Search', url: '/scores'},
+    {title: 'Download', url: '/download'},
   ];
 }
