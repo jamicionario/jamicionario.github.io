@@ -1,7 +1,4 @@
 
-
-using Microsoft.Extensions.Logging;
-
 namespace ScoresProcessor;
 public record class ScoresConfig
 {
