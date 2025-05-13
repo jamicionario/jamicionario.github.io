@@ -35,7 +35,7 @@ public class ConfigurationReader(ILogger logger)
             config = new()
             {
                 JamicionarioPublicFolder = "~/code/jamicionario/public",
-                MasterDataFolder = "~/Dropbox/Jamicionario Tripeiro",
+                MasterDataFolder = "~/Library/CloudStorage/Dropbox/Jamicionario Tripeiro",
             };
         }
 
