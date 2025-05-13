@@ -1,7 +1,6 @@
 
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
 public class Exporter(ScoresConfig config, DataFinder dataFinder)
@@ -65,7 +64,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
                 @in = target.Mscz,
                 @out = getOutFileName(target),
             });
-        string json = JsonConvert.SerializeObject(conversionInstructions, Formatting.Indented);
+        string json = JsonHelper.Serialize(conversionInstructions);
         string jobFileName = Path.GetTempFileName();
         File.WriteAllText(jobFileName, json);
 

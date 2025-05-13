@@ -1,6 +1,4 @@
-
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using NodaTime;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
@@ -51,7 +49,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             }
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
-        string jsonVersion = JsonConvert.SerializeObject(version, Formatting.Indented);
+        string jsonVersion = JsonHelper.Serialize(version);
         File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion);
     }
 
@@ -61,7 +59,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         if (File.Exists(config.JamicionarioMetadataFileName))
         {
             string data = File.ReadAllText(config.JamicionarioMetadataFileName);
-            var read = JsonConvert.DeserializeObject<VersionInfo>(data);
+            VersionInfo? read = JsonHelper.Deserialize<VersionInfo>(data);
             if (read != null)
             {
                 previousVersion = read.Version;

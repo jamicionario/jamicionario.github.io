@@ -1,5 +1,4 @@
 using Humanizer;
-using Newtonsoft.Json;
 
 namespace ScoresProcessor.Helpers;
 public class MetadataBuilder(ScoresConfig config)
@@ -108,8 +107,8 @@ public class MetadataBuilder(ScoresConfig config)
                     .ToArray(),
             });
 
-        string scoresMetadataJson = JsonConvert.SerializeObject(scoresMetadata, Formatting.Indented);
-        string categoriesMetadataJson = JsonConvert.SerializeObject(categoriesMetadata, Formatting.Indented);
+        string scoresMetadataJson = JsonHelper.Serialize(scoresMetadata);
+        string categoriesMetadataJson = JsonHelper.Serialize(categoriesMetadata);
         return new Metadata(scoresMetadataJson, categoriesMetadataJson);
     }
 

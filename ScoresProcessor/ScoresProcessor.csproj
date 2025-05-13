@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NodaTime" Version="3.2.2" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.2.0" />
     <PackageReference Include="PDFSharp" Version="6.1.1" />
   </ItemGroup>
 
