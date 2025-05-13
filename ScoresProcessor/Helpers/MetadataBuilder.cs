@@ -83,6 +83,11 @@ public class MetadataBuilder(ScoresConfig config)
                 typeOfDance,
                 labels,
 
+                files = new {
+                    pdf = Path.Combine(ScoresConfig.TargetFolderName, $"{item.Source.ScoreName}.pdf"),
+                    mscz = Path.Combine(ScoresConfig.TargetFolderName, $"{item.Source.ScoreName}.mscz"),
+                },
+
                 folderStructure,
             };
         }

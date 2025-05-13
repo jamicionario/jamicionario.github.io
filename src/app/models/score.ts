@@ -9,5 +9,10 @@ export type Score = {
   typeOfDance: string | null,
   labels: Map<string, string>,
 
+  files: {
+    pdf: string,
+    mscz: string,
+  },
+
   folderStructure: string[],
 };

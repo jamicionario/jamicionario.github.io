@@ -25,7 +25,19 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         // Ensure folder exists. Otherwise MuseScore fails silently.
         Directory.CreateDirectory(config.TargetFolder);
 
-        ExportFor(targets, config.GetDestinationFor);
+        string[] GetDestinationsFor(Target target)
+        {
+            string[] extensions = [
+                ".png",
+                ".pdf",
+                ".mscz",
+            ];
+            return extensions
+                .Select(ext => Path.Combine(config.TargetFolder, $"{target.ScoreName}{ext}"))
+                .ToArray();
+            
+        }
+        ExportFor(targets, GetDestinationsFor);
     }
 
     public TargetWithLabels[] LoadLabelInfoFor(Target[] targets)
@@ -34,7 +46,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamicionario");
 
         Dictionary<Target, string> locations = targets.ToDictionary(x => x, target => $"{target.ScoreName}.mscx");
-        ExportFor(targets, target => Path.Combine(tempDir.FullName, locations[target]));
+        ExportFor(targets, target => [Path.Combine(tempDir.FullName, locations[target])]);
 
         Regex metadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
         Dictionary<string, string> GetLabelsFor(Target target)
@@ -53,7 +65,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
     }
 
 
-    private void ExportFor(Target[] targets, Func<Target, string> getOutFileName)
+    private void ExportFor(Target[] targets, Func<Target, string[]> getOutFileNames)
     {
         // Generate the JSON job file.
         var conversionInstructions = targets
@@ -62,7 +74,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             .Select(target => new
             {
                 @in = target.Mscz,
-                @out = getOutFileName(target),
+                @out = getOutFileNames(target),
             });
         string json = JsonHelper.Serialize(conversionInstructions);
         string jobFileName = Path.GetTempFileName();

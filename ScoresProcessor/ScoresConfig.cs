@@ -2,6 +2,8 @@
 namespace ScoresProcessor;
 public record class ScoresConfig
 {
+    public const string TargetFolderName = "files";
+
     /// <summary>
     ///     The executable path of the MuseScore application,
     ///     which is used to process the MSCZ files
@@ -41,7 +43,7 @@ public record class ScoresConfig
     /// <summary>
     /// The folder in Jamicionario where the generated data will be saved.
     /// </summary>
-    public string TargetFolder => Path.Combine(JamicionarioPublicFolder, "scores");
+    public string TargetFolder => Path.Combine(JamicionarioPublicFolder, TargetFolderName);
 
     /// <summary>
     /// The path for the file where the scores' metadata is saved (number, name, images, etc).
@@ -53,17 +55,6 @@ public record class ScoresConfig
     /// It saves the interesting categories (country, type, etc) and their values present in the data.
     /// </summary>
     public string SearchCategoriesFileName => Path.Combine(JamicionarioPublicFolder, "search-categories.json");
-
-    #endregion
-
-
-    // Next we have helper methods that are used by other classes.
-    #region Helper methods
-
-    /// <summary>
-    /// The full path to export a target to, such as "/.../scores/Hanter Dro.mscz".
-    /// </summary>
-    public string GetDestinationFor(Target target) => Path.Combine(TargetFolder, target.ImageName);
 
     #endregion
 }

@@ -6,11 +6,6 @@ namespace ScoresProcessor.Model;
 public record class Target(string ScoreName, string Mscz, string Pdf)
 {
 	/// <summary>
-	/// The name of the image file to create, such as "Hanter Dro.png".
-	/// </summary>
-	public readonly string ImageName = $"{ScoreName}.png";
-
-	/// <summary>
 	/// 	The name of the metadata file to create, such as "Hanter Dro.json".
 	/// </summary>
 	/// <remarks>

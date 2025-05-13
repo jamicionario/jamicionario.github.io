@@ -11,6 +11,12 @@
     <p class="missing data">No known region or type.</p>
 }
 
+<p class="download">
+    Download as:
+        <a href="/{{ score.files.mscz }}" target="_blank">MSCZ</a> 
+        <a href="/{{ score.files.pdf }}" target="_blank">PDF</a>
+</p>
+
 @if (!score.labels.size) {
     <p class="missing data">No metadata.</p>
 } @else {
