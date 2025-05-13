@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace ScoresProcessor.Helpers;
 public class Exporter(ScoresConfig config, DataFinder dataFinder)
 {
-    public IEnumerable<ExportedTarget> GatherExportResultsFor(LabeledTarget[] targets)
+    public IEnumerable<ExportedResult> GatherExportResultsFor(TargetWithLabels[] targets)
     {
         // Compile the produced files, and return them.
         foreach (var target in targets)
@@ -16,7 +16,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             {
                 pdfFile = null;
             }
-            yield return new ExportedTarget(target, target.Labels, scoreImages, pdfFile);
+            yield return new ExportedResult(target, scoreImages, pdfFile);
         }
     }
 
@@ -28,7 +28,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         ExportFor(targets, config.GetDestinationFor);
     }
 
-    public LabeledTarget[] LoadLabelInfoFor(Target[] targets)
+    public TargetWithLabels[] LoadLabelInfoFor(Target[] targets)
     {
         Stopwatch sw = Stopwatch.StartNew();
         DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamicionario");
@@ -47,7 +47,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             return MetadataBuilder.ProcessLabels(matches);
         }
         var labeled = targets
-            .Select(target => new LabeledTarget(target, GetLabelsFor(target)))
+            .Select(target => new TargetWithLabels(target, GetLabelsFor(target)))
             .ToArray();
         return labeled;
     }

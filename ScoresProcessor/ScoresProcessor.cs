@@ -21,13 +21,13 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
             exporter.ExportImagesFor(targets);
         }
 
-        Lazy<ExportedTarget[]> exportedTargets = new(() => CompileExportedTargets(exporter, targets));
+        Lazy<ExportedResult[]> exportedResults = new(() => CompileExportedResults(exporter, targets));
 
         if (instructions.HasFlag(ProcessingSteps.RebuildMetadata))
         {
             Logger.LogDebug("Generating and exporting metadata.");
             MetadataBuilder metaBuilder = new(config);
-            metaBuilder.ExportMetadataFor(exportedTargets.Value);
+            metaBuilder.ExportMetadataFor(exportedResults.Value);
         }
 
         if (instructions.HasFlag(ProcessingSteps.ExportJamicionarioPdf))
@@ -37,17 +37,17 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
                 config,
                 loggerFactory.CreateLogger<PdfCompiler>()
                 );
-            pdfCompiler.CompileJamicionario(exportedTargets.Value);
+            pdfCompiler.CompileJamicionario(exportedResults.Value);
         }
 
         counter.Stop();
         Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
     }
 
-    private ExportedTarget[] CompileExportedTargets(Exporter exporter, Target[] targets)
+    private ExportedResult[] CompileExportedResults(Exporter exporter, Target[] targets)
     {
-        LabeledTarget[] labeledTargets = exporter.LoadLabelInfoFor(targets);
-        ExportedTarget[] results = exporter
+        TargetWithLabels[] labeledTargets = exporter.LoadLabelInfoFor(targets);
+        ExportedResult[] results = exporter
             .GatherExportResultsFor(labeledTargets)
             .ToArray();
         Logger.LogDebug("Found {Count} exported scores.", results.Length);

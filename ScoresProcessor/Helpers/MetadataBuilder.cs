@@ -24,20 +24,20 @@ public class MetadataBuilder(ScoresConfig config)
     /// <summary>
     /// Generates and exports the metadata corresponding to the data in <paramref name="results"/>.
     /// </summary>
-    public void ExportMetadataFor(IEnumerable<ExportedTarget> results)
+    public void ExportMetadataFor(IEnumerable<ExportedResult> results)
     {
         Metadata metadata = GenerateMetadataFor(results);
         File.WriteAllText(config.MetadataFileName, metadata.Scores);
         File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories);
     }
 
-    public static string? GetTypeOfDanceFor(LabeledTarget target)
+    public static string? GetTypeOfDanceFor(TargetWithLabels target)
     {
         target.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
         return typeOfDance;
     }
 
-    private Metadata GenerateMetadataFor(IEnumerable<ExportedTarget> results)
+    private Metadata GenerateMetadataFor(IEnumerable<ExportedResult> results)
     {
         string[] GetFolderStructureFor(Target item)
         {
@@ -54,17 +54,18 @@ public class MetadataBuilder(ScoresConfig config)
                 .Skip(1)
                 .ToArray();
         }
-        object ProcessInfo(ExportedTarget item, int index)
+        object ProcessInfo(ExportedResult item, int index)
         {
-            string[] folderStructure = GetFolderStructureFor(item);
-            string searchableName = NormalizeStringForSearch(item.ScoreName);
+            string[] folderStructure = GetFolderStructureFor(item.Source);
+            string searchableName = NormalizeStringForSearch(item.Source.ScoreName);
             var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
 
             // Get the region and type of dance for this score.
-            item.Labels.TryGetValue(Categories.Region, out string? region);
-            item.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
+            item.Source.Labels.TryGetValue(Categories.Region, out string? region);
+            item.Source.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
 
             var labels = item
+                .Source
                 .Labels
                 // Exclude the extracted properties: region, etc.
                 .Where(kvp => !Categories.IsKnown(kvp.Key))
@@ -74,7 +75,7 @@ public class MetadataBuilder(ScoresConfig config)
             {
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
                 number = index + 1,
-                name = item.ScoreName,
+                name = item.Source.ScoreName,
                 searchableName,
 
                 pages,
@@ -88,11 +89,11 @@ public class MetadataBuilder(ScoresConfig config)
 
         var scoresMetadata = results
                 // Order scores alphabetically.
-                .OrderBy(result => result.Mscz)
+                .OrderBy(result => result.Source.Mscz)
                 .Select(ProcessInfo)
                 .ToArray();
         var categoriesMetadata = results
-            .SelectMany(item => item.Labels)
+            .SelectMany(item => item.Source.Labels)
             .Where(item => Categories.IsKnown(item.Key))
             .GroupBy(item => item.Key, item => item.Value, StringComparer.InvariantCultureIgnoreCase)
             .Select(group => new

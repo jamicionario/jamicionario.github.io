@@ -22,7 +22,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     /// <remarks>
     ///     Includes a landing page, an index, and bookmarks for all scores.
     /// </remarks>
-    public void CompileJamicionario(ExportedTarget[] targets)
+    public void CompileJamicionario(ExportedResult[] targets)
     {
         using PdfDocument jamicionario = new();
 
@@ -32,20 +32,20 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
 
         // Add all the scores.
         var targetsByTypeOfDance = targets
-            .OrderBy(item => item.ScoreName, StringComparer.InvariantCultureIgnoreCase)
-            .GroupBy(MetadataBuilder.GetTypeOfDanceFor)
+            .OrderBy(item => item.Source.ScoreName, StringComparer.InvariantCultureIgnoreCase)
+            .GroupBy(item => MetadataBuilder.GetTypeOfDanceFor(item.Source))
             .OrderBy(group => group.Key, StringComparer.InvariantCultureIgnoreCase);
         foreach (var group in targetsByTypeOfDance)
         {
             string? typeOfDance = group.Key;
-            foreach (ExportedTarget target in group)
+            foreach (ExportedResult target in group)
             {
                 if (target.ScorePdf == null)
                 {
-                    logger.LogWarning("No PDF found for score '{Score}'!", target.ScoreName);
+                    logger.LogWarning("No PDF found for score '{Score}'!", target.Source.ScoreName);
                     continue;
                 }
-                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
+                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.Source.ScoreName);
             }
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
