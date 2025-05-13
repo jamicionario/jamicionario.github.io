@@ -21,13 +21,13 @@ export class DownloadComponent {
       return inYears;
     }
 
-    const months = today.getUTCFullYear() - this.versionDate.getUTCFullYear();
+    const months = today.getUTCMonth() - this.versionDate.getUTCMonth();
     const inMonths = this.compare(months, 'month');
     if (inMonths != null) {
       return inMonths;
     }
 
-    const days = today.getUTCFullYear() - this.versionDate.getUTCFullYear();
+    const days = today.getUTCDay() - this.versionDate.getUTCDay();
     const inDays = this.compare(days, 'day');
     if (inDays != null) {
       return inDays;
@@ -37,13 +37,14 @@ export class DownloadComponent {
   }
 
   private compare(count: number, datePartName: string): string | null {
+    console.debug(`count is ${count} ${datePartName}`);
     switch (count) {
       case 0:
         return null;
       case 1:
-        return `${count} ${datePartName}`;
+        return `${count} ${datePartName} ago`;
       default:
-        return `${count} ${datePartName}s`;
+        return `${count} ${datePartName}s ago`;
     }
   }
 }
