@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import versionInfo from '@public/Jamicionario.metadata.json';
 
 @Component({
   selector: 'app-download',
   imports: [
+    RouterLink,
   ],
   templateUrl: './download.component.html',
   styleUrl: './download.component.scss'

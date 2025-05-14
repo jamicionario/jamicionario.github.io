@@ -57,7 +57,7 @@ public class MetadataBuilder(ScoresConfig config)
         object ProcessInfo(ExportedResult item, int index)
         {
             string[] folderStructure = GetFolderStructureFor(item.Source);
-            string searchableName = NormalizeStringForSearch(item.Source.ScoreName);
+            string searchableName = NormalizeStringForSearch(item.ScoreName);
             var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
 
             // Get the region and type of dance for this score.
@@ -75,7 +75,7 @@ public class MetadataBuilder(ScoresConfig config)
             {
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
                 number = index + 1,
-                name = item.Source.ScoreName,
+                name = item.ScoreName,
                 searchableName,
 
                 pages,
@@ -84,8 +84,8 @@ public class MetadataBuilder(ScoresConfig config)
                 labels,
 
                 files = new {
-                    pdf = Path.Combine(ScoresConfig.TargetFolderName, $"{item.Source.ScoreName}.pdf"),
-                    mscz = Path.Combine(ScoresConfig.TargetFolderName, $"{item.Source.ScoreName}.mscz"),
+                    pdf = Path.Combine(ScoresConfig.TargetFolderName, $"{item.ScoreName}.pdf"),
+                    mscz = Path.Combine(ScoresConfig.TargetFolderName, $"{item.ScoreName}.mscz"),
                 },
 
                 folderStructure,
@@ -94,7 +94,7 @@ public class MetadataBuilder(ScoresConfig config)
 
         var scoresMetadata = results
                 // Order scores alphabetically.
-                .OrderBy(result => result.Source.Mscz)
+                .OrderBy(result => result.Mscz)
                 .Select(ProcessInfo)
                 .ToArray();
         var categoriesMetadata = results

@@ -22,7 +22,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     /// <remarks>
     ///     Includes a landing page, an index, and bookmarks for all scores.
     /// </remarks>
-    public void CompileJamicionario(ExportedResult[] targets)
+    public VersionInfo CompileJamicionario(ExportedResult[] targets)
     {
         using PdfDocument jamicionario = new();
 
@@ -32,7 +32,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
 
         // Add all the scores.
         var targetsByTypeOfDance = targets
-            .OrderBy(item => item.Source.ScoreName, StringComparer.InvariantCultureIgnoreCase)
+            .OrderBy(item => item.ScoreName, StringComparer.InvariantCultureIgnoreCase)
             .GroupBy(item => MetadataBuilder.GetTypeOfDanceFor(item.Source))
             .OrderBy(group => group.Key, StringComparer.InvariantCultureIgnoreCase);
         foreach (var group in targetsByTypeOfDance)
@@ -42,15 +42,17 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             {
                 if (target.ScorePdf == null)
                 {
-                    logger.LogWarning("No PDF found for score '{Score}'!", target.Source.ScoreName);
+                    logger.LogWarning("No PDF found for score '{Score}'!", target.ScoreName);
                     continue;
                 }
-                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.Source.ScoreName);
+                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
             }
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
         string jsonVersion = JsonHelper.Serialize(version);
         File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion);
+
+        return version;
     }
 
     private void AddAuthoringTo(PdfDocument jamicionario, out VersionInfo versionInfo)

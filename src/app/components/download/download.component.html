@@ -1,11 +1,27 @@
 <p>
-    The full Jamicionário can be downloaded as PDF.
+    The full Jamicionário can be downloaded:
 </p>
 
-<p>
-    Version <strong>{{ versionNumber }}</strong> was generated <strong>{{ timeAgo }}</strong> — <em>{{ versionDate.toDateString() }}</em>.
-</p>
+<ul>
+    <li>
+        <a href="Jamicionario.pdf" target="_blank">As PDF</a>, ~10 MB
+         — the full Jamicionário, with bookmarks.
+    </li>
+    <li>
+        <a href="Jamicionario - all MSCZ.zip" target="_blank">As MSCZ</a>, ~9 MB
+         — a zip file with the MuseScore<a routerLink="/download" fragment="footnote-1" class="footnote"> ¹</a> files for all the available scores.
+    </li>
+</ul>
 
 <p>
-    <a href="Jamicionario.pdf" target="_blank">Download Jamicionario.pdf</a>
+    Current version is <strong>version {{ versionNumber }}</strong>.<br />
+    It was generated <strong>{{ timeAgo }}</strong> — <em>{{ versionDate.toDateString() }}</em>.
 </p>
+
+<aside class="footnotes">
+    <p id="footnote-1">
+        <span class="footnote">¹</span> MuseScore files:<br />
+        The MuseScore files are the master files from which all the site's data was generated.<br />
+        They are editable using <a href="https://musescore.org">MuseScore Studio</a>.
+    </p>
+</aside>

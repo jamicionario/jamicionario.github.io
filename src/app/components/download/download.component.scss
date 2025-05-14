@@ -2,3 +2,12 @@
 :host {
     display: block;
 }
+
+.footnotes {
+    margin-top: 2em;
+}
+
+:target {
+    outline: dashed 2px lightgray;
+    outline-offset: 2px;
+}

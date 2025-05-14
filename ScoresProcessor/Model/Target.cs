@@ -1,9 +1,16 @@
 namespace ScoresProcessor.Model;
 
+public interface ITarget
+{
+	string ScoreName { get; }
+	string Mscz { get; }
+	string Pdf { get; }
+}
+
 /// <param name="ScoreName">The clean name of the score, such as "Hanter Dro".</param>
 /// <param name="Mscz">The path to the original MSCZ file, such as "/.../data/.../Hanter Dro.mscz".</param>
 /// <param name="Pdf">The path to the PDF that is expected to be next to the original <paramref name="Mscz"/> file.</param>
-public record class Target(string ScoreName, string Mscz, string Pdf)
+public record class Target(string ScoreName, string Mscz, string Pdf) : ITarget
 {
 	/// <summary>
 	/// 	The name of the metadata file to create, such as "Hanter Dro.json".

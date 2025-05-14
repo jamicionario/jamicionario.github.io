@@ -41,6 +41,11 @@ public record class ScoresConfig
     public string JamicionarioMetadataFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.metadata.json");
 
     /// <summary>
+    /// The path for zip with all the MSCZ files for the Jamicionário.
+    /// </summary>
+    public string JamicionarioZipFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario - all MSCZ.zip");
+
+    /// <summary>
     /// The folder in Jamicionario where the generated data will be saved.
     /// </summary>
     public string TargetFolder => Path.Combine(JamicionarioPublicFolder, TargetFolderName);

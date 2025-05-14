@@ -8,7 +8,7 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
     {
         Stopwatch counter = Stopwatch.StartNew();
 
-        Logger.LogDebug("Starting process. Instructions: {instructions}", instructions);
+        Logger.LogDebug("Starting process. Instructions received: {instructions}", instructions);
         DataFinder dataFinder = new(config);
         Target[] targets = dataFinder.FindData();
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
@@ -37,7 +37,13 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
                 config,
                 loggerFactory.CreateLogger<PdfCompiler>()
                 );
-            pdfCompiler.CompileJamicionario(exportedResults.Value);
+            VersionInfo version = pdfCompiler.CompileJamicionario(exportedResults.Value);
+
+            Logger.LogDebug("Generating and exporting Jamicionário MSCZ zip.");
+            MsczZipper zipper = new(
+                config
+                );
+            zipper.CompileAllMsczFilesIntoZip(exportedResults.Value, version);
         }
 
         counter.Stop();
