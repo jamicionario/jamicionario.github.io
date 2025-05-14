@@ -39,7 +39,6 @@ export class DownloadComponent {
   }
 
   private compare(count: number, datePartName: string): string | null {
-    console.debug(`count is ${count} ${datePartName}`);
     switch (count) {
       case 0:
         return null;
