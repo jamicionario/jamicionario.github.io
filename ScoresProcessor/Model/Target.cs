@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace ScoresProcessor.Model;
 
 public interface ITarget
@@ -30,7 +32,7 @@ public record class Target(string ScoreName, string Mscz, string Pdf) : ITarget
 	/// </summary>
 	/// <param name="mscz">The file path to an MSCZ file.</param>
 	/// <exception cref="FileNameException">Thrown if the file does not appear to be an MSCZ — a MuseScore file.</exception>
-	public static Target For(string mscz)
+	public static Target For(string mscz, ILogger logger)
 	{
 		string scoreName = Path.GetFileNameWithoutExtension(mscz);
 		if (!mscz.EndsWith(".mscz"))
@@ -40,7 +42,8 @@ public record class Target(string ScoreName, string Mscz, string Pdf) : ITarget
 				);
 		}
 		string pdf = mscz[..^".mscz".Length] + ".pdf";
-		return new(scoreName, mscz, pdf);
+		string cleanScoreName = FileHelper.CleanNameForWeb(scoreName, logger);
+		return new(cleanScoreName, mscz, pdf);
 	}
 
 	public override string ToString() => ScoreName;

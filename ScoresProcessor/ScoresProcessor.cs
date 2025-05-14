@@ -9,7 +9,7 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Stopwatch counter = Stopwatch.StartNew();
 
         Logger.LogDebug("Starting process. Instructions received: {instructions}", instructions);
-        DataFinder dataFinder = new(config);
+        DataFinder dataFinder = new(config, loggerFactory.CreateLogger<DataFinder>());
         Target[] targets = dataFinder.FindData();
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 

@@ -1,12 +1,14 @@
 
+using Microsoft.Extensions.Logging;
+
 namespace ScoresProcessor.Helpers;
-public class DataFinder(ScoresConfig config)
+public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 {
 	public Target[] FindData()
 	{
 		string[] files = Directory.GetFiles(config.MasterDataFolder, "*.mscz", SearchOption.AllDirectories);
 		return files
-			.Select(Target.For)
+			.Select(file => Target.For(file, logger))
 			.ToArray();
 	}
 
