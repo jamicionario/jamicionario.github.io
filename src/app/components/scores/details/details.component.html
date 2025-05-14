@@ -4,7 +4,7 @@
     @if (!score) {
         <p class="error">Score not found.</p>
     } @else {
-        <header><h2>{{score.name}}</h2></header>
+        <header class="name"><h2>{{score.name}}</h2></header>
         @if (!score.pages.length) {
             <p class="error">This music has no pages.</p>
         } @else {
@@ -13,7 +13,7 @@
             </section>
 
             <section class="score">
-                <header><h3>{{scoreTitle$ | async}}</h3></header>
+                <header><h3>{{scoreHeader$ | async}}</h3></header>
                 <div class="pages">
                     @for (page of score.pages; track $index) {
                         <img src="{{page}}" alt="page {{$index}}" />

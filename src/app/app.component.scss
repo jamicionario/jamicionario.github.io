@@ -1,10 +1,23 @@
 :host {
-    display: block;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    &.jam-mode {
+        header {
+            display: flex;
+            gap: 1em;
+            h1 {
+                all: unset;
+                font-size: large;
+                display: none;
+            }
+        }
+    }
 }
 
 header::before {
     content: "work in progress";
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
 
@@ -12,6 +25,13 @@ header::before {
     border-radius: 0 0 0 10px;
     color: white;
     padding: 0.5em 1.5em;
+}
+
+app-jam-mode-toggler {
+    position: fixed;
+    right: 0;
+    top: 40px;
+    border-radius: 15px 0 0 15px;
 }
 
 nav ul {
@@ -30,4 +50,3 @@ nav ul {
 .page {
     margin-top: 1em;
 }
-

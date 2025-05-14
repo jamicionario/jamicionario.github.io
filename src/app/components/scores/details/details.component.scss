@@ -3,6 +3,14 @@
     display: block;
 }
 
+.jam-mode :host {
+    .name,
+    .info,
+    .score > header {
+        display: none;
+    }
+}
+
 .error {
     font-style: italic;
     color: #A00000;

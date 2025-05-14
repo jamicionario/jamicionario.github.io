@@ -23,7 +23,7 @@ export class DetailsComponent {
     map(scoreNumber => this.service.get(scoreNumber)),
   );
 
-  scoreTitle$ = this.score$.pipe(
+  scoreHeader$ = this.score$.pipe(
     map(score =>
         score?.pages.length === 1
         ? "1 page:"

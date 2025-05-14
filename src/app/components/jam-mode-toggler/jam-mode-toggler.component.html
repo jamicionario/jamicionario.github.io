@@ -1,0 +1,9 @@
+
+@let isJamMode = isJamMode$ | async;
+<button [class.toggled]="isJamMode" (click)="toggleJamModeFrom(isJamMode)">
+    @if(isJamMode) {
+        Jam mode
+    } @else {
+        Normal mode
+    }
+</button>
