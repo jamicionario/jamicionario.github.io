@@ -20,10 +20,16 @@ img {
 
 .collapsable label {
     cursor: zoom-out;
+    // Arrange the items in the horizontal line.
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 
-    &::before {
-        content: "🐵";
-    }
+    // &::before {
+    //     // content: "🐵";
+    //     content: url(/icons/eye.svg) / "open eye";
+    //     width: 20px;
+    // }
     .count {
         display: none;
     }
@@ -32,11 +38,15 @@ img {
 .collapsable.collapsed label {
     cursor: zoom-in;
     color: darkgray;
-    &::before {
-        content: "🙈";
-    }
+    // &::before {
+    //     // content: "🙈";
+    //     content: url(/icons/eye-closed.svg) / "closed eye";
+    // }
     .count {
         display: unset;
+        &::after {
+            content: " hidden";
+        }
     }
 }
 
