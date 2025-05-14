@@ -15,5 +15,5 @@ export const routes: Routes = [
     { path: 'download', title: 'Download Jamicionário', component: DownloadComponent },
     { path: 'about', title: 'About Jamicionário', component: AboutComponent },
     // Redirect any broken paths back to the main page.
-    { path: '**', redirectTo: '' },
+    // { path: '**', redirectTo: '' },
 ];
