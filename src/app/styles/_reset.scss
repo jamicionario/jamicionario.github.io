@@ -1,0 +1,17 @@
+
+$body-margin: 0.5em;
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: $body-margin;
+    height: calc(100% - 2*$body-margin);
+}
+
+img {
+    max-width: 100%;
+}
+
