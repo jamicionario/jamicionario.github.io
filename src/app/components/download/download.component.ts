@@ -29,7 +29,7 @@ export class DownloadComponent {
       return inMonths;
     }
 
-    const days = today.getUTCDay() - this.versionDate.getUTCDay();
+    const days = today.getUTCDate() - this.versionDate.getUTCDate();
     const inDays = this.compare(days, 'day');
     if (inDays != null) {
       return inDays;
