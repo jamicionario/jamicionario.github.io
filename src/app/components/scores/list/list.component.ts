@@ -62,7 +62,6 @@ export class ListComponent {
     this.selectionType = type;
   }
   searchChanged(value: FilterValue) {
-    console.log('search changed to:', value);
     this.filter$.next(value);
   }
 }
