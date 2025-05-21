@@ -7,17 +7,15 @@ import { Category } from '@models/category';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TreeComponent } from './tree/tree.component';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { map, ReplaySubject } from 'rxjs';
 import { CategoriesService } from '@services/categories.service';
+import { FilterValue, ScoresSearchComponent } from '../scores-search/scores-search.component';
+import { filterCategories, filterScoreGroups, filterScores } from '@utils/score-filtering';
 
 export enum SelectionType {
   List = 'list',
   Tree = 'tree',
   Categories = 'categories',
-}
-
-function normalizeStringForSearch(value: string): string {
-  return value.toLowerCase().trim();
 }
 
 @Component({
@@ -27,79 +25,44 @@ function normalizeStringForSearch(value: string): string {
     CommonModule,
     FormsModule,
     TreeComponent,
-],
+    ScoresSearchComponent,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  private readonly scoreService = inject(ScoresService);
-  private readonly categoriesService = inject(CategoriesService);
   readonly SelectionType = SelectionType;
 
-  searchText: string = "";
-  search$ = new BehaviorSubject<string>(this.searchText);
-  normalizedSearch$ = this.search$
+  private readonly scoreService = inject(ScoresService);
+  private readonly categoriesService = inject(CategoriesService);
+
+  private readonly allScores: Score[] = this.scoreService.getAll();
+  private readonly allCategories: Category[] = this.categoriesService.getAll();
+  private readonly allGroupedScores: ScoreGroup[] = this.scoreService.getGroupedScores();
+
+  private readonly filter$ = new ReplaySubject<FilterValue>();
+
+  scoresFiltered$ = this.filter$
     .pipe(
-      debounceTime(200),
-      map(str => normalizeStringForSearch(str)),
-      distinctUntilChanged(),
+      map(search => filterScores(search, this.allScores)),
     );
 
-  scores: Score[] = this.scoreService.getAll();
-  groupedScores: ScoreGroup[] = this.scoreService.getGroupedScores();
-  categories: Category[] = this.categoriesService.getAll();
-
-  scoresFiltered$ = this.normalizedSearch$
+  categoriesFiltered$ = this.filter$
     .pipe(
-      map(str => this.refilterScores(str, this.scores)),
+      map(search => filterCategories(search, this.allCategories)),
     );
 
-  categoriesFiltered$ = this.normalizedSearch$
+  groupedScoresFiltered$ = this.filter$
     .pipe(
-      map(str => this.categories
-        .map(category => new Category(
-          category.name,
-          this.refilterScores(str, category.scores))
-        )
-      ),
-      map(cats => cats.filter(cat => cat.scores.length > 0)),
-    );
-
-  groupedScoresFiltered$ = this.normalizedSearch$
-    .pipe(
-      map(str => this.groupedScores.map(group => this.refilterGroupedScore(str, group))),
-      map(groups => groups.filter(group => group.isEmpty === false)),
+      map(search => filterScoreGroups(search, this.allGroupedScores)),
     );
 
   selectionType: SelectionType = SelectionType.Categories;
   changeSelectionTypeTo(type: SelectionType): void {
     this.selectionType = type;
   }
-
-  private refilterScores(str: string, scores: Score[]): Score[] {
-    return scores.filter(score => str.length === 0 || score.searchableName.includes(str))
-  }
-
-  private refilterGroupedScore(search: string, group: ScoreGroup): ScoreGroup {
-    if (search == '') {
-      // No filter, return all.
-      return group;
-    }
-
-    if (group.name.includes(search)) {
-      // Filter matches this group, so we return all children.
-      return group;
-    }
-
-    const filteredBranches = group.branches
-      .map(branch => this.refilterGroupedScore(search, branch))
-      .filter(branch => branch.isEmpty === false);
-    const filteredLeaves = this.refilterScores(search, group.leaves);
-    const filtered = new ScoreGroup(group.name, group.parent);
-    Object.assign(filtered, group, {
-      branches: filteredBranches,
-      leaves: filteredLeaves,
-    });
-    return filtered;
+  searchChanged(value: FilterValue) {
+    console.log('search changed to:', value);
+    this.filter$.next(value);
   }
 }

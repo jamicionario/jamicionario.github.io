@@ -1,0 +1,25 @@
+<fieldset class="search">
+    <legend>Filters</legend>
+
+    @for (label of allLabels; track $index) {
+        <mat-form-field>
+            <mat-label>{{ label.name }}</mat-label>
+            <mat-select (selectionChange)="filterChanged(label, $event)">
+                <mat-option>All</mat-option>
+                @for (value of label.values; track $index) {
+                    <mat-option value="{{ value }}">{{ value }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    }
+
+    <label class="textualSearch">
+        <span>Search:</span>
+        
+        <input type="text" autofocus class="form-control"
+            placeholder="e.g. Chappeloise"
+            name="searchText" id="scoreSearch"
+            [(ngModel)]="searchText"
+            (ngModelChange)="searchTextChanged($event)" />
+    </label>
+</fieldset>

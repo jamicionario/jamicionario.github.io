@@ -67,8 +67,6 @@ public class MetadataBuilder(ScoresConfig config)
             var labels = item
                 .Source
                 .Labels
-                // Exclude the extracted properties: region, etc.
-                .Where(kvp => !Categories.IsKnown(kvp.Key))
                 .ToDictionary();
 
             return new

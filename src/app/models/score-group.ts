@@ -1,36 +1,18 @@
+import { Category } from './category';
 import { Score } from './score';
 
-export class ScoreGroup {
-  name: string;
-  branches: ScoreGroup[] = [];
-  leaves: Score[] = [];
-  isCollapsed: boolean = false;
-  numberOfScores: number = 0;
+export class ScoreGroup extends Category {
+  subGroups: ScoreGroup[];
   parent?: ScoreGroup;
 
-  constructor(name: string, parent: ScoreGroup | undefined) {
-    this.name = name;
+  constructor(name: string, parent: ScoreGroup | undefined, scores: Score[] = [], subGroups: ScoreGroup[] = []) {
+    super(name, scores);
     this.parent = parent;
+    this.subGroups = subGroups;
   }
 
-  get isEmpty(): boolean {
-    return this.branches.length === 0 && this.leaves.length === 0;
-  }
-
-  /**
-   * Adds a new score to this group, incrementing the count of scores properly in this group and all its ancestors.
-   * @param score The score to add.
-   */
-  addScore(score: Score): void {
-    this.leaves.push(score);
-    let node: ScoreGroup | undefined = this;
-    while (node !== undefined) {
-      node.numberOfScores++;
-      node = node.parent;
-    }
-  }
-
-  addBranch(branch: ScoreGroup): void {
-    this.branches.push(branch);
+  override get isNotEmpty(): boolean {
+    return super.isNotEmpty
+      || this.subGroups.length > 0;
   }
 }

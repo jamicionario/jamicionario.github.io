@@ -39,7 +39,7 @@ export class ScoresService {
   private static groupScores(scores: Score[]): ScoreGroup[] {
     // Create a base dummy node where all the Groups will hang.
     let root = new ScoreGroup("All", undefined);
-    root.branches = [];
+    root.subGroups = [];
 
     // Add each score to the groups tree, one by one.
     scores.forEach(score => {
@@ -50,23 +50,23 @@ export class ScoresService {
       const allCategories = score.folderStructure;
       allCategories.forEach(category => {
         // Does it exist?
-        let existing = branch.branches.find(branch => branch.name === category);
+        let existing = branch.subGroups.find(branch => branch.name === category);
 
         // If not, we create a new one and add it.
         if (existing === undefined) {
           existing = new ScoreGroup(category, branch);
-          branch.addBranch(existing);
+          branch.subGroups.push(existing);
         }
 
         // Then we dive in this branch, to take care of the next category.
         branch = existing;
       });
       // After we reached the last category, we insert the score in that final category.
-      branch.addScore(score);
+      branch.scores.push(score);
     });
 
     // In the end we have a large tree.
     // We want to return all its branches - the set of groups.
-    return root.branches;
+    return root.subGroups;
   }
 }

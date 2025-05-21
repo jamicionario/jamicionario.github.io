@@ -9,6 +9,10 @@ body {
 body {
     margin: $body-margin;
     height: calc(100% - 2*$body-margin);
+    // Set by Material design.
+    // Not wanted for now, we keep the browser's choice for font.
+    // The font of the material-select remains that one though... 🤷 ah well.
+    // font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 img {

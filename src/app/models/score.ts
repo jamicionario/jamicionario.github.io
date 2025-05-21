@@ -1,8 +1,8 @@
+import { Searchable } from "./searchable";
 
-export type Score = {
+export interface Score extends Searchable {
   number: number,
   name: string,
-  searchableName: string,
 
   pages: string[],
   region: string | null,

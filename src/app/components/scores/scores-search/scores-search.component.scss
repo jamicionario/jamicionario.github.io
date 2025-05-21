@@ -1,0 +1,39 @@
+
+@use '../list/section-margins';
+
+:host {
+    display: block;
+}
+
+fieldset {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
+    gap: 1em;
+    margin: section-margins.$margin;
+
+    // Fix grid-layout being broken by the <legend>:
+    position: relative;
+    padding-block-start: 0.7lh;
+    margin-top: calc(section-margins.$vertical + 0.7lh);
+    > legend {
+        position: absolute;
+        top: -0.5lh; // Half a line-height.
+        margin-left: 0.3em; // Aligns vertically with the contents.
+        padding: 0 0.5em; // Spacing for the white background behind this text.
+        background: white;
+    }
+
+    > mat-form-field {
+        // This fixes visually the layout of the Material selects in the grid.
+        // Because they have an empty space under them, for the validation errors — which we are not using.
+        // It has these classes: "mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align".
+        margin-bottom: -1em;
+    }
+
+    > .textualSearch {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 1em;
+        align-items: center;
+    }
+}

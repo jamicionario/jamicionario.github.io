@@ -1,3 +1,5 @@
+@use 'section-margins';
+
 :host {
     display: block;
 }
@@ -6,9 +8,13 @@
     font-weight: bold;
 }
 
-.search {
+.label-filter {
     display: grid;
-    grid-template-columns: 60px 400px auto;
-    gap: 1em;
-    margin: 1em 0;
+    grid-template-columns: subgrid;
+    grid-column-end: span 2;
+    align-items: center;
+}
+
+.selectionType {
+    margin: section-margins.$margin;
 }
