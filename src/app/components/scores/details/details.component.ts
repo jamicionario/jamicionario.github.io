@@ -18,16 +18,16 @@ import { ScoreDescriptionComponent } from './score-description/score-description
 export class DetailsComponent {
   private service = inject(ScoresService);
   private route = inject(ActivatedRoute);
-  score$ : Observable<Score | undefined> = this.route.paramMap.pipe(
+  score$: Observable<Score | undefined> = this.route.paramMap.pipe(
     map(paramMap => Number(paramMap.get('number'))),
     map(scoreNumber => this.service.get(scoreNumber)),
   );
 
   scoreHeader$ = this.score$.pipe(
     map(score =>
-        score?.pages.length === 1
+      score?.pages.length === 1
         ? "1 page:"
         : (score?.pages.length ?? 0) + " pages:"
-      ),
+    ),
   );
 }

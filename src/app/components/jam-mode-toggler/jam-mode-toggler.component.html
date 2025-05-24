@@ -1,9 +1,6 @@
 
 @let isJamMode = isJamMode$ | async;
-<button [class.toggled]="isJamMode" (click)="toggleJamModeFrom(isJamMode)">
-    @if(isJamMode) {
-        Jam mode
-    } @else {
-        Normal mode
-    }
-</button>
+<mat-slide-toggle
+    checked="{{ isJamMode }}"
+    (change)="toggleJamModeTo($event)"
+    labelPosition="before">Jam mode</mat-slide-toggle>
