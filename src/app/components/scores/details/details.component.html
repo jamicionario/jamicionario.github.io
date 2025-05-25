@@ -4,7 +4,28 @@
     @if (!score) {
         <p class="error">Score not found.</p>
     } @else {
-        <header class="name"><h2>{{score.name}}</h2></header>
+        @let previous = previous$ | async;
+        @let next = next$ | async;
+        <header class="name">
+                <h2>{{score.name}}</h2>
+        </header>
+        <nav>
+            @if (previous) {
+                <a routerLink="/scores/{{ previous.number }}"
+                    title="Press the left arrow to open {{ previous.name }}">
+                    &lArr;
+                    <span class="textual-label">previous</span>
+                </a>
+            }
+            {{ score.number }} / {{ totalScores }}
+            @if (next) {
+                <a routerLink="/scores/{{ next.number }}"
+                    title="Press the right arrow to open {{ next.name }}">
+                    <span class="textual-label">next</span>
+                    &rArr;
+                </a>
+            }
+        </nav>
         @if (!score.pages.length) {
             <p class="error">This music has no pages.</p>
         } @else {

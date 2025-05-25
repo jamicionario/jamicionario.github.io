@@ -1,86 +1,53 @@
-import { DOCUMENT, NgFor } from "@angular/common";
-import { Component, Inject, Injectable } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { Inject, Injectable } from "@angular/core";
 import { EventManager } from "@angular/platform-browser";
-import { Observable } from "rxjs";
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Observable, TeardownLogic } from "rxjs";
 
-type Options = {
-    element: any;
-    keys: string;
-    description: string;
+export enum KnownKey {
+    ArrowLeft = 'ArrowLeft',
+    ArrowRight = 'ArrowRight',
 }
 
 /**
  * Copyright netanelbasal:
  * https://medium.com/netanelbasal/diy-keyboard-shortcuts-in-your-angular-application-4704734547a2
+ * With edits for TypeScript fixes, typing, and simplification to adapt to local needs.
  */
 @Injectable({ providedIn: 'root' })
 export class Hotkeys {
-    readonly defaults: Partial<Options>;
-
-    private readonly hotkeys = new Map<string, string>();
-
-    constructor(private eventManager: EventManager,
-        private dialog: MatDialog,
-        @Inject(DOCUMENT) private document: Document) {
-        this.defaults = {
-            element: this.document
-        };
-        this.addShortcut({ keys: 'shift.?' }).subscribe(() => {
-            this.openHelpModal();
-        });
+    constructor(
+        private eventManager: EventManager,
+        @Inject(DOCUMENT) private document: Document
+    ) {
     }
 
-    addShortcut(options: Partial<Options>) {
-        const merged = { ...this.defaults, ...options };
-        const event = `keydown.${merged.keys}`;
+    /**
+     * Registers a shortcut key, for key-up.
+     * The handler that is registered will be unregistered when the Observable is released.
+     * @param key The keyboard shortcut to monitor, such as "LeftArrow" or "CTRL+K".
+     * @param element The HTML element to monitor for the keyboard shortcut, or none to attach to the document itself.
+     * @returns An observable that emits when the shortcut is pressed.
+     */
+    registerShortcut(key: KnownKey, element?: HTMLElement): Observable<Event> {
+        const eventName = `keyup.${key}`;
+        const target: HTMLElement = element ?? this.document.body;
 
-        if (merged.keys && merged.description) {
-            this.hotkeys.set(merged.keys, merged.description);
-        }
-
-        return new Observable(observer => {
-            const handler = (e: Event) => {
+        return new Observable<Event>(observer => {
+            const handler: Function = (e: Event): void => {
                 e.preventDefault()
                 observer.next(e);
             };
 
-            const dispose = this.eventManager.addEventListener(
-                merged.element, event, handler
+            const removeHandler: Function = this.eventManager.addEventListener(
+                target, eventName, handler
             );
 
-            return () => {
-                dispose();
-                if (merged.keys) {
-                    this.hotkeys.delete(merged.keys);
-                }
+            const teardown: TeardownLogic = () => {
+                removeHandler();
+                observer.complete();
             };
+
+            return teardown;
         })
-    }
-
-    openHelpModal() { }
-
-}
-
-@Component({
-    template: `<table>
-  <tbody>
-    <tr *ngFor="let keys of hotkeys">
-      <td>{{ hotkeys[1] }}</td>
-      <td class="text-right">
-        <kbd>{{ hotkeys[0] }}</kbd>
-      </td>
-    </tr>
-  </tbody>
-</table>`,
-    imports: [
-        NgFor,
-    ],
-})
-export class HotkeysDialogComponent {
-    hotkeys: any[];
-
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-        this.hotkeys = Array.from(this.data);
     }
 }

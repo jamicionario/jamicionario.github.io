@@ -21,6 +21,10 @@ export class ScoresService {
     });
   }
 
+  getTotal(): number {
+    return this.metadata.length;
+  }
+
   getAll(): Score[] {
     return this.metadata;
   }

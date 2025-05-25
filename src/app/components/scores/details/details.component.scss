@@ -9,6 +9,16 @@
     .score > header {
         display: none;
     }
+    nav {
+        justify-content: center;
+    }
+}
+nav {
+    display: flex;
+    gap: 1ex;
+    span.textual-label {
+        display: none;
+    }
 }
 
 .error {
