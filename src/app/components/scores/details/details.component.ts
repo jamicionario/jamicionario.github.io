@@ -5,7 +5,7 @@ import { map, Observable, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Score } from '@models/score';
 import { ScoreDescriptionComponent } from './score-description/score-description.component';
-import { Hotkeys, KnownKey } from '@utils/hot-keys';
+import { HotkeysService, KnownKey } from '@services/hot-keys.service';
 
 @Component({
   selector: 'app-details',
@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
   private readonly service = inject(ScoresService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly hotKeys = inject(Hotkeys);
+  private readonly hotKeys = inject(HotkeysService);
 
   readonly totalScores: number = this.service.getTotal();
 

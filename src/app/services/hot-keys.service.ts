@@ -14,7 +14,7 @@ export enum KnownKey {
  * With edits for TypeScript fixes, typing, and simplification to adapt to local needs.
  */
 @Injectable({ providedIn: 'root' })
-export class Hotkeys {
+export class HotkeysService {
     constructor(
         private eventManager: EventManager,
         @Inject(DOCUMENT) private document: Document
