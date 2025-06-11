@@ -5,7 +5,7 @@ export interface Score extends Searchable {
   name: string,
 
   pages: string[],
-  region: string | null,
+  danceGeometry: string | null,
   typeOfDance: string | null,
   labels: Map<string, string>,
 

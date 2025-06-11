@@ -1,14 +1,14 @@
 
-@if(score.typeOfDance && score.region) {
+@if(score.typeOfDance && score.danceGeometry) {
     <p>
         A
         <a routerLink="/categories/{{score.typeOfDance}}">{{ score.typeOfDance }}</a>
-        from {{score.region}}.
+        , danced in {{score.danceGeometry}}.
     </p>
-} @else if (score.region) {
-    <p>From {{ score.region }}. Of an <em class="missing data">unknown type</em>.</p>
+} @else if (score.danceGeometry) {
+    <p>Danced in {{ score.danceGeometry }}. Of an <em class="missing data">unknown type</em>.</p>
 } @else {
-    <p class="missing data">No known region or type.</p>
+    <p class="missing data">No known type or dance geometry.</p>
 }
 
 <p class="download">

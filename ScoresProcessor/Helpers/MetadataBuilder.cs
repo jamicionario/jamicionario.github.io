@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Humanizer;
 
 namespace ScoresProcessor.Helpers;
@@ -9,11 +10,11 @@ public class MetadataBuilder(ScoresConfig config)
     {
         // Keep synchronized with CategoriesOfInterest in file categories.service.ts .
         private static readonly HashSet<string> All = [
-            Region,
+            DanceGeometry,
             TypeOfDance,
         ];
 
-        public const string Region = "Region";
+        public const string DanceGeometry = "Dance geometry";
         public const string TypeOfDance = "Type of dance";
 
         public static bool IsKnown(string category) => All.Contains(category, StringComparer.InvariantCultureIgnoreCase);
@@ -60,8 +61,8 @@ public class MetadataBuilder(ScoresConfig config)
             string searchableName = NormalizeStringForSearch(item.ScoreName);
             var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
 
-            // Get the region and type of dance for this score.
-            item.Source.Labels.TryGetValue(Categories.Region, out string? region);
+            // Get the dance geometry and type of dance for this score.
+            item.Source.Labels.TryGetValue(Categories.DanceGeometry, out string? danceGeometry);
             item.Source.Labels.TryGetValue(Categories.TypeOfDance, out string? typeOfDance);
 
             var labels = item
@@ -77,7 +78,7 @@ public class MetadataBuilder(ScoresConfig config)
                 searchableName,
 
                 pages,
-                region,
+                danceGeometry,
                 typeOfDance,
                 labels,
 
@@ -127,8 +128,16 @@ public class MetadataBuilder(ScoresConfig config)
             .Where(SeemsToHaveValue)
             .ToDictionary(
                 match => match.name.Humanize(LetterCasing.Sentence),
-                match => match.value
+                match => HumanizeCategory(match.value)
                 );
+    }
+
+    private static string HumanizeCategory(string value)
+    {
+        Regex separator = new(@",([^\s])");
+        // Add a space after any comma that is not followed by a space.
+        string corrected = separator.Replace(value, ", $1");
+        return corrected;
     }
 
     // These labels/metaTags are of no interest to Jamicionário.
