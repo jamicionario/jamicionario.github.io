@@ -4,13 +4,15 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Category } from '@models/category';
 import { CategoriesService } from '@services/categories.service';
 import { map, Observable } from 'rxjs';
+import { PluralizePipe } from "@utils/pluralize.pipe";
 
 @Component({
   selector: 'app-category-details',
   imports: [
     AsyncPipe,
     RouterLink,
-  ],
+    PluralizePipe,
+],
   templateUrl: './category-details.component.html',
   styleUrl: './category-details.component.scss'
 })

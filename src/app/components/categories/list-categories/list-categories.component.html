@@ -6,7 +6,7 @@
         Try searching in <a routerLink="/scores">all scores</a>.
     </p>
 } @else {
-    {{ categories.length }} categories:
+    {{ categories.length | pluralize: "category": "categories" }}
     <section class="card-list">
         @for (category of categories; track $index) {
             <a routerLink="/categories/{{category.name}}"><app-category-card [category]="category"

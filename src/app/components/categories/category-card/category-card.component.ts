@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Category } from '@models/category';
+import { PluralizePipe } from "@utils/pluralize.pipe";
 
 @Component({
   selector: 'app-category-card',
-  imports: [],
+  imports: [
+    PluralizePipe,
+  ],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.scss'
 })

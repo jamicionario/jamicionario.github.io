@@ -8,7 +8,7 @@
         @if (!category.scores.length) {
             <p class="error">Found no scores for this category.</p>
         } @else {
-            {{category.scores.length}} scores in this category:
+            {{ category.scores.length | pluralize: "score" }} in this category:
             <ul class="scores">
                 @for (score of category.scores; track $index) {
                     <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{ score.name }}</a></li>
