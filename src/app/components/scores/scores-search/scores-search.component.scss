@@ -1,4 +1,3 @@
-
 @use '../list/section-margins';
 
 :host {
@@ -15,7 +14,8 @@ fieldset {
     position: relative;
     padding-block-start: 0.7lh;
     margin-top: calc(section-margins.$vertical + 0.7lh);
-    > legend {
+
+    >legend {
         position: absolute;
         top: -0.5lh; // Half a line-height.
         margin-left: 0.3em; // Aligns vertically with the contents.
@@ -23,17 +23,28 @@ fieldset {
         background: white;
     }
 
-    > mat-form-field {
+    >mat-form-field {
         // This fixes visually the layout of the Material selects in the grid.
         // Because they have an empty space under them, for the validation errors — which we are not using.
         // It has these classes: "mat-mdc-form-field-subscript-wrapper mat-mdc-form-field-bottom-align".
         margin-bottom: -1em;
     }
 
-    > .textualSearch {
+    >.textualSearch {
         grid-column: 1 / -1;
         display: flex;
         gap: 1em;
         align-items: center;
+    }
+}
+
+// Improve label's usability.
+label {
+    cursor: pointer;
+
+    &:hover {
+        input:not(:focus-visible) {
+            outline: solid 1px var(--mat-sys-outline);
+        }
     }
 }
