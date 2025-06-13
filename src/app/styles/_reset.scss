@@ -1,14 +1,13 @@
 
-$body-margin: 0.5em;
-
 html,
 body {
+    margin: 0;
     height: 100%;
 }
 
 body {
-    margin: $body-margin;
-    height: calc(100% - 2*$body-margin);
+    padding: 0.5em;
+    box-sizing: border-box;
     // Set by Material design.
     // Not wanted for now, we keep the browser's choice for font.
     // The font of the material-select remains that one though... 🤷 ah well.
@@ -18,4 +17,3 @@ body {
 img {
     max-width: 100%;
 }
-

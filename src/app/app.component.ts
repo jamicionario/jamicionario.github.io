@@ -3,6 +3,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { JamModeService } from '@services/jam-mode.service';
 import { JamModeTogglerComponent } from "./components/jam-mode-toggler/jam-mode-toggler.component";
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { FooterComponent } from '@components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
     RouterOutlet,
     RouterLink,
     JamModeTogglerComponent,
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -24,10 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly destroyed$ = new Subject<void>();
 
   @HostBinding('class.jam-mode')
-  isJamMode: boolean = true;
+  private isJamMode: boolean = true;
 
-  jamModeService = inject(JamModeService);
-  isJamMode$: BehaviorSubject<boolean> = this.jamModeService.isJamMode$;
+  private readonly jamModeService = inject(JamModeService);
+  private readonly isJamMode$: BehaviorSubject<boolean> = this.jamModeService.isJamMode$;
 
   ngOnInit() {
     this.isJamMode$
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
   }
+
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();

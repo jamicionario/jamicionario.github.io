@@ -1,8 +1,15 @@
+$bodyDefinition: minmax(100px, 1fr);
+
 :host {
     display: grid;
-    grid-template-rows: auto 1fr;
+    gap: 1em;
+    grid-template-rows: auto $bodyDefinition auto;
+    
+    // This ensures the footer stays at the bottom of the page.
+    min-height: 100%;
 
     &.jam-mode {
+      grid-template-rows: auto $bodyDefinition;
         header {
             display: flex;
             gap: 1em;
@@ -11,6 +18,9 @@
                 font-size: large;
                 display: none;
             }
+        }
+        app-footer {
+            display: none;
         }
     }
 }
@@ -47,6 +57,6 @@ nav ul {
     font-size: large;
 }
 
-.page {
-    margin-top: 1em;
+app-footer {
+    justify-self: center;
 }
