@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import versionInfo from '@public/Jamicionario.metadata.json';
+import { pluralize } from '@utils/pluralize.pipe';
 
 @Component({
   selector: 'app-download',
@@ -14,6 +15,7 @@ export class DownloadComponent {
   versionNumber = versionInfo.Version;
   versionDate = new Date(versionInfo.GenerationDate);
 
+  // TODO: extract to a helper function, or maybe a pipe.
   public get timeAgo(): string {
     const today = new Date();
 
@@ -42,10 +44,8 @@ export class DownloadComponent {
     switch (count) {
       case 0:
         return null;
-      case 1:
-        return `${count} ${datePartName} ago`;
       default:
-        return `${count} ${datePartName}s ago`;
+        return pluralize(count, datePartName) + " ago";
     }
   }
 }

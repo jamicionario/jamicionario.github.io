@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { Score } from '@models/score';
 import { ScoreDescriptionComponent } from './score-description/score-description.component';
 import { HotkeysService, KnownKey } from '@services/hot-keys.service';
+import { pluralize } from '@utils/pluralize.pipe';
 
 @Component({
   selector: 'app-details',
@@ -37,10 +38,7 @@ export class DetailsComponent implements OnInit {
   );
 
   readonly scoreHeader$ = this.score$.pipe(
-    map(score =>
-      score?.pages.length === 1
-        ? "1 page:"
-        : (score?.pages.length ?? 0) + " pages:"
+    map(score => pluralize(score?.pages.length ?? 0, "page:", "pages:")
     ),
   );
 
