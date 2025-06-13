@@ -78,7 +78,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             });
         string json = JsonHelper.Serialize(conversionInstructions);
         string jobFileName = Path.GetTempFileName();
-        File.WriteAllText(jobFileName, json);
+        File.WriteAllText(jobFileName, json, System.Text.Encoding.UTF8);
 
         // Ask MuseScore to do the work in that job file.
         string museScoreExecutable = config.MuseScoreExecutablePath ?? "mscore";

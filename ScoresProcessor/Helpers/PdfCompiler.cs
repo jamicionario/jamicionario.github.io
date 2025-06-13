@@ -50,7 +50,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
         string jsonVersion = JsonHelper.Serialize(version);
-        File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion);
+        File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion, System.Text.Encoding.UTF8);
 
         return version;
     }

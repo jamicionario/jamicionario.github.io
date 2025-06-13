@@ -28,8 +28,8 @@ public class MetadataBuilder(ScoresConfig config)
     public void ExportMetadataFor(IEnumerable<ExportedResult> results)
     {
         Metadata metadata = GenerateMetadataFor(results);
-        File.WriteAllText(config.MetadataFileName, metadata.Scores);
-        File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories);
+        File.WriteAllText(config.MetadataFileName, metadata.Scores, System.Text.Encoding.UTF8);
+        File.WriteAllText(config.SearchCategoriesFileName, metadata.Categories, System.Text.Encoding.UTF8);
     }
 
     public static string? GetTypeOfDanceFor(TargetWithLabels target)
