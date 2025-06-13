@@ -37,6 +37,12 @@ export class DownloadComponent {
       return inDays;
     }
 
+    const hours = today.getUTCHours() - this.versionDate.getUTCHours();
+    const inHours = this.compare(hours, 'hour');
+    if (inHours != null) {
+      return inHours;
+    }
+
     return 'today';
   }
 
