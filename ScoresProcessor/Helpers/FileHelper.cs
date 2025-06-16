@@ -2,12 +2,22 @@
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
+
 public static class FileHelper
 {
-    private static readonly Dictionary<string, string> NecessaryReplacements = new() {
+    private static readonly OrderedDictionary<string, string> NecessaryReplacements = new() {
+        // This is just organizational and internal to the "Data Team" 's work.
+        { " (Jamicionario)", "" },
+        { "(Jamicionario)", "" },
         // "#" in filenames creates problems when serving files in web.
         // URL "/files/image#41.png" will request "/files/image" only! :/
-        {"#", "No."} ,
+        { "#", "No." },
+        // Parenthesis in filenames create problems when serving files in web.
+        // They are a special character, like ? and # and / and etc.
+        // See e.g. https://webmasters.stackexchange.com/a/78114
+        { " (", " " },
+        { "(", " " },
+        { ")", "" },
     };
     public static string CleanNameForWeb(string scoreName, ILogger logger)
     {
@@ -16,6 +26,7 @@ public static class FileHelper
         {
             clean = clean.Replace(find, replace);
         }
+        clean = clean.Trim();
 
         if (scoreName != clean)
         {
