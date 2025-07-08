@@ -25,23 +25,11 @@ $bodyDefinition: minmax(100px, 1fr);
     }
 }
 
-header::before {
-    content: "work in progress";
-    position: fixed;
+app-jam-mode-toggler {
+    position: absolute;
     right: 0;
     top: 0;
-
-    background-color: #689F38;
-    border-radius: 0 0 0 10px;
-    color: white;
-    padding: 0.5em 1.5em;
-}
-
-app-jam-mode-toggler {
-    position: fixed;
-    right: 0;
-    top: 40px;
-    border-radius: 15px 0 0 15px;
+    border-radius: 0 0 0 15px;
 }
 
 nav ul {
