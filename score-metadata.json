@@ -2443,6 +2443,24 @@
   },
   {
     "number": 121,
+    "name": "Mazurka - A nos espoirs",
+    "pages": [
+      "files/Mazurka - A nos espoirs-1.png"
+    ],
+    "danceGeometry": null,
+    "typeOfDance": null,
+    "labels": {},
+    "files": {
+      "pdf": "files/Mazurka - A nos espoirs.pdf",
+      "mscz": "files/Mazurka - A nos espoirs.mscz"
+    },
+    "folderStructure": [
+      "Mazurka",
+      "Europa"
+    ]
+  },
+  {
+    "number": 122,
     "name": "Mazurka - Alio",
     "pages": [
       "files/Mazurka - Alio-1.png"
@@ -2463,7 +2481,7 @@
     ]
   },
   {
-    "number": 122,
+    "number": 123,
     "name": "Mazurka - Almofada",
     "pages": [
       "files/Mazurka - Almofada-1.png"
@@ -2484,7 +2502,7 @@
     ]
   },
   {
-    "number": 123,
+    "number": 124,
     "name": "Mazurka - Au bord de l'eau",
     "pages": [
       "files/Mazurka - Au bord de leau-1.png"
@@ -2505,7 +2523,7 @@
     ]
   },
   {
-    "number": 124,
+    "number": 125,
     "name": "Mazurka - Biqueiras d'aço",
     "pages": [
       "files/Mazurka - Biqueiras daco-1.png"
@@ -2526,7 +2544,7 @@
     ]
   },
   {
-    "number": 125,
+    "number": 126,
     "name": "Mazurka - Candela",
     "pages": [
       "files/Mazurka - Candela-1.png"
@@ -2547,7 +2565,7 @@
     ]
   },
   {
-    "number": 126,
+    "number": 127,
     "name": "Mazurka - Des Tuileries",
     "pages": [
       "files/Mazurka - Des Tuileries-1.png"
@@ -2568,7 +2586,7 @@
     ]
   },
   {
-    "number": 127,
+    "number": 128,
     "name": "Mazurka - Donegal",
     "pages": [
       "files/Mazurka - Donegal-1.png"
@@ -2589,7 +2607,7 @@
     ]
   },
   {
-    "number": 128,
+    "number": 129,
     "name": "Mazurka - Far away",
     "pages": [
       "files/Mazurka - Far away-1.png"
@@ -2610,7 +2628,7 @@
     ]
   },
   {
-    "number": 129,
+    "number": 130,
     "name": "Mazurka - Il neige a Porto",
     "pages": [
       "files/Mazurka - Il neige a Porto-1.png"
@@ -2631,7 +2649,7 @@
     ]
   },
   {
-    "number": 130,
+    "number": 131,
     "name": "Mazurka - Inisheer",
     "pages": [
       "files/Mazurka - Inisheer-1.png"
@@ -2652,7 +2670,7 @@
     ]
   },
   {
-    "number": 131,
+    "number": 132,
     "name": "Mazurka - Italienne",
     "pages": [
       "files/Mazurka - Italienne-1.png"
@@ -2673,7 +2691,7 @@
     ]
   },
   {
-    "number": 132,
+    "number": 133,
     "name": "Mazurka - Je soi perdut",
     "pages": [
       "files/Mazurka - Je soi perdut-1.png"
@@ -2694,7 +2712,7 @@
     ]
   },
   {
-    "number": 133,
+    "number": 134,
     "name": "Mazurka - L'impasse",
     "pages": [
       "files/Mazurka - Limpasse-1.png"
@@ -2715,7 +2733,7 @@
     ]
   },
   {
-    "number": 134,
+    "number": 135,
     "name": "Mazurka - La discrète",
     "pages": [
       "files/Mazurka - La discrete-1.png"
@@ -2738,7 +2756,7 @@
     ]
   },
   {
-    "number": 135,
+    "number": 136,
     "name": "Mazurka - La nonchalante",
     "pages": [
       "files/Mazurka - La nonchalante-1.png"
@@ -2759,7 +2777,7 @@
     ]
   },
   {
-    "number": 136,
+    "number": 137,
     "name": "Mazurka - La p'tite fée",
     "pages": [
       "files/Mazurka - La ptite fee-1.png"
@@ -2780,7 +2798,7 @@
     ]
   },
   {
-    "number": 137,
+    "number": 138,
     "name": "Mazurka - La paire de Saulxures",
     "pages": [
       "files/Mazurka - La paire de Saulxures-1.png"
@@ -2801,7 +2819,7 @@
     ]
   },
   {
-    "number": 138,
+    "number": 139,
     "name": "Mazurka - Les écoliers de Saint Genest",
     "pages": [
       "files/Mazurka - Les ecoliers de Saint Genest-1.png"
@@ -2822,7 +2840,7 @@
     ]
   },
   {
-    "number": 139,
+    "number": 140,
     "name": "Mazurka - Lisbonne",
     "pages": [
       "files/Mazurka - Lisbonne-1.png"
@@ -2843,7 +2861,7 @@
     ]
   },
   {
-    "number": 140,
+    "number": 141,
     "name": "Mazurka - Mazurka Choro",
     "pages": [
       "files/Mazurka - Mazurka Choro-1.png"
@@ -2864,7 +2882,7 @@
     ]
   },
   {
-    "number": 141,
+    "number": 142,
     "name": "Mazurka - Moda a 2 Passos do Manel Azenha",
     "pages": [
       "files/Mazurka - Moda a 2 Passos do Manel Azenha-1.png"
@@ -2885,7 +2903,7 @@
     ]
   },
   {
-    "number": 142,
+    "number": 143,
     "name": "Mazurka - Motorway",
     "pages": [
       "files/Mazurka - Motorway-1.png"
@@ -2906,7 +2924,7 @@
     ]
   },
   {
-    "number": 143,
+    "number": 144,
     "name": "Mazurka - Mouchti",
     "pages": [
       "files/Mazurka - Mouchti-1.png"
@@ -2927,7 +2945,7 @@
     ]
   },
   {
-    "number": 144,
+    "number": 145,
     "name": "Mazurka - Musike",
     "pages": [
       "files/Mazurka - Musike-1.png"
@@ -2948,7 +2966,7 @@
     ]
   },
   {
-    "number": 145,
+    "number": 146,
     "name": "Mazurka - Nadiejda",
     "pages": [
       "files/Mazurka - Nadiejda-1.png"
@@ -2971,7 +2989,7 @@
     ]
   },
   {
-    "number": 146,
+    "number": 147,
     "name": "Mazurka - Natzurka",
     "pages": [
       "files/Mazurka - Natzurka-1.png"
@@ -2992,7 +3010,7 @@
     ]
   },
   {
-    "number": 147,
+    "number": 148,
     "name": "Mazurka - Nina",
     "pages": [
       "files/Mazurka - Nina-1.png"
@@ -3013,7 +3031,7 @@
     ]
   },
   {
-    "number": 148,
+    "number": 149,
     "name": "Mazurka - Solitude",
     "pages": [
       "files/Mazurka - Solitude-1.png"
@@ -3034,7 +3052,7 @@
     ]
   },
   {
-    "number": 149,
+    "number": 150,
     "name": "Mazurka - Sonny Brogan's",
     "pages": [
       "files/Mazurka - Sonny Brogans-1.png"
@@ -3055,7 +3073,7 @@
     ]
   },
   {
-    "number": 150,
+    "number": 151,
     "name": "Mazurka - Tourbillonne",
     "pages": [
       "files/Mazurka - Tourbillonne-1.png"
@@ -3076,7 +3094,7 @@
     ]
   },
   {
-    "number": 151,
+    "number": 152,
     "name": "Mazurka - Trafic d'orgasmes",
     "pages": [
       "files/Mazurka - Trafic dorgasmes-1.png"
@@ -3097,7 +3115,7 @@
     ]
   },
   {
-    "number": 152,
+    "number": 153,
     "name": "Morna - Sodade",
     "pages": [
       "files/Morna - Sodade-1.png"
@@ -3117,7 +3135,7 @@
     ]
   },
   {
-    "number": 153,
+    "number": 154,
     "name": "Muñeira - A camposa",
     "pages": [
       "files/Muneira - A camposa-1.png"
@@ -3139,7 +3157,7 @@
     ]
   },
   {
-    "number": 154,
+    "number": 155,
     "name": "Muñeira - De Chantada",
     "pages": [
       "files/Muneira - De Chantada-1.png"
@@ -3159,7 +3177,7 @@
     ]
   },
   {
-    "number": 155,
+    "number": 156,
     "name": "Muñeira - De Ponte Sampaio",
     "pages": [
       "files/Muneira - De Ponte Sampaio-1.png"
@@ -3179,7 +3197,7 @@
     ]
   },
   {
-    "number": 156,
+    "number": 157,
     "name": "Muriñeira - Transmontana",
     "pages": [
       "files/Murineira - Transmontana-1.png"
@@ -3199,7 +3217,7 @@
     ]
   },
   {
-    "number": 157,
+    "number": 158,
     "name": "Polka - John Egan's",
     "pages": [
       "files/Polka - John Egans-1.png"
@@ -3216,7 +3234,7 @@
     ]
   },
   {
-    "number": 158,
+    "number": 159,
     "name": "Polka - L'Elan",
     "pages": [
       "files/Polka - LElan-1.png"
@@ -3233,7 +3251,7 @@
     ]
   },
   {
-    "number": 159,
+    "number": 160,
     "name": "Polka - The Ballydesmond 1",
     "pages": [
       "files/Polka - The Ballydesmond 1-1.png"
@@ -3250,7 +3268,7 @@
     ]
   },
   {
-    "number": 160,
+    "number": 161,
     "name": "Polka - The Ballydesmond 2",
     "pages": [
       "files/Polka - The Ballydesmond 2-1.png"
@@ -3267,7 +3285,7 @@
     ]
   },
   {
-    "number": 161,
+    "number": 162,
     "name": "Polska - Efter Kings Selma",
     "pages": [
       "files/Polska - Efter Kings Selma-1.png"
@@ -3287,7 +3305,7 @@
     ]
   },
   {
-    "number": 162,
+    "number": 163,
     "name": "Polska - Flodens dod",
     "pages": [
       "files/Polska - Flodens dod-1.png"
@@ -3307,7 +3325,7 @@
     ]
   },
   {
-    "number": 163,
+    "number": 164,
     "name": "Polska - Krus Polska",
     "pages": [
       "files/Polska - Krus Polska-1.png"
@@ -3327,7 +3345,7 @@
     ]
   },
   {
-    "number": 164,
+    "number": 165,
     "name": "Slangpolska - Från Barsebäck",
     "pages": [
       "files/Slangpolska - Fran Barseback-1.png"
@@ -3347,7 +3365,7 @@
     ]
   },
   {
-    "number": 165,
+    "number": 166,
     "name": "Slangpolska - Från Halleforsnas",
     "pages": [
       "files/Slangpolska - Fran Halleforsnas-1.png"
@@ -3367,7 +3385,7 @@
     ]
   },
   {
-    "number": 166,
+    "number": 167,
     "name": "Reel - Farewell to Chernobyl",
     "pages": [
       "files/Reel - Farewell to Chernobyl-1.png"
@@ -3385,7 +3403,7 @@
     ]
   },
   {
-    "number": 167,
+    "number": 168,
     "name": "Reel - Pachelbel's Frolicks",
     "pages": [
       "files/Reel - Pachelbels Frolicks-1.png"
@@ -3403,7 +3421,7 @@
     ]
   },
   {
-    "number": 168,
+    "number": 169,
     "name": "Reel - The Ballivanich Reel",
     "pages": [
       "files/Reel - The Ballivanich Reel-1.png"
@@ -3421,7 +3439,7 @@
     ]
   },
   {
-    "number": 169,
+    "number": 170,
     "name": "Reel - The deil among the tailors",
     "pages": [
       "files/Reel - The deil among the tailors-1.png"
@@ -3443,7 +3461,7 @@
     ]
   },
   {
-    "number": 170,
+    "number": 171,
     "name": "Repasseado - Carapau Preto",
     "pages": [
       "files/Repasseado - Carapau Preto-1.png"
@@ -3460,7 +3478,7 @@
     ]
   },
   {
-    "number": 171,
+    "number": 172,
     "name": "Repasseado - de Rio d'Onor",
     "pages": [
       "files/Repasseado - de Rio dOnor-1.png"
@@ -3477,7 +3495,7 @@
     ]
   },
   {
-    "number": 172,
+    "number": 173,
     "name": "Repasseado - do Vasco",
     "pages": [
       "files/Repasseado - do Vasco-1.png"
@@ -3494,7 +3512,7 @@
     ]
   },
   {
-    "number": 173,
+    "number": 174,
     "name": "Rigodon - L'âne",
     "pages": [
       "files/Rigodon - Lane-1.png"
@@ -3514,7 +3532,7 @@
     ]
   },
   {
-    "number": 174,
+    "number": 175,
     "name": "Ronde a 3 passos - Tri Martolod",
     "pages": [
       "files/Ronde a 3 passos - Tri Martolod-1.png"
@@ -3535,7 +3553,7 @@
     ]
   },
   {
-    "number": 175,
+    "number": 176,
     "name": "Ronde d'Argenton - Le jeune homme de Nantes",
     "pages": [
       "files/Ronde dArgenton - Le jeune homme de Nantes-1.png"
@@ -3553,7 +3571,7 @@
     ]
   },
   {
-    "number": 176,
+    "number": 177,
     "name": "Ronde du Quercy - Amazone",
     "pages": [
       "files/Ronde du Quercy - Amazone-1.png"
@@ -3574,7 +3592,7 @@
     ]
   },
   {
-    "number": 177,
+    "number": 178,
     "name": "Ronde du Quercy - De bon matin",
     "pages": [
       "files/Ronde du Quercy - De bon matin-1.png"
@@ -3595,7 +3613,7 @@
     ]
   },
   {
-    "number": 178,
+    "number": 179,
     "name": "Ronde du Quercy - Dejol pont de Lion",
     "pages": [
       "files/Ronde du Quercy - Dejol pont de Lion-1.png"
@@ -3616,7 +3634,7 @@
     ]
   },
   {
-    "number": 179,
+    "number": 180,
     "name": "Ronde du Quercy - Dessous la grava de Bordeu",
     "pages": [
       "files/Ronde du Quercy - Dessous la grava de Bordeu-1.png"
@@ -3637,7 +3655,7 @@
     ]
   },
   {
-    "number": 180,
+    "number": 181,
     "name": "Rondeau em cadeia - KC",
     "pages": [
       "files/Rondeau em cadeia - KC-1.png"
@@ -3658,7 +3676,7 @@
     ]
   },
   {
-    "number": 181,
+    "number": 182,
     "name": "Rondeau em cadeia - L'oeil du cyclone",
     "pages": [
       "files/Rondeau em cadeia - Loeil du cyclone-1.png"
@@ -3679,7 +3697,7 @@
     ]
   },
   {
-    "number": 182,
+    "number": 183,
     "name": "Rondeau em cadeia - Valhermeil",
     "pages": [
       "files/Rondeau em cadeia - Valhermeil-1.png"
@@ -3700,7 +3718,7 @@
     ]
   },
   {
-    "number": 183,
+    "number": 184,
     "name": "Rondeau a pares - Nau goiatas a Castèthnau",
     "pages": [
       "files/Rondeau a pares - Nau goiatas a Castethnau-1.png"
@@ -3721,7 +3739,7 @@
     ]
   },
   {
-    "number": 184,
+    "number": 185,
     "name": "Rondeau a pares - O homem da lua",
     "pages": [
       "files/Rondeau a pares - O homem da lua-1.png"
@@ -3742,7 +3760,7 @@
     ]
   },
   {
-    "number": 185,
+    "number": 186,
     "name": "Rondeau a pares - Safi",
     "pages": [
       "files/Rondeau a pares - Safi-1.png"
@@ -3763,7 +3781,7 @@
     ]
   },
   {
-    "number": 186,
+    "number": 187,
     "name": "Rumba - Dos cinco mariñeiros",
     "pages": [
       "files/Rumba - Dos cinco marineiros-1.png"
@@ -3780,7 +3798,7 @@
     ]
   },
   {
-    "number": 187,
+    "number": 188,
     "name": "Brume Scottish Impar",
     "pages": [
       "files/Brume Scottish Impar-1.png"
@@ -3801,7 +3819,7 @@
     ]
   },
   {
-    "number": 188,
+    "number": 189,
     "name": "Scottish - À l'amante",
     "pages": [
       "files/Scottish - A lamante-1.png"
@@ -3822,7 +3840,7 @@
     ]
   },
   {
-    "number": 189,
+    "number": 190,
     "name": "Scottish - Autumn leaves",
     "pages": [
       "files/Scottish - Autumn leaves-1.png"
@@ -3843,7 +3861,7 @@
     ]
   },
   {
-    "number": 190,
+    "number": 191,
     "name": "Scottish - Brittish swing",
     "pages": [
       "files/Scottish - Brittish swing-1.png"
@@ -3864,7 +3882,7 @@
     ]
   },
   {
-    "number": 191,
+    "number": 192,
     "name": "Scottish - Du 29 de mars",
     "pages": [
       "files/Scottish - Du 29 de mars-1.png"
@@ -3885,7 +3903,7 @@
     ]
   },
   {
-    "number": 192,
+    "number": 193,
     "name": "Scottish - Du Taraf",
     "pages": [
       "files/Scottish - Du Taraf-1.png"
@@ -3906,7 +3924,7 @@
     ]
   },
   {
-    "number": 193,
+    "number": 194,
     "name": "Scottish - Esperanza",
     "pages": [
       "files/Scottish - Esperanza-1.png"
@@ -3927,7 +3945,7 @@
     ]
   },
   {
-    "number": 194,
+    "number": 195,
     "name": "Scottish - Finlandaise",
     "pages": [
       "files/Scottish - Finlandaise-1.png"
@@ -3948,7 +3966,7 @@
     ]
   },
   {
-    "number": 195,
+    "number": 196,
     "name": "Scottish - Go Mauve",
     "pages": [
       "files/Scottish - Go Mauve-1.png"
@@ -3969,7 +3987,7 @@
     ]
   },
   {
-    "number": 196,
+    "number": 197,
     "name": "Scottish - Hellebore",
     "pages": [
       "files/Scottish - Hellebore-1.png"
@@ -3990,7 +4008,7 @@
     ]
   },
   {
-    "number": 197,
+    "number": 198,
     "name": "Scottish - L'ourson",
     "pages": [
       "files/Scottish - Lourson-1.png"
@@ -4011,7 +4029,7 @@
     ]
   },
   {
-    "number": 198,
+    "number": 199,
     "name": "Scottish - La sansonette",
     "pages": [
       "files/Scottish - La sansonette-1.png"
@@ -4032,7 +4050,7 @@
     ]
   },
   {
-    "number": 199,
+    "number": 200,
     "name": "Scottish - Le lezard",
     "pages": [
       "files/Scottish - Le lezard-1.png"
@@ -4053,7 +4071,7 @@
     ]
   },
   {
-    "number": 200,
+    "number": 201,
     "name": "Scottish - Les beaux jours",
     "pages": [
       "files/Scottish - Les beaux jours-1.png"
@@ -4074,7 +4092,7 @@
     ]
   },
   {
-    "number": 201,
+    "number": 202,
     "name": "Scottish - Luquejada",
     "pages": [
       "files/Scottish - Luquejada-1.png"
@@ -4095,7 +4113,7 @@
     ]
   },
   {
-    "number": 202,
+    "number": 203,
     "name": "Scottish - Pink Molly",
     "pages": [
       "files/Scottish - Pink Molly-1.png"
@@ -4116,7 +4134,7 @@
     ]
   },
   {
-    "number": 203,
+    "number": 204,
     "name": "Scottish - Popcorn behaviour",
     "pages": [
       "files/Scottish - Popcorn behaviour-1.png"
@@ -4137,7 +4155,7 @@
     ]
   },
   {
-    "number": 204,
+    "number": 205,
     "name": "Scottish - Sunshine",
     "pages": [
       "files/Scottish - Sunshine-1.png"
@@ -4160,7 +4178,7 @@
     ]
   },
   {
-    "number": 205,
+    "number": 206,
     "name": "Scottish - Too late to sleep",
     "pages": [
       "files/Scottish - Too late to sleep-1.png"
@@ -4181,7 +4199,7 @@
     ]
   },
   {
-    "number": 206,
+    "number": 207,
     "name": "Scottish - Trip to Pakistan",
     "pages": [
       "files/Scottish - Trip to Pakistan-1.png"
@@ -4202,7 +4220,7 @@
     ]
   },
   {
-    "number": 207,
+    "number": 208,
     "name": "Scottish - Trip to Prague",
     "pages": [
       "files/Scottish - Trip to Prague-1.png"
@@ -4223,7 +4241,7 @@
     ]
   },
   {
-    "number": 208,
+    "number": 209,
     "name": "Scottish - Urbaine",
     "pages": [
       "files/Scottish - Urbaine-1.png"
@@ -4246,7 +4264,7 @@
     ]
   },
   {
-    "number": 209,
+    "number": 210,
     "name": "Shyrto - Liliano Mome",
     "pages": [
       "files/Shyrto - Liliano Mome-1.png"
@@ -4267,7 +4285,7 @@
     ]
   },
   {
-    "number": 210,
+    "number": 211,
     "name": "Single - 7 Saltos",
     "pages": [
       "files/Single - 7 Saltos-1.png"
@@ -4284,7 +4302,7 @@
     ]
   },
   {
-    "number": 211,
+    "number": 212,
     "name": "Single - A Saia da Carolina",
     "pages": [
       "files/Single - A Saia da Carolina-1.png"
@@ -4301,7 +4319,7 @@
     ]
   },
   {
-    "number": 212,
+    "number": 213,
     "name": "Single - Ajde Jano",
     "pages": [
       "files/Single - Ajde Jano-1.png"
@@ -4322,7 +4340,7 @@
     ]
   },
   {
-    "number": 213,
+    "number": 214,
     "name": "Single - Alunelul",
     "pages": [
       "files/Single - Alunelul-1.png"
@@ -4339,7 +4357,7 @@
     ]
   },
   {
-    "number": 214,
+    "number": 215,
     "name": "Single - Ambee Dageets",
     "pages": [
       "files/Single - Ambee Dageets-1.png"
@@ -4356,7 +4374,7 @@
     ]
   },
   {
-    "number": 215,
+    "number": 216,
     "name": "Single - Carnaval de Lanz",
     "pages": [
       "files/Single - Carnaval de Lanz-1.png"
@@ -4373,7 +4391,7 @@
     ]
   },
   {
-    "number": 216,
+    "number": 217,
     "name": "Single - Cochinchine",
     "pages": [
       "files/Single - Cochinchine-1.png"
@@ -4390,7 +4408,7 @@
     ]
   },
   {
-    "number": 217,
+    "number": 218,
     "name": "Single - Dança do Urso",
     "pages": [
       "files/Single - Danca do Urso-1.png"
@@ -4407,7 +4425,7 @@
     ]
   },
   {
-    "number": 218,
+    "number": 219,
     "name": "Single - Dansul pinguinului",
     "pages": [
       "files/Single - Dansul pinguinului-1.png"
@@ -4424,7 +4442,7 @@
     ]
   },
   {
-    "number": 219,
+    "number": 220,
     "name": "Single - Drumul Dracului",
     "pages": [
       "files/Single - Drumul Dracului-1.png"
@@ -4443,7 +4461,7 @@
     ]
   },
   {
-    "number": 220,
+    "number": 221,
     "name": "Single - El sueño de la hija del rey",
     "pages": [
       "files/Single - El sueno de la hija del rey-1.png"
@@ -4460,7 +4478,7 @@
     ]
   },
   {
-    "number": 221,
+    "number": 222,
     "name": "Single - Erva Cidreira",
     "pages": [
       "files/Single - Erva Cidreira-1.png"
@@ -4477,7 +4495,7 @@
     ]
   },
   {
-    "number": 222,
+    "number": 223,
     "name": "Single - Fado do espinho",
     "pages": [
       "files/Single - Fado do espinho-1.png"
@@ -4494,7 +4512,7 @@
     ]
   },
   {
-    "number": 223,
+    "number": 224,
     "name": "Single - Gunesim",
     "pages": [
       "files/Single - Gunesim-1.png"
@@ -4511,7 +4529,7 @@
     ]
   },
   {
-    "number": 224,
+    "number": 225,
     "name": "Single - Harabi Hameraked",
     "pages": [
       "files/Single - Harabi Hameraked-1.png"
@@ -4528,7 +4546,7 @@
     ]
   },
   {
-    "number": 225,
+    "number": 226,
     "name": "Single - Hora Medura",
     "pages": [
       "files/Single - Hora Medura-1.png"
@@ -4545,7 +4563,7 @@
     ]
   },
   {
-    "number": 226,
+    "number": 227,
     "name": "Single - Koce Berberot",
     "pages": [
       "files/Single - Koce Berberot-1.png"
@@ -4562,7 +4580,7 @@
     ]
   },
   {
-    "number": 227,
+    "number": 228,
     "name": "Single - Ladrao do meio",
     "pages": [
       "files/Single - Ladrao do meio-1.png"
@@ -4579,7 +4597,7 @@
     ]
   },
   {
-    "number": 228,
+    "number": 229,
     "name": "Single - Les olivettes",
     "pages": [
       "files/Single - Les olivettes-1.png"
@@ -4596,7 +4614,7 @@
     ]
   },
   {
-    "number": 229,
+    "number": 230,
     "name": "Single - Ma Navu",
     "pages": [
       "files/Single - Ma Navu-1.png"
@@ -4613,7 +4631,7 @@
     ]
   },
   {
-    "number": 230,
+    "number": 231,
     "name": "Single - Maneio",
     "pages": [
       "files/Single - Maneio-1.png"
@@ -4630,7 +4648,7 @@
     ]
   },
   {
-    "number": 231,
+    "number": 232,
     "name": "Single - Mardi Gras",
     "pages": [
       "files/Single - Mardi Gras-1.png"
@@ -4647,7 +4665,7 @@
     ]
   },
   {
-    "number": 232,
+    "number": 233,
     "name": "Single - Mat'Aranha",
     "pages": [
       "files/Single - MatAranha-1.png"
@@ -4664,7 +4682,7 @@
     ]
   },
   {
-    "number": 233,
+    "number": 234,
     "name": "Single - Misirlou",
     "pages": [
       "files/Single - Misirlou-1.png"
@@ -4683,7 +4701,7 @@
     ]
   },
   {
-    "number": 234,
+    "number": 235,
     "name": "Single - Nigun Shel Yossi",
     "pages": [
       "files/Single - Nigun Shel Yossi-1.png"
@@ -4700,7 +4718,7 @@
     ]
   },
   {
-    "number": 235,
+    "number": 236,
     "name": "Single - Oy Yossel Yossel",
     "pages": [
       "files/Single - Oy Yossel Yossel-1.png"
@@ -4717,7 +4735,7 @@
     ]
   },
   {
-    "number": 236,
+    "number": 237,
     "name": "Single - Pas d'été de Médoeux",
     "pages": [
       "files/Single - Pas dete de Medoeux-1.png"
@@ -4736,7 +4754,7 @@
     ]
   },
   {
-    "number": 237,
+    "number": 238,
     "name": "Single - Picadinha",
     "pages": [
       "files/Single - Picadinha-1.png"
@@ -4753,7 +4771,7 @@
     ]
   },
   {
-    "number": 238,
+    "number": 239,
     "name": "Single - Pieternelle",
     "pages": [
       "files/Single - Pieternelle-1.png"
@@ -4770,7 +4788,7 @@
     ]
   },
   {
-    "number": 239,
+    "number": 240,
     "name": "Single - Pingacho",
     "pages": [
       "files/Single - Pingacho-1.png"
@@ -4787,7 +4805,7 @@
     ]
   },
   {
-    "number": 240,
+    "number": 241,
     "name": "Single - Regadinho",
     "pages": [
       "files/Single - Regadinho-1.png"
@@ -4804,7 +4822,7 @@
     ]
   },
   {
-    "number": 241,
+    "number": 242,
     "name": "Single - Rumelaj",
     "pages": [
       "files/Single - Rumelaj-1.png"
@@ -4821,7 +4839,7 @@
     ]
   },
   {
-    "number": 242,
+    "number": 243,
     "name": "Single - Senhor Galandum",
     "pages": [
       "files/Single - Senhor Galandum-1.png"
@@ -4838,7 +4856,7 @@
     ]
   },
   {
-    "number": 243,
+    "number": 244,
     "name": "Single - Serjoza",
     "pages": [
       "files/Single - Serjoza-1.png"
@@ -4855,7 +4873,7 @@
     ]
   },
   {
-    "number": 244,
+    "number": 245,
     "name": "Single - Troika",
     "pages": [
       "files/Single - Troika-1.png"
@@ -4872,7 +4890,7 @@
     ]
   },
   {
-    "number": 245,
+    "number": 246,
     "name": "Single - Tzadik Katamar",
     "pages": [
       "files/Single - Tzadik Katamar-1.png"
@@ -4891,7 +4909,7 @@
     ]
   },
   {
-    "number": 246,
+    "number": 247,
     "name": "Single - Valsa da mota",
     "pages": [
       "files/Single - Valsa da mota-1.png"
@@ -4908,7 +4926,7 @@
     ]
   },
   {
-    "number": 247,
+    "number": 248,
     "name": "Tarantella - Napoilitana",
     "pages": [
       "files/Tarantella - Napoilitana-1.png"
@@ -4925,7 +4943,7 @@
     ]
   },
   {
-    "number": 248,
+    "number": 249,
     "name": "Tourdion - Quand je bois du vin claret",
     "pages": [
       "files/Tourdion - Quand je bois du vin claret-1.png"
@@ -4942,7 +4960,7 @@
     ]
   },
   {
-    "number": 249,
+    "number": 250,
     "name": "Tricot - Dave",
     "pages": [
       "files/Tricot - Dave-1.png"
@@ -4959,7 +4977,7 @@
     ]
   },
   {
-    "number": 250,
+    "number": 251,
     "name": "Tricot - Le beau rosier",
     "pages": [
       "files/Tricot - Le beau rosier-1.png"
@@ -4976,7 +4994,7 @@
     ]
   },
   {
-    "number": 251,
+    "number": 252,
     "name": "Valsa 3T - Ashokan Farewell",
     "pages": [
       "files/Valsa 3T - Ashokan Farewell-1.png"
@@ -4998,7 +5016,7 @@
     ]
   },
   {
-    "number": 252,
+    "number": 253,
     "name": "Valsa 3T - Flatwater Fran",
     "pages": [
       "files/Valsa 3T - Flatwater Fran-1.png"
@@ -5022,7 +5040,7 @@
     ]
   },
   {
-    "number": 253,
+    "number": 254,
     "name": "Valsa 3T - Josefin Dopvals",
     "pages": [
       "files/Valsa 3T - Josefin Dopvals-1.png"
@@ -5044,7 +5062,7 @@
     ]
   },
   {
-    "number": 254,
+    "number": 255,
     "name": "Valsa 3T - A minha saia velhinha",
     "pages": [
       "files/Valsa 3T - A minha saia velhinha-1.png"
@@ -5066,7 +5084,7 @@
     ]
   },
   {
-    "number": 255,
+    "number": 256,
     "name": "Valsa 3T - Al yaras",
     "pages": [
       "files/Valsa 3T - Al yaras-1.png"
@@ -5088,7 +5106,7 @@
     ]
   },
   {
-    "number": 256,
+    "number": 257,
     "name": "Valsa 3T - As Montanhas",
     "pages": [
       "files/Valsa 3T - As Montanhas-1.png"
@@ -5110,7 +5128,7 @@
     ]
   },
   {
-    "number": 257,
+    "number": 258,
     "name": "Valsa 3T - Flatworld",
     "pages": [
       "files/Valsa 3T - Flatworld-1.png"
@@ -5132,7 +5150,7 @@
     ]
   },
   {
-    "number": 258,
+    "number": 259,
     "name": "Valsa 3T - La mal aimable",
     "pages": [
       "files/Valsa 3T - La mal aimable-1.png"
@@ -5155,7 +5173,7 @@
     ]
   },
   {
-    "number": 259,
+    "number": 260,
     "name": "Valsa 3T - La Partida",
     "pages": [
       "files/Valsa 3T - La Partida-1.png"
@@ -5177,7 +5195,7 @@
     ]
   },
   {
-    "number": 260,
+    "number": 261,
     "name": "Valsa 3T - La rivière de Regourd",
     "pages": [
       "files/Valsa 3T - La riviere de Regourd-1.png"
@@ -5199,7 +5217,7 @@
     ]
   },
   {
-    "number": 261,
+    "number": 262,
     "name": "Valsa 3T - La valse des negresses vertes",
     "pages": [
       "files/Valsa 3T - La valse des negresses vertes-1.png"
@@ -5221,7 +5239,7 @@
     ]
   },
   {
-    "number": 262,
+    "number": 263,
     "name": "Valsa 3T - Lucifer",
     "pages": [
       "files/Valsa 3T - Lucifer-1.png"
@@ -5243,7 +5261,7 @@
     ]
   },
   {
-    "number": 263,
+    "number": 264,
     "name": "Valsa 3T - My favourite things",
     "pages": [
       "files/Valsa 3T - My favourite things-1.png"
@@ -5265,7 +5283,7 @@
     ]
   },
   {
-    "number": 264,
+    "number": 265,
     "name": "Valsa 3T - Primavera a 3 tempos",
     "pages": [
       "files/Valsa 3T - Primavera a 3 tempos-1.png"
@@ -5291,7 +5309,7 @@
     ]
   },
   {
-    "number": 265,
+    "number": 266,
     "name": "Valsa 3T - Silent Night",
     "pages": [
       "files/Valsa 3T - Silent Night-1.png"
@@ -5313,7 +5331,7 @@
     ]
   },
   {
-    "number": 266,
+    "number": 267,
     "name": "Valsa 3T - Valse à Ollu",
     "pages": [
       "files/Valsa 3T - Valse a Ollu-1.png"
@@ -5335,7 +5353,7 @@
     ]
   },
   {
-    "number": 267,
+    "number": 268,
     "name": "Valsa 3T - Valse Dombelle",
     "pages": [
       "files/Valsa 3T - Valse Dombelle-1.png"
@@ -5354,7 +5372,7 @@
     ]
   },
   {
-    "number": 268,
+    "number": 269,
     "name": "Valsa 3T - Valse Magnetique",
     "pages": [
       "files/Valsa 3T - Valse Magnetique-1.png"
@@ -5376,7 +5394,7 @@
     ]
   },
   {
-    "number": 269,
+    "number": 270,
     "name": "Valsa 3T - We wish you a merry Christmas",
     "pages": [
       "files/Valsa 3T - We wish you a merry Christmas-1.png"
@@ -5395,7 +5413,7 @@
     ]
   },
   {
-    "number": 270,
+    "number": 271,
     "name": "Valsa 5T - A ultima bolacha",
     "pages": [
       "files/Valsa 5T - A ultima bolacha-1.png"
@@ -5416,7 +5434,7 @@
     ]
   },
   {
-    "number": 271,
+    "number": 272,
     "name": "Valsa 5T - Batalia",
     "pages": [
       "files/Valsa 5T - Batalia-1.png"
@@ -5437,7 +5455,7 @@
     ]
   },
   {
-    "number": 272,
+    "number": 273,
     "name": "Valsa 5T - Cinco tempoush",
     "pages": [
       "files/Valsa 5T - Cinco tempoush-1.png"
@@ -5458,7 +5476,7 @@
     ]
   },
   {
-    "number": 273,
+    "number": 274,
     "name": "Valsa 5T - Elle",
     "pages": [
       "files/Valsa 5T - Elle-1.png"
@@ -5479,7 +5497,7 @@
     ]
   },
   {
-    "number": 274,
+    "number": 275,
     "name": "Valsa 5T - Evening Glory",
     "pages": [
       "files/Valsa 5T - Evening Glory-1.png"
@@ -5500,7 +5518,7 @@
     ]
   },
   {
-    "number": 275,
+    "number": 276,
     "name": "Valsa 5T - Take five",
     "pages": [
       "files/Valsa 5T - Take five-1.png"
@@ -5521,7 +5539,7 @@
     ]
   },
   {
-    "number": 276,
+    "number": 277,
     "name": "Valsa 5T - Vivre",
     "pages": [
       "files/Valsa 5T - Vivre-1.png"
@@ -5542,7 +5560,7 @@
     ]
   },
   {
-    "number": 277,
+    "number": 278,
     "name": "Valsa 7T - La facture",
     "pages": [
       "files/Valsa 7T - La facture-1.png"
@@ -5563,7 +5581,7 @@
     ]
   },
   {
-    "number": 278,
+    "number": 279,
     "name": "Valsa 8T - Anne's walz",
     "pages": [
       "files/Valsa 8T - Annes walz-1.png"
@@ -5584,7 +5602,7 @@
     ]
   },
   {
-    "number": 279,
+    "number": 280,
     "name": "Valsa 8T - Parapluie Noir",
     "pages": [
       "files/Valsa 8T - Parapluie Noir-1.png"
@@ -5605,7 +5623,7 @@
     ]
   },
   {
-    "number": 280,
+    "number": 281,
     "name": "Vira - de Quatro",
     "pages": [
       "files/Vira - de Quatro-1.png"
@@ -5622,7 +5640,7 @@
     ]
   },
   {
-    "number": 281,
+    "number": 282,
     "name": "Vira - do Minho",
     "pages": [
       "files/Vira - do Minho-1.png"
@@ -5639,7 +5657,7 @@
     ]
   },
   {
-    "number": 282,
+    "number": 283,
     "name": "Vira - Elvira",
     "pages": [
       "files/Vira - Elvira-1.png"
@@ -5656,7 +5674,7 @@
     ]
   },
   {
-    "number": 283,
+    "number": 284,
     "name": "Vira - Rosinha",
     "pages": [
       "files/Vira - Rosinha-1.png"
@@ -5673,7 +5691,7 @@
     ]
   },
   {
-    "number": 284,
+    "number": 285,
     "name": "Vira - Toma lá dá cá",
     "pages": [
       "files/Vira - Toma la da ca-1.png"
@@ -5690,7 +5708,7 @@
     ]
   },
   {
-    "number": 285,
+    "number": 286,
     "name": "Wiwat - Halina",
     "pages": [
       "files/Wiwat - Halina-1.png"
@@ -5707,7 +5725,7 @@
     ]
   },
   {
-    "number": 286,
+    "number": 287,
     "name": "Wiwat - Musialaw ty dziewcze co umiec",
     "pages": [
       "files/Wiwat - Musialaw ty dziewcze co umiec-1.png"
