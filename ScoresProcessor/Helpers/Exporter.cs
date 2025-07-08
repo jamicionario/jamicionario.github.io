@@ -11,7 +11,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         foreach (var target in targets)
         {
             string[] scoreImages = dataFinder.FindExportedImagesFor(target);
-            string? pdfFile = target.Pdf;
+            string? pdfFile = dataFinder.GetExportedPdfFilenameFor(target);
             if (!File.Exists(pdfFile))
             {
                 pdfFile = null;
@@ -20,7 +20,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         }
     }
 
-    public void ExportImagesFor(Target[] targets)
+    public void ExportFilesFor(Target[] targets)
     {
         // Ensure folder exists. Otherwise MuseScore fails silently.
         Directory.CreateDirectory(config.TargetFolder);
@@ -33,27 +33,27 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
                 ".mscz",
             ];
             return extensions
-                .Select(ext => Path.Combine(config.TargetFolder, $"{target.ScoreName}{ext}"))
+                .Select(ext => Path.Combine(config.TargetFolder, $"{target.FilenameForExporting}{ext}"))
                 .ToArray();
             
         }
         ExportFor(targets, GetDestinationsFor);
     }
 
+    private static readonly Regex MetadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
     public TargetWithLabels[] LoadLabelInfoFor(Target[] targets)
     {
         Stopwatch sw = Stopwatch.StartNew();
         DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamicionario");
 
-        Dictionary<Target, string> locations = targets.ToDictionary(x => x, target => $"{target.ScoreName}.mscx");
+        Dictionary<Target, string> locations = targets.ToDictionary(x => x, target => $"{target.FilenameForExporting}.mscx");
         ExportFor(targets, target => [Path.Combine(tempDir.FullName, locations[target])]);
 
-        Regex metadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
         Dictionary<string, string> GetLabelsFor(Target target)
         {
             string fileName = locations[target];
             string mscxText = File.ReadAllText(Path.Combine(tempDir.FullName, locations[target]));
-            IEnumerable<(string name, string value)> matches = metadataParser
+            IEnumerable<(string name, string value)> matches = MetadataParser
                     .Matches(mscxText)
                     .Select(match => (name: match.Groups["name"].Value, value: match.Groups["value"].Value));
             return MetadataBuilder.ProcessLabels(matches);

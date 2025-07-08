@@ -121,7 +121,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             return existing.Outlines;
         }
 
-        var outlines = GetOutlines();
+        PdfOutlineCollection outlines = GetOutlines();
         outlines.Add(bookmarkName, targetPage);
     }
 

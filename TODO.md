@@ -4,6 +4,11 @@
 ## Bugs
 
 - Images and other files aren't served if their filenames include non-ASCII characters: as à é å etc.
+  - Test if UTF8-normalizing the filename fixes it.
+  - Add a front-end test, a hidden page with a more complex URL like "Bourrée 2T - à Malochet.txt".
+        This will allow testing without regenerating the data.
+        Then it's easier to play-test with possible solutions.
+        Ideally we deploy not to live, but to an alternative URL like https://jamicionario.github.io/jamicionario-staging/ or wherever else.
 
 ## Tasks
 

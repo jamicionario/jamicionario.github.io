@@ -83,8 +83,8 @@ public class MetadataBuilder(ScoresConfig config)
                 labels,
 
                 files = new {
-                    pdf = Path.Combine(ScoresConfig.TargetFolderName, $"{item.ScoreName}.pdf"),
-                    mscz = Path.Combine(ScoresConfig.TargetFolderName, $"{item.ScoreName}.mscz"),
+                    pdf = Path.Combine(ScoresConfig.TargetFolderName, $"{item.FilenameForExporting}.pdf"),
+                    mscz = Path.Combine(ScoresConfig.TargetFolderName, $"{item.FilenameForExporting}.mscz"),
                 },
 
                 folderStructure,

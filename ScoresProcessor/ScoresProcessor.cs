@@ -13,12 +13,12 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Target[] targets = dataFinder.FindData();
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
-        Exporter exporter = new(config, dataFinder);
+        Exporter exporter = new(config, dataFinder, loggerFactory.CreateLogger<Exporter>());
 
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
-            Logger.LogDebug("Exporting available scores as images.");
-            exporter.ExportImagesFor(targets);
+            Logger.LogDebug("Exporting available scores, as images pdfs and mscz.");
+            exporter.ExportFilesFor(targets);
         }
 
         Lazy<ExportedResult[]> exportedResults = new(() => CompileExportedResults(exporter, targets));

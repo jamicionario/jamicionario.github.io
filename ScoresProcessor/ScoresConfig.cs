@@ -25,7 +25,11 @@ public record class ScoresConfig
     /// <summary>
     ///     The folder where the original MSCZ files are.
     /// </summary>
+    /// <remarks>
+    ///     It can be a unix relative path such as "~/Library/CloudStorage/Dropbox/Jamicionario Tripeiro".
+    /// </remarks>
     public required string MasterDataFolder { get; set; }
+
 
 
     // The remaining properties are automatically calculated:

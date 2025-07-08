@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
+
 public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 {
 	public Target[] FindData()
@@ -30,8 +31,13 @@ public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 	/// </returns>
 	public string[] FindExportedImagesFor(Target target)
 	{
-		string searchPattern = target.GetPngSearchPattern();
+		string searchPattern = $"{target.FilenameForExporting}*.png";
 		string[] scoreImages = Directory.GetFiles(config.TargetFolder, searchPattern);
 		return scoreImages;
+	}
+
+	public string GetExportedPdfFilenameFor(Target target)
+	{
+		return $"{target.FilenameForExporting}*.pdf";
 	}
 }

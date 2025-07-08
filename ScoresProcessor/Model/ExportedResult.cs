@@ -6,7 +6,7 @@ public record class ExportedResult(TargetWithLabels Source, string[] ScoreImages
 {
   public string ScoreName => Source.ScoreName;
 
-  public string Mscz => Source.Mscz;
+  public string FilenameForExporting => Source.FilenameForExporting;
 
-  public string Pdf => Source.Pdf;
+  public string Mscz => Source.Mscz;
 }
