@@ -13,13 +13,13 @@ export const startPage = Object.freeze({
 });
 
 export const routes: Routes = [
-    { path: '', title: 'Categories', component: ListCategoriesComponent, pathMatch: 'full' },
-    { path: 'scores', title: 'All scores', component: ListComponent },
-    { path: 'scores/:number', title: 'Score details', component: DetailsComponent },
-    { path: 'categories', title: 'Categories', component: ListCategoriesComponent },
-    { path: 'categories/:name', title: 'Scores for a category', component: CategoryDetailsComponent },
-    { path: 'download', title: 'Download Jamicionário', component: DownloadComponent },
-    { path: 'about', title: 'About Jamicionário', component: AboutComponent },
+    { path: '', title: 'Jamicionário', component: ListCategoriesComponent, pathMatch: 'full' },
+    { path: 'scores', title: 'All scores — Jamicionário', component: ListComponent },
+    { path: 'scores/:number', title: 'Score details — Jamicionário', component: DetailsComponent },
+    { path: 'categories', title: 'Categories — Jamicionário', component: ListCategoriesComponent },
+    { path: 'categories/:name', title: 'Scores for a category — Jamicionário', component: CategoryDetailsComponent },
+    { path: 'download', title: 'Download — Jamicionário', component: DownloadComponent },
+    { path: 'about', title: 'About — Jamicionário', component: AboutComponent },
     // Handle any broken paths.
-    { path: '**', title: '404 — Not Found', component: NotFoundComponent },
+    { path: '**', title: '404 — Not Found — Jamicionário', component: NotFoundComponent },
 ];
