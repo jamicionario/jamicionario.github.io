@@ -8,9 +8,16 @@ import { AboutComponent } from '@components/about/about.component';
 import { NotFoundComponent } from '@components/not-found/not-found.component';
 
 export const startPage = Object.freeze({
-    title: 'Categories',
-    url: '/categories',
+    title: 'Home',
+    url: '/',
 });
+
+export const menuItems = Object.freeze([
+    { title: startPage.title, url: startPage.url },
+    { title: 'Search', url: '/scores' },
+    { title: 'Download', url: '/download' },
+    { title: 'About', url: '/about' },
+  ]);
 
 export const routes: Routes = [
     { path: '', title: 'Jamicionário', component: ListCategoriesComponent, pathMatch: 'full' },
