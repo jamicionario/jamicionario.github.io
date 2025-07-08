@@ -5,6 +5,11 @@ import { pluralize } from "./pluralize.pipe";
  * Generates a "time ago" from a date.
  * 
  * Examples: "2 years ago", "1 month ago", "12 days ago", "3 hours ago", "just now".
+ *
+ * Note:
+ *      It is IMPRECISE on months calculation.
+ *      It assumes a month is always 30 days, which is not great but is good enough for our use case.
+ *      It also assumes a year is 365 days, which is even less impactful.
  */
 @Pipe({
     name: 'timeAgo',
@@ -15,41 +20,30 @@ export class TimeAgoPipe implements PipeTransform {
     }
 
     private timeAgo(date: Date): string {
-        const today = new Date();
+        // 30 days per month is imprecise, but it works well enough for what we want.
+        const daysPerMonth = 30;
 
-        const years = today.getUTCFullYear() - date.getUTCFullYear();
-        const inYears = this.compare(years, 'year');
-        if (inYears != null) {
-            return inYears;
+        const timeAgoMilliseconds: number = new Date().valueOf() - date.valueOf();
+
+        const timeAgoHours: number = Math.floor(timeAgoMilliseconds / 1000 / 60 / 60);
+        if (timeAgoHours === 0) {
+            return 'just now';
+        }
+        if (timeAgoHours < 24) {
+            return pluralize(timeAgoHours, 'hour') + " ago";
         }
 
-        const months = today.getUTCMonth() - date.getUTCMonth();
-        const inMonths = this.compare(months, 'month');
-        if (inMonths != null) {
-            return inMonths;
+        const timeAgoDays = Math.floor(timeAgoHours / 24);
+        if (timeAgoDays < daysPerMonth) {
+            return pluralize(timeAgoDays, 'day') + " ago";
         }
 
-        const days = today.getUTCDate() - date.getUTCDate();
-        const inDays = this.compare(days, 'day');
-        if (inDays != null) {
-            return inDays;
+        const timeAgoMonths = Math.floor(timeAgoDays / daysPerMonth);
+        if (timeAgoMonths < 12) {
+            return pluralize(timeAgoMonths, 'month') + " ago";
         }
 
-        const hours = today.getUTCHours() - date.getUTCHours();
-        const inHours = this.compare(hours, 'hour');
-        if (inHours != null) {
-            return inHours;
-        }
-
-        return 'just now';
-    }
-
-    private compare(count: number, datePartName: string): string | null {
-        switch (count) {
-            case 0:
-                return null;
-            default:
-                return pluralize(count, datePartName) + " ago";
-        }
+        const timeAgoYears = Math.floor(timeAgoDays / 365);
+        return pluralize(timeAgoYears, 'year') + " ago";
     }
 }

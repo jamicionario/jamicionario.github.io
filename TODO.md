@@ -9,6 +9,8 @@
         This will allow testing without regenerating the data.
         Then it's easier to play-test with possible solutions.
         Ideally we deploy not to live, but to an alternative URL like https://jamicionario.github.io/jamicionario-staging/ or wherever else.
+- Tests are not running. Fix that.
+  - After that, add tests for TimeAgoPipe.
 
 ## Tasks
 
