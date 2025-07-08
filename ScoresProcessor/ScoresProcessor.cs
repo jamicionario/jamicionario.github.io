@@ -13,7 +13,7 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Target[] targets = dataFinder.FindData();
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
-        Exporter exporter = new(config, dataFinder, loggerFactory.CreateLogger<Exporter>());
+        Exporter exporter = new(config, dataFinder);
 
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
