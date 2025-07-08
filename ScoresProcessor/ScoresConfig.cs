@@ -15,7 +15,8 @@ public record class ScoresConfig
     public string? MuseScoreExecutablePath { get; set; }
 
     /// <summary>
-    ///     The "public" folder in the Jamicionário project, such as "~/code/jamicionario".
+    ///     The "public" folder in the Jamicionário project, such as "~/code/jamicionario/public". <br />
+    ///     This is where the ScoresProcessor will put the generated data.
     /// </summary>
     /// <remarks>
     ///     It can be a unix relative path such as "~/foo/public".
@@ -23,7 +24,7 @@ public record class ScoresConfig
     public required string JamicionarioPublicFolder { get; set; }
 
     /// <summary>
-    ///     The folder where the original MSCZ files are.
+    ///     The folder where the original MSCZ files are, the "master" files.
     /// </summary>
     /// <remarks>
     ///     It can be a unix relative path such as "~/Library/CloudStorage/Dropbox/Jamicionario Tripeiro".
