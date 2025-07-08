@@ -58,7 +58,6 @@ public class MetadataBuilder(ScoresConfig config)
         object ProcessInfo(ExportedResult item, int index)
         {
             string[] folderStructure = GetFolderStructureFor(item.Source);
-            string searchableName = NormalizeStringForSearch(item.ScoreName);
             var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
 
             // Get the dance geometry and type of dance for this score.
@@ -75,7 +74,7 @@ public class MetadataBuilder(ScoresConfig config)
                 // We want indexed to 1, not to 0, as it will be user-facing: in the URL.
                 number = index + 1,
                 name = item.ScoreName,
-                searchableName,
+                // searchableName is generated in frontend.
 
                 pages,
                 danceGeometry,
@@ -115,11 +114,6 @@ public class MetadataBuilder(ScoresConfig config)
         string scoresMetadataJson = JsonHelper.Serialize(scoresMetadata);
         string categoriesMetadataJson = JsonHelper.Serialize(categoriesMetadata);
         return new Metadata(scoresMetadataJson, categoriesMetadataJson);
-    }
-
-    private static string NormalizeStringForSearch(string scoreName)
-    {
-        return scoreName.ToLowerInvariant().Trim();
     }
 
     public static Dictionary<string, string> ProcessLabels(IEnumerable<(string name, string value)> matches)

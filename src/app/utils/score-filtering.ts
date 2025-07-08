@@ -3,9 +3,12 @@ import { Category } from "@models/category";
 import { Score } from "@models/score";
 import { ScoreGroup } from "@models/score-group";
 
-// TODO: also convert characters to ASCII where possible: å->a, ç->c, é->e, etc.
 export function normalizeStringForSearch(value: string): string {
-    return value.toLowerCase().trim();
+    var withoutAccents = value.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    // Trimming improves the UX for the general case.
+    // But if someone searches for something with a space at the start or end on purpose, like " 2T",
+    // this ignores that space. That experience is degraded, but we think it's a good tradeoff.
+    return withoutAccents.toLowerCase().trim();
 }
 
 function isEmpty(search: FilterValue): boolean {

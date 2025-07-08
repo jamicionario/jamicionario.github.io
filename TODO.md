@@ -43,9 +43,3 @@
     Consider adding it to the website.
 - Show composer of the score.
     Where we have that information, show the composer of the score.
-- Search should ignore accents and other diacritics.
-    Searching for "bourree" and "bourrée" gets us different results. It shouldn't.
-    Ideally, search would be ASCII-equivalent:
-        Search term converted to ASCII-only;
-        And filtering against ASCII-only names of scores and groups.
-    This should not just remove the accented characters! That will fail the example of "bourrée".

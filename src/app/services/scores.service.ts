@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import rawMetadata from '@public/score-metadata.json';
 import { ScoreGroup } from '@models/score-group';
 import { Score } from '@models/score';
+import { normalizeStringForSearch } from '@utils/score-filtering';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,11 @@ export class ScoresService {
       // I don't know how to use the untyped Dictionary otherwise.
       // Because it is loaded untyped from JSON.
       const convertedLabels = new Map<string, string>(Object.entries(item.labels));
-      Object.assign(item, {labels: convertedLabels});
+      const searchableName: string = normalizeStringForSearch(item.name);
+      Object.assign(item, {
+        labels: convertedLabels,
+        searchableName: searchableName,
+      });
       return <Score> item;
     });
   }
