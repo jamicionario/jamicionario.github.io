@@ -1,9 +1,9 @@
 <footer>
     <div>
-        Version {{ versionNumber }},
-        updated <time dateTime="{{ readableDate }}">{{ versionDate | timeAgo }}</time>.
+        version {{ versionNumber }},
+        updated <time dateTime="{{ versionDate.toISOString() }}">{{ versionDate | timeAgo }}</time>
     </div>
     <div>
-        Site by {{contributors}}. Data by {{dataContributors}}.
+        <a href="{{ sourceInfo.source.url }}">Site</a> by {{contributors}}. Data by {{dataContributors}}.
     </div>
 </footer>
