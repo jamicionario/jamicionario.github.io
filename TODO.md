@@ -28,9 +28,23 @@
     External links should have some visual mark.
     They might or might not open in a new page — consider this option.
     We might style download links as well (MSCZ, PDF), with some download icon.
+- Auto-generate the PDF's "index" page, that lists the available scores.
+    At the moment we are using a static file from the data folder, "Index/01 index.pdf".
+    Instead, we should generate it ourselves as part of the processing of the files.
+    See PdfCompiler.cs that is using that file. Use PdfSharp to create the index.
+  - After, let's consider adding links to that index.
+        Then the user can click the scores in the index to navigate in the PDF, like they use the bookmarks/outline.
+        Right in the first pages, without extra clicks or opening more menus — great UX!
 
 ## Features
 
+- Allow reading MSCX
+    Some master files might be in MSCX format.
+    Allow reading those.
+    Ensure that we don't read both MSCZ and MSCX for the same score.
+        Decide what to do if there are clashes. Throw an error? Or always prefer one, and throw a warning? Prefer which, the most recent?...
+- Only regenerate data that is new.
+    Check the change date for the files, and only reprocess those that are not onlder than the date of the current version: fileDate <= versionDate.
 - Better tiling for categories
     There's a way to tile the squares so they fit together, instead of being in fixed rows with variable space.
 - Multi-level categories
