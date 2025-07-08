@@ -47,8 +47,6 @@
         Decide what to do if there are clashes. Throw an error? Or always prefer one, and throw a warning? Prefer which, the most recent?...
 - Only regenerate data that is new.
     Check the change date for the files, and only reprocess those that are not onlder than the date of the current version: fileDate <= versionDate.
-- Better tiling for categories
-    There's a way to tile the squares so they fit together, instead of being in fixed rows with variable space.
 - Multi-level categories
     We'd like to have multi-level categories, such as "Bourrée" > "2T" and "Círculo/Chappeloise" > "Jigs ABC".
     From category details, allow navigating to children or to parent if they exist.
