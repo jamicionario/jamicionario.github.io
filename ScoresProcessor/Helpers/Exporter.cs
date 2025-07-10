@@ -11,11 +11,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         foreach (var target in targets)
         {
             string[] scoreImages = dataFinder.FindExportedImagesFor(target);
-            string? pdfFile = dataFinder.GetExportedPdfFilenameFor(target);
-            if (!File.Exists(pdfFile))
-            {
-                pdfFile = null;
-            }
+            string? pdfFile = dataFinder.FindExportedPdfFor(target);
             yield return new ExportedResult(target, scoreImages, pdfFile);
         }
     }

@@ -36,8 +36,10 @@ public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 		return scoreImages;
 	}
 
-	public string GetExportedPdfFilenameFor(Target target)
+	public string? FindExportedPdfFor(Target target)
 	{
-		return $"{target.FilenameForExporting}*.pdf";
+		string searchPattern = $"{target.FilenameForExporting}.pdf";
+		string[] scorePdfs = Directory.GetFiles(config.TargetFolder, searchPattern);
+		return scorePdfs.SingleOrDefault();
 	}
 }
