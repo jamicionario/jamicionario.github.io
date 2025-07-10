@@ -3,6 +3,16 @@
 
 ## Bugs
 
+### Urgentes
+
+- Dá 404 ao abrir uma categoria com uma barra.
+- PDF da valsa de 7 tempos é suposto ter barras por cima "do 1" e "do 2".
+    Ver PDF da Dropobox - lá está bem.
+    No meu Musescore não aparecem as linhas, mas aparecem uns indicadores pequenos. No do João Valente aparecem.
+
+### Outros
+
+- Bug: numa página qualquer, setas mudam de página - e não podem.
 - Images and other files aren't served if their filenames include non-ASCII characters: as à é å etc.
   - Test if UTF8-normalizing the filename fixes it.
   - Add a front-end test, a hidden page with a more complex URL like "Bourrée 2T - à Malochet.txt".
@@ -55,5 +65,6 @@
     It should use metadata placeholders like $composer and $modifiedDate in its style/layout.
     Share it with the team, explain how it works and the difference.
     Consider adding it to the website.
+  - Afterwards, see if we can put the property "work title" in the document.
 - Show composer of the score.
     Where we have that information, show the composer of the score.
