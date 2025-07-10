@@ -44,8 +44,8 @@ public static class FileHelper
     public static string ClearSuffixFrom(string jamicionarioFileName)
     {
         // Remove "(Jamicionario)" from the end,
-        // allowing for extra spaces before or after any of the parenthesis.
-        return Regex.Replace(jamicionarioFileName, @"\s*\(\s*Jamicion[aá]rio\)\s*$", "");
+        // allowing for parenthesis or not, for extra whitespace, and for a dash.
+        return Regex.Replace(jamicionarioFileName, @"\s*[-–—]\s*\(?\s*Jamicion[aá]rio\)?\s*$", "");
     }
 
     /// <summary>
