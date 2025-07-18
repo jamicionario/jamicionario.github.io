@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace ScoresProcessor.Helpers;
 
-public static class FileHelper
+public static partial class FileHelper
 {
     private static readonly OrderedDictionary<string, string> NecessaryReplacements = new() {
         // This is just organizational and internal to the work of the "Data Team".
@@ -43,10 +43,21 @@ public static class FileHelper
     /// </summary>
     public static string ClearSuffixFrom(string jamicionarioFileName)
     {
-        // Remove "(Jamicionario)" from the end,
-        // allowing for parenthesis or not, for extra whitespace, and for a dash.
-        return Regex.Replace(jamicionarioFileName, @"\s*[-–—]\s*\(?\s*[Jj]amicion[aá]rio\s*\)?\s*$", "");
+        // Remove "(Jamicionario)" from the end of the filename.
+        return FilenameRegex().Replace(jamicionarioFileName, "");
     }
+    /// <summary>
+    /// Finds " (Jamicionário)" at the end of a string.
+    /// </summary>
+    /// <remarks>
+    /// Allows variations:
+    /// - Extra whitespace anywhere, from "(Jamicionario)" to " ( Jamicionario   ) ".
+    /// - A dash before, e.g. " - Jamicionario".
+    /// - Uppercase or lowercase J, with or without accent on the a: "Jamicionário", "jamicionario", etc.
+    /// - With parenthesis or not.
+    /// </remarks>
+    [GeneratedRegex(@"\s*[-–—]\s*\(?\s*[Jj]amicion[aá]rio\s*\)?\s*$")]
+    private static partial Regex FilenameRegex();
 
     /// <summary>
     /// Simplifies the <paramref name="text"/> to only have ASCII-like characters.
