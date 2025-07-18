@@ -45,7 +45,7 @@ public static class FileHelper
     {
         // Remove "(Jamicionario)" from the end,
         // allowing for parenthesis or not, for extra whitespace, and for a dash.
-        return Regex.Replace(jamicionarioFileName, @"\s*[-–—]\s*\(?\s*Jamicion[aá]rio\)?\s*$", "");
+        return Regex.Replace(jamicionarioFileName, @"\s*[-–—]\s*\(?\s*[Jj]amicion[aá]rio\s*\)?\s*$", "");
     }
 
     /// <summary>
