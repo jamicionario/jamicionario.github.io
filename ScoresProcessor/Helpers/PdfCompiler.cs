@@ -9,12 +9,13 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
 {
     private static readonly IIntroPage[] JamicionarioIntroPages = [
         new IntroPage("Index", "01 index.pdf"),
-        new PageGroup("Intro", [
-            new IntroPage("Português", "02 Intro/01a Intro ao Jamicionario (PT).pdf"),
-            new IntroPage("English", "02 Intro/01b Intro to Jamictionary (EN).pdf"),
-            new IntroPage("Français", "02 Intro/01c Intro au Jamiccionaire (FR).pdf"),
-            new IntroPage("Deutsch", "02 Intro/01d Einfürung zum Jam-Worterbuch (DE).pdf"),
-        ]),
+        new IntroPage("Intro", "02 Introduction to the Jamictionary.pdf"),
+        // new PageGroup("Intro", [
+        //     new IntroPage("Português", "02 Intro/01a Intro ao Jamicionario (PT).pdf"),
+        //     new IntroPage("English", "02 Intro/01b Intro to Jamictionary (EN).pdf"),
+        //     new IntroPage("Français", "02 Intro/01c Intro au Jamiccionaire (FR).pdf"),
+        //     new IntroPage("Deutsch", "02 Intro/01d Einfürung zum Jam-Worterbuch (DE).pdf"),
+        // ]),
     ];
     /// <summary>
     ///     Compiles the existing scores into a merged PDF, and saves it in the public folder.
