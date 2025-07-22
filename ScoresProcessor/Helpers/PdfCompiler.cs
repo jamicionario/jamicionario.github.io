@@ -36,6 +36,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             .OrderBy(item => item.ScoreName, StringComparer.InvariantCultureIgnoreCase)
             .GroupBy(item => MetadataBuilder.GetTypeOfDanceFor(item.Source))
             .OrderBy(group => group.Key, StringComparer.InvariantCultureIgnoreCase);
+        int added = 0;
         foreach (var group in targetsByTypeOfDance)
         {
             string? typeOfDance = group.Key;
@@ -46,12 +47,25 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
                     logger.LogWarning("No PDF found for score '{Score}'!", target.ScoreName);
                     continue;
                 }
+                added++;
                 AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
             }
         }
         jamicionario.Save(config.JamicionarioPdfFileName);
         string jsonVersion = JsonHelper.Serialize(version);
         File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion, System.Text.Encoding.UTF8);
+
+        if (added == 0)
+        {
+            throw new PdfCompilationException("No score PDF files were found to include in the Jamicionário PDF.");
+        }
+        if (added != targets.Length)
+        {
+            logger.LogWarning(
+                "⚠️ {MissingPdfCount} PDFs seem to be missing and were not included in the Jamicionário PDF.",
+                targets.Length - added
+                );
+        }
 
         return version;
     }
