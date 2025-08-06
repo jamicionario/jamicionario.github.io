@@ -17,3 +17,9 @@ body {
 img {
     max-width: 100%;
 }
+
+// Remove :visited style from local links, like "/download".
+// Does not affect external links like "https://example.org".
+:visited[href^="/"] {
+    color: LinkText;
+}
