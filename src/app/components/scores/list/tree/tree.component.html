@@ -11,7 +11,9 @@
             </label>
             <ul *ngIf="group.scores.length > 0">
                 <li *ngFor="let score of group.scores">
-                    {{score.Number}} <a routerLink="/scores/{{score.number}}">{{score.name}}</a>
+                    <!-- Not showing the number for now, as the .collapsable ruins the layout. It needs to be fixed. -->
+                    <!-- {{score.number}} -->
+                    <a routerLink="/scores/{{score.number}}">{{score.name}}</a>
                 </li>
             </ul>
             <ng-container *ngTemplateOutlet="tree;context:{groups: group.subGroups}">
