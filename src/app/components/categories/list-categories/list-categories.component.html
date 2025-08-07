@@ -9,7 +9,8 @@
     {{ categories.length | pluralize: "category": "categories" }}
     <section class="card-list">
         @for (category of categories; track $index) {
-            <a routerLink="/categories/{{category.name}}"><app-category-card [category]="category"
+            <!-- Using routerLink array to ensure that slashes etc are escaped. -->
+            <a [routerLink]="['/categories', category.name]"><app-category-card [category]="category"
                 ></app-category-card></a>
         }
     </section>

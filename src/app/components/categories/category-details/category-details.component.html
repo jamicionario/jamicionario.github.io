@@ -11,7 +11,7 @@
             {{ category.scores.length | pluralize: "score" }} in this category:
             <ul class="scores">
                 @for (score of category.scores; track $index) {
-                    <li><a routerLink="/scores/{{score.number}}">{{score.number}} {{ score.name }}</a></li>
+                    <li><a [routerLink]="['/scores', score.number]">{{score.number}} {{ score.name }}</a></li>
                 }
             </ul>
         }

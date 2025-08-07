@@ -5,7 +5,6 @@
 
 ### Urgent
 
-- Getting a 404 when opening a category with a slash.
 - The image/PDF for scores should have bars above the repeating sections "1" and "2". Example: 7-beat waltz.
     Check the PDF in Dropobox — it is correct.
     My Musescore is not showing the lines, but it does show some small markers. But JV does see them in their MuseScore (same OS).

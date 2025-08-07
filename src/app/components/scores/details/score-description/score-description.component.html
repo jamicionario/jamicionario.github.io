@@ -2,7 +2,7 @@
 @if(score.typeOfDance && score.danceGeometry) {
     <p>
         A
-        <a routerLink="/categories/{{score.typeOfDance}}">{{ score.typeOfDance }}</a>
+        <a [routerLink]="['/categories', score.typeOfDance]">{{ score.typeOfDance }}</a>
         , danced in {{score.danceGeometry}}.
     </p>
 } @else if (score.danceGeometry) {
