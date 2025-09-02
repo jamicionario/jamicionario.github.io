@@ -3,12 +3,23 @@
 
 ## Bugs
 
+### Urgent
+
+- Getting a 404 when opening a category with a slash.
+- The image/PDF for scores should have bars above the repeating sections "1" and "2". Example: 7-beat waltz.
+    Check the PDF in Dropobox — it is correct.
+    My Musescore is not showing the lines, but it does show some small markers. But JV does see them in their MuseScore (same OS).
+
+### Other
+
+- Bug: after navigating to a score's details, any page moves to a score details using arrows — and it should not.
+    Then going to some score details does not allow navigating to the previous, it's polluted with the first one.
 - Images and other files aren't served if their filenames include non-ASCII characters: as à é å etc.
   - Test if UTF8-normalizing the filename fixes it.
   - Add a front-end test, a hidden page with a more complex URL like "Bourrée 2T - à Malochet.txt".
         This will allow testing without regenerating the data.
         Then it's easier to play-test with possible solutions.
-        Ideally we deploy not to live, but to an alternative URL like https://jamicionario.github.io/jamicionario-staging/ or wherever else.
+        Ideally we deploy not to live, but to an alternative URL like <https://jamicionario.github.io/jamicionario-staging/> or wherever else.
 - Tests are not running. Fix that.
   - After that, add tests for TimeAgoPipe.
 
@@ -55,5 +66,6 @@
     It should use metadata placeholders like $composer and $modifiedDate in its style/layout.
     Share it with the team, explain how it works and the difference.
     Consider adding it to the website.
+  - Afterwards, see if we can put the property "work title" in the document.
 - Show composer of the score.
     Where we have that information, show the composer of the score.
