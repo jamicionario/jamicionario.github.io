@@ -5,6 +5,10 @@ public class ConfigurationException(string message) : ArgumentException(message)
 {
 }
 
+public class FileConversionException(string message) : Exception(message)
+{
+}
+
 public class PdfCompilationException(string message) : Exception(message)
 {
 }

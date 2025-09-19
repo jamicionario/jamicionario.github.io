@@ -92,5 +92,12 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         // Wait for MuseScore to finish.
         // Around 1 minute when generating the PNGs, around 7-10s when generating the metadata (MSCX).
         process.WaitForExit();
+
+        // Validate that the process completed properly.
+        if (process.ExitCode != 0)
+        {
+            logger.LogError("Failed to export {Count} scores.", targets.Length);
+            throw new FileConversionException($"Failed to export the files using MuseScore. Error code: {process.ExitCode}");
+        }
     }
 }
