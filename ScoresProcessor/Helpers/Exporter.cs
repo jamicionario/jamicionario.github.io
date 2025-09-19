@@ -1,9 +1,13 @@
 
 using System.Diagnostics;
-using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
-public class Exporter(ScoresConfig config, DataFinder dataFinder)
+
+/// <summary>
+/// Converts and exports scores using MuseScore via CLI.
+/// </summary>
+public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Exporter> logger)
 {
     public IEnumerable<ExportedResult> GatherExportResultsFor(TargetWithLabels[] targets)
     {
@@ -16,7 +20,11 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
         }
     }
 
-    public void ExportFilesFor(Target[] targets)
+    /// <summary>
+    ///     Exports the <paramref name="targets"/> into the <see cref="ScoresConfig.JamicionarioPublicFolder"/>.
+    ///     Exports as PNG, PDF, and MSCZ.
+    /// </summary>
+    public void ExportToPublicFolder(Target[] targets)
     {
         // Ensure folder exists. Otherwise MuseScore fails silently.
         Directory.CreateDirectory(config.TargetFolder);
@@ -26,42 +34,33 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder)
             string[] extensions = [
                 ".png",
                 ".pdf",
+                // TODO: copy the original file instead of re-exporting to MSCZ.
+                //      - We're not keeping the original file dates, etc.
+                //      - Not even the data is exactly the same - different file sizes.
+                //        See the "Valsa 7T", the exported is 34316 bytes and the original is 34311 bytes.
                 ".mscz",
             ];
+
             return extensions
                 .Select(ext => Path.Combine(config.TargetFolder, $"{target.FilenameForExporting}{ext}"))
                 .ToArray();
-            
+
         }
-        ExportFor(targets, GetDestinationsFor);
+        ExportFilesAs(targets, GetDestinationsFor);
     }
 
-    private static readonly Regex MetadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
-    public TargetWithLabels[] LoadLabelInfoFor(Target[] targets)
-    {
-        Stopwatch sw = Stopwatch.StartNew();
-        DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamicionario");
-
-        Dictionary<Target, string> locations = targets.ToDictionary(x => x, target => $"{target.FilenameForExporting}.mscx");
-        ExportFor(targets, target => [Path.Combine(tempDir.FullName, locations[target])]);
-
-        Dictionary<string, string> GetLabelsFor(Target target)
-        {
-            string fileName = locations[target];
-            string mscxText = File.ReadAllText(Path.Combine(tempDir.FullName, locations[target]));
-            IEnumerable<(string name, string value)> matches = MetadataParser
-                    .Matches(mscxText)
-                    .Select(match => (name: match.Groups["name"].Value, value: match.Groups["value"].Value));
-            return MetadataBuilder.ProcessLabels(matches);
-        }
-        var labeled = targets
-            .Select(target => new TargetWithLabels(target, GetLabelsFor(target)))
-            .ToArray();
-        return labeled;
-    }
-
-
-    private void ExportFor(Target[] targets, Func<Target, string[]> getOutFileNames)
+    /// <summary>
+    ///     Converts the scores <paramref name="targets"/> and exports them,
+    ///     according to the <paramref name="getOutFileNames"/>.
+    /// </summary>
+    /// <param name="targets">The scores to convert.</param>
+    /// <param name="getOutFileNames">
+    ///     A method to get the desired output filenames for each target.
+    ///     The file will be in the format of its extension, as converted by MuseScore — e.g. PDF.
+    /// </param>
+    /// <exception cref="LaunchException">Raised if the conversion process could not be started.</exception>
+    /// <exception cref="FileConversionException">Raised if the conversion process completes with an error.</exception>
+    public void ExportFilesAs(Target[] targets, Func<Target, string[]> getOutFileNames)
     {
         // Generate the JSON job file.
         var conversionInstructions = targets

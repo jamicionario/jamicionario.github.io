@@ -2,26 +2,30 @@
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor;
+
 public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, ILogger Logger, ILoggerFactory loggerFactory)
 {
+    private ILogger<T> CreateLogger<T>() => loggerFactory.CreateLogger<T>();
+
     public void ProcessJamicionarioData()
     {
         Stopwatch counter = Stopwatch.StartNew();
 
         Logger.LogDebug("Starting process. Instructions received: {instructions}", instructions);
-        DataFinder dataFinder = new(config, loggerFactory.CreateLogger<DataFinder>());
+        DataFinder dataFinder = new(config, CreateLogger<DataFinder>());
         Target[] targets = dataFinder.FindData();
         Logger.LogDebug("Found {Count} MSCZ files.", targets.Length);
 
-        Exporter exporter = new(config, dataFinder);
+        Exporter exporter = new(config, dataFinder, CreateLogger<Exporter>());
+        FileParser parser = new(exporter, CreateLogger<FileParser>());
 
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
             Logger.LogDebug("Exporting available scores, as images pdfs and mscz.");
-            exporter.ExportFilesFor(targets);
+            exporter.ExportToPublicFolder(targets);
         }
 
-        Lazy<ExportedResult[]> exportedResults = new(() => CompileExportedResults(exporter, targets));
+        Lazy<ExportedResult[]> exportedResults = new(() => CompileExportedResults(parser, exporter, targets));
 
         if (instructions.HasFlag(ProcessingSteps.RebuildMetadata))
         {
@@ -33,10 +37,7 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         if (instructions.HasFlag(ProcessingSteps.ExportJamicionarioPdf))
         {
             Logger.LogDebug("Generating and exporting Jamicionário PDF.");
-            PdfCompiler pdfCompiler = new(
-                config,
-                loggerFactory.CreateLogger<PdfCompiler>()
-                );
+            PdfCompiler pdfCompiler = new(config, CreateLogger<PdfCompiler>());
             VersionInfo version = pdfCompiler.CompileJamicionario(exportedResults.Value);
 
             Logger.LogDebug("Generating and exporting Jamicionário MSCZ zip.");
@@ -50,9 +51,9 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Logger.LogInformation("✅ Finished. Processed {Count} scores in {Time}.", targets.Length, counter.Elapsed);
     }
 
-    private ExportedResult[] CompileExportedResults(Exporter exporter, Target[] targets)
+    private ExportedResult[] CompileExportedResults(FileParser fileParser, Exporter exporter, Target[] targets)
     {
-        TargetWithLabels[] labeledTargets = exporter.LoadLabelInfoFor(targets);
+        TargetWithLabels[] labeledTargets = fileParser.LoadLabelInfoFor(targets);
         ExportedResult[] results = exporter
             .GatherExportResultsFor(labeledTargets)
             .ToArray();
