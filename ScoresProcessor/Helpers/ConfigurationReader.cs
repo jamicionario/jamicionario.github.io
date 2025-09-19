@@ -71,9 +71,11 @@ public class ConfigurationReader(ILogger logger)
             throw new ConfigurationException("The configured MasterDataFolder does not exist.");
         }
 
-        if (config.JamicionarioPublicFolder.IndexOf("/public/") <= 0)
+
+        if (!config.JamicionarioPublicFolder.Contains("/public/")
+            && !config.JamicionarioPublicFolder.EndsWith("/public"))
         {
-            logger.LogWarning("The configured Jamicionario public folder does not seem to be a path like .../public/ . This may cause errors.");
+            logger.LogWarning("The configured Jamicionario public folder does not seem to be a path like .../public . This may cause errors.");
         }
     }
 
