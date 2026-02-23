@@ -2,6 +2,12 @@
 namespace ScoresProcessor;
 public record class ScoresConfig
 {
+    public static ScoresConfig Default => new()
+    {
+        JamicionarioPublicFolder = "~/code/jamicionario/public",
+        MasterDataFolder = "~/code/jamicionario-data",
+    };
+
     public const string TargetFolderName = "files";
 
     /// <summary>

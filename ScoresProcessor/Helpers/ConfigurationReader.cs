@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ScoresProcessor.Helpers;
+
 public class ConfigurationReader(ILogger logger)
 {
     const string ConfigFile = "config.json";
@@ -32,11 +33,7 @@ public class ConfigurationReader(ILogger logger)
             logger.LogInformation("No configuration found, using defaults."
                 + $" To configure the application, copy the file {SampleFile} to {ConfigFile}, and edit it."
                 );
-            config = new()
-            {
-                JamicionarioPublicFolder = "~/code/jamicionario/public",
-                MasterDataFolder = "~/Library/CloudStorage/Dropbox/Jamicionario Tripeiro",
-            };
+            config = ScoresConfig.Default;
         }
 
         var converted = config with
