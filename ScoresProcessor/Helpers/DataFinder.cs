@@ -9,6 +9,8 @@ public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 	{
 		string[] files = Directory.GetFiles(config.MasterDataFolder, "*.mscz", SearchOption.AllDirectories);
 		return files
+			// Exclude temporary debug folders.
+			.Where(file => !file.Contains("/tmp/", StringComparison.InvariantCultureIgnoreCase))
 			.Select(file => Target.For(file, logger))
 			.ToArray();
 	}
