@@ -21,8 +21,17 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
 
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
+            Stopwatch exportingCounter = Stopwatch.StartNew();
             Logger.LogDebug("Exporting available scores, as images pdfs and mscz.");
-            exporter.ExportToPublicFolder(targets);
+            try
+            {
+                exporter.ExportToPublicFolder(targets);
+            }
+            finally
+            {
+                exportingCounter.Stop();
+                Logger.LogDebug("Time taken to export: {time}.", exportingCounter.Elapsed);
+            }
         }
 
         Lazy<ExportedResult[]> exportedResults = new(() => CompileExportedResults(parser, exporter, targets));
