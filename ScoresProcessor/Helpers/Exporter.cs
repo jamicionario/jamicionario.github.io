@@ -59,7 +59,6 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Export
     ///     The file will be in the format of its extension, as converted by MuseScore — e.g. PDF.
     /// </param>
     /// <exception cref="LaunchException">Raised if the conversion process could not be started.</exception>
-    /// <exception cref="FileConversionException">Raised if the conversion process completes with an error.</exception>
     public void ExportFilesAs(Target[] targets, Func<Target, string[]> getOutFileNames)
     {
         // Generate the JSON job file.
@@ -81,10 +80,10 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Export
             museScoreExecutable,
             arguments: [
                 // Use factory settings - this avoids that user configs affect this script.
-                // Confront with -F, which uses the factory settings AND deletes user preferences.
-                "-R",
-                "--job",
-                jobFileName,
+                // Confront with -R, which reverts settings: uses the factory settings AND deletes user preferences.
+                "-F",
+                // Do the operations detailed in job file:
+                "--job", jobFileName
             ])
             ?? throw new LaunchException($"Could not start file conversion.");
 
@@ -95,8 +94,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Export
         // Validate that the process completed properly.
         if (process.ExitCode != 0)
         {
-            logger.LogError("Failed to export {Count} scores.", targets.Length);
-            throw new FileConversionException($"Failed to export the files using MuseScore. Error code: {process.ExitCode}");
+            logger.LogWarning("MuseScore application returned code {Code} instead of 0. There could have been errors with the conversion.", process.ExitCode);
         }
     }
 }
