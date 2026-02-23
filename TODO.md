@@ -3,16 +3,6 @@
 
 ## Bugs
 
-### Urgent
-
-- The image/PDF for scores should have bars above the repeating sections "1" and "2". Example: 7-beat waltz.
-    Check the PDF in Dropobox — it is correct.
-    My Musescore is not showing the lines, but it does show some small markers. But JV does see them in their MuseScore (same OS).
-
-### Other
-
-- Bug: after navigating to a score's details, any page moves to a score details using arrows — and it should not.
-    Then going to some score details does not allow navigating to the previous, it's polluted with the first one.
 - Images and other files aren't served if their filenames include non-ASCII characters: as à é å etc.
   - Test if UTF8-normalizing the filename fixes it.
   - Add a front-end test, a hidden page with a more complex URL like "Bourrée 2T - à Malochet.txt".

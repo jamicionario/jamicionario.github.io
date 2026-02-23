@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ScoresService } from '@services/scores.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Score } from '@models/score';
 import { ScoreDescriptionComponent } from './score-description/score-description.component';
@@ -26,6 +26,8 @@ export class DetailsComponent implements OnInit {
 
   readonly totalScores: number = this.service.getTotal();
 
+  private readonly destroyed$ = new Subject<void>();
+
   score$: Observable<Score | undefined> = this.route.paramMap.pipe(
     map(paramMap => Number(paramMap.get('number'))),
     map(scoreNumber => this.service.get(scoreNumber)),
@@ -47,10 +49,16 @@ export class DetailsComponent implements OnInit {
     this.setupKeyboardNavigation(KnownKey.ArrowRight, this.next$);
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
   private setupKeyboardNavigation(key: KnownKey, target: Observable<Score | undefined>): void {
     target.pipe(
       switchMap(score => this.hotKeys.registerShortcut(key)
         .pipe(
+          takeUntil(this.destroyed$),
           map(_event => score),
         )),
     ).subscribe({
