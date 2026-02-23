@@ -38,6 +38,7 @@ public class ConfigurationReader(ILogger logger)
 
         var converted = config with
         {
+            MuseScoreExecutablePath = UnixSafeOptional(config.MuseScoreExecutablePath),
             JamicionarioPublicFolder = UnixSafe(config.JamicionarioPublicFolder),
             MasterDataFolder = UnixSafe(config.MasterDataFolder),
         };
@@ -55,7 +56,7 @@ public class ConfigurationReader(ILogger logger)
         // The way that we are binding/getting the options does not allow us to automatically validate them.
         // Otherwise we would use the regular automatic validation provided by the framework:
         // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-9.0#options-validation
-        
+
         if (!Directory.Exists(config.JamicionarioPublicFolder))
         {
             logger.LogError("The configured Jamicionário public folder does not seem to exist.");
@@ -79,6 +80,18 @@ public class ConfigurationReader(ILogger logger)
     /// <summary>
     /// Checks if a path is a "~/..." unix-path and converts it to an absolute path if it is.
     /// </summary>
+    private string? UnixSafeOptional(string? path)
+    {
+        if (path == null)
+        {
+            return path;
+        }
+        return UnixSafe(path);
+    }
+
+    /// <summary>
+    /// Checks if a path is a "~/..." unix-path and converts it to an absolute path if it is.
+    /// </summary>
     private string UnixSafe(string path)
     {
         if (!path.StartsWith('~'))
@@ -97,7 +110,7 @@ public class ConfigurationReader(ILogger logger)
                     path[2..]
                     );
             default:
-                logger.LogError("Configuration path starts with ~, but is not '~' or '~/...'. Cannot understand it, breaking.");
+                logger.LogError("Configuration path starts with ~, but is not '~' or '~/(...)'. Cannot understand it, breaking.");
                 throw new ConfigurationException("Configuration path is not understood.");
         }
     }
