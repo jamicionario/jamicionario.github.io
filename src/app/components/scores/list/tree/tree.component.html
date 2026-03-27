@@ -2,23 +2,29 @@
 </ng-container>
 
 <ng-template #tree let-groups="groups">
-  <ul *ngIf="groups.length > 0">
-    @for (group of groups; track $index) {
+  @if (groups.length > 0) {
+    <ul>
+      @for (group of groups; track $index) {
         <li class="collapsable" [class.collapsed]="group.isCollapsed">
-            <label (click)="group.isCollapsed = !group.isCollapsed">
-                {{group.name}}
-                <span class="count">({{group.numberOfScores}})</span>
-            </label>
-            <ul *ngIf="group.scores.length > 0">
-                <li *ngFor="let score of group.scores">
-                    <!-- Not showing the number for now, as the .collapsable ruins the layout. It needs to be fixed. -->
-                    <!-- {{score.number}} -->
-                    <a routerLink="/scores/{{score.number}}">{{score.name}}</a>
+          <label (click)="group.isCollapsed = !group.isCollapsed">
+            {{group.name}}
+            <span class="count">({{group.numberOfScores}})</span>
+          </label>
+          @if (group.scores.length > 0) {
+            <ul>
+              @for (score of group.scores; track score) {
+                <li>
+                  <!-- Not showing the number for now, as the .collapsable ruins the layout. It needs to be fixed. -->
+                  <!-- {{score.number}} -->
+                  <a routerLink="/scores/{{score.number}}">{{score.name}}</a>
                 </li>
+              }
             </ul>
-            <ng-container *ngTemplateOutlet="tree;context:{groups: group.subGroups}">
-            </ng-container>
+          }
+          <ng-container *ngTemplateOutlet="tree;context:{groups: group.subGroups}">
+          </ng-container>
         </li>
-    }
-  </ul>
+      }
+    </ul>
+  }
 </ng-template>
