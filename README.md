@@ -60,6 +60,8 @@ Install Angular:
 
 2. Install node via brew:
     `brew install node`
+   1. To update: `brew upgrade node`
+   2. To choose a specific LTS version: `brew install node@24`
 
 3. Install Angular:
     `npm install -g @angular/cli`
