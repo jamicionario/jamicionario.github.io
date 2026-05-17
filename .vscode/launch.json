@@ -3,7 +3,8 @@
   "configurations": [
     {
       "name": "ng serve",
-      "type": "chrome",
+      // use this extension if needed: firefox-devtools.vscode-firefox-debug
+      "type": "firefox",
       "request": "launch",
       "preLaunchTask": "npm: start",
       "url": "http://localhost:4200/"
