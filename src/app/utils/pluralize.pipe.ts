@@ -13,11 +13,12 @@ export function pluralize(value: number, name: string, pluralName?: string): str
     if (value === 1) {
         return `1 ${name}`;
     }
-    if (pluralName == null) {
-        pluralName = `${name}s`;
-    }
+    pluralName ??=
+        name.endsWith('y')
+        ? `${name.substring(0, name.length-1)}ies`
+        : `${name}s`;
     if (!value) {
         return `no ${pluralName}`;
     }
-    return `${value} ${pluralName}`;
+    return `${value ?? 'no'} ${pluralName}`;
 }
