@@ -42,7 +42,7 @@ public class MetadataBuilder(ScoresConfig config)
     {
         string[] GetFolderStructureFor(Target item)
         {
-            string relativeMsczPath = Path.GetRelativePath(config.MasterDataFolder, item.Mscz);
+            string relativeMsczPath = Path.GetRelativePath(config.JamicionarioDataFolder, item.Mscz);
             string dirName = Path.GetDirectoryName(relativeMsczPath)
                 ?? throw new FolderException("Could not parse folder path into separate folder names.");
             string[] folders = dirName

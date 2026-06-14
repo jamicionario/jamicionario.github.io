@@ -1,8 +1,8 @@
 {
-    "__comment_2": "If the program is not in $PATH, you can put here the program's absolute path.",
+    "__comment_2": "If the MuseScore Studio program is not in $PATH, you can put here the program's absolute path.",
     "MuseScoreExecutablePath": "mscore",
-    "__comment_3": "The absolute path to the root folder of the Jamicionário. Allows tilde at start.",
-    "JamicionarioPublicFolder": "~/code/jamicionario/public",
-    "__comment_4": "The absolute path to the root folder of the Jamicionário. Allows tilde at start.",
-    "MasterDataFolder": "~/code/jamicionario-data"
+    "__comment_3": "The absolute path to the root folder of the jamicionario.github.io repository. Allows tilde at start.",
+    "JamicionarioWebsiteFolder": "~/code/jamicionario.github.io",
+    "__comment_4": "The absolute path to the root folder of the jamicionario-data repository. Allows tilde at start.",
+    "JamicionarioDataFolder": "~/code/jamicionario-data"
 }

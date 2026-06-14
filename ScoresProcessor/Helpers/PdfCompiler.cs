@@ -146,7 +146,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         {
             if (item is IntroPage extraPage)
             {
-                string path = Path.Combine(config.MasterDataFolder, extraPage.RelativePath);
+                string path = Path.Combine(config.JamicionarioDataFolder, extraPage.RelativePath);
                 AddPdfTo(jamicionario, path, null, extraPage.BookmarkName);
                 continue;
             }
@@ -155,7 +155,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             PageGroup group = (PageGroup)item;
             foreach (var page in group.Children)
             {
-                string path = Path.Combine(config.MasterDataFolder, page.RelativePath);
+                string path = Path.Combine(config.JamicionarioDataFolder, page.RelativePath);
                 AddPdfTo(jamicionario, path, group.BookmarkName, page.BookmarkName);
             }
         }

@@ -4,8 +4,8 @@ public record class ScoresConfig
 {
     public static ScoresConfig Default => new()
     {
-        JamicionarioPublicFolder = "~/code/jamicionario/public",
-        MasterDataFolder = "~/code/jamicionario-data",
+        JamicionarioWebsiteFolder = "~/code/jamicionario.github.io",
+        JamicionarioDataFolder = "~/code/jamicionario-data",
     };
 
     public const string TargetFolderName = "files";
@@ -21,26 +21,31 @@ public record class ScoresConfig
     public string? MuseScoreExecutablePath { get; set; }
 
     /// <summary>
-    ///     The "public" folder in the Jamicionário project, such as "~/code/jamicionario/public". <br />
-    ///     This is where the ScoresProcessor will put the generated data.
+    ///     The folder of the project for the Jamicionário's website, such as "~/code/jamicionario.github.io". <br />
+    ///     The ScoresProcessor will put the generated data there, in the public folder.
     /// </summary>
     /// <remarks>
-    ///     It can be a unix relative path such as "~/foo/public".
+    ///     It can be a unix relative path such as "~/foo".
     /// </remarks>
-    public required string JamicionarioPublicFolder { get; set; }
+    public required string JamicionarioWebsiteFolder { get; set; }
 
     /// <summary>
-    ///     The folder where the original MSCZ files are, the "master" files.
+    ///     The folder of the jamicionario-data project, where the original MSCZ files are — the "master" files.
     /// </summary>
     /// <remarks>
-    ///     It can be a unix relative path such as "~/Library/CloudStorage/Dropbox/Jamicionario Tripeiro".
+    ///     It can be a unix relative path such as "~/code/jamicionario-data".
     /// </remarks>
-    public required string MasterDataFolder { get; set; }
+    public required string JamicionarioDataFolder { get; set; }
 
 
 
     // The remaining properties are automatically calculated:
     #region Calculated properties
+
+    /// <summary>
+    /// The path for the "public" folder in the jamicionario's website repository.
+    /// </summary>
+    public string JamicionarioPublicFolder => Path.Combine(JamicionarioWebsiteFolder, "public");
 
     /// <summary>
     /// The path for the Jamicionário itself, the PDF with all the scores.

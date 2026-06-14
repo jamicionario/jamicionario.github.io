@@ -9,7 +9,7 @@ public interface IIntroPage
 }
 
 /// <inheritdoc cref="IIntroPage" />
-/// <param name="RelativePath">The path to the PDF, relative to <see cref="ScoresConfig.MasterDataFolder"/> .</param>
+/// <param name="RelativePath">The path to the PDF, relative to <see cref="ScoresConfig.JamicionarioDataFolder"/> .</param>
 public record class IntroPage(string BookmarkName, string RelativePath) : IIntroPage;
 
 /// <summary>

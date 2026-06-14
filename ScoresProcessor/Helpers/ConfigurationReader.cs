@@ -39,8 +39,8 @@ public class ConfigurationReader(ILogger logger)
         var converted = config with
         {
             MuseScoreExecutablePath = UnixSafeOptional(config.MuseScoreExecutablePath),
-            JamicionarioPublicFolder = UnixSafe(config.JamicionarioPublicFolder),
-            MasterDataFolder = UnixSafe(config.MasterDataFolder),
+            JamicionarioWebsiteFolder = UnixSafe(config.JamicionarioWebsiteFolder),
+            JamicionarioDataFolder = UnixSafe(config.JamicionarioDataFolder),
         };
         logger.LogTrace("Configuration value read: {config}", converted);
         Validate(converted);
@@ -63,10 +63,10 @@ public class ConfigurationReader(ILogger logger)
             throw new ConfigurationException("The configured JamicionarioPublicFolder does not exist.");
         }
 
-        if (!Directory.Exists(config.MasterDataFolder))
+        if (!Directory.Exists(config.JamicionarioDataFolder))
         {
             logger.LogError("The configured master data folder does not seem to exist.");
-            throw new ConfigurationException("The configured MasterDataFolder does not exist.");
+            throw new ConfigurationException("The configured JamicionarioDataFolder does not exist.");
         }
 
 
