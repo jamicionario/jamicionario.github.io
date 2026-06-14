@@ -57,3 +57,4 @@ public/search-categories.json
 
 # Information on website and data: the title, url, and authors.
 public/source-info.json
+ScoresProcessor/config.json
