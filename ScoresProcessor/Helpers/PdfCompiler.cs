@@ -8,8 +8,8 @@ namespace ScoresProcessor.Helpers;
 public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
 {
     private static readonly IIntroPage[] JamicionarioIntroPages = [
-        new IntroPage("Index", "01 index.pdf"),
-        new IntroPage("Intro", "02 Introduction to the Jamictionary.pdf"),
+        // new IntroPage("Index", "01 index.pdf"),
+        new IntroPage("Intro", "01 Intro to Jamictionary.pdf"),
         // new PageGroup("Intro", [
         //     new IntroPage("Português", "02 Intro/01a Intro ao Jamicionario (PT).pdf"),
         //     new IntroPage("English", "02 Intro/01b Intro to Jamictionary (EN).pdf"),
