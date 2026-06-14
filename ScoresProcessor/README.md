@@ -42,8 +42,9 @@ They are documented.
 
 To configure via JSON file, create a `config.json` file and add the relevant setting there.
 
-There file [config.sample.json](config.sample.json) is a sample of this settings file.  
-It is included in the build's output.
+Copy into it the contents of file [config.sample.json](config.sample.json), and edit as needed.
+
+The config file you created will be included when you build, but it is local to your machine: it is [ignored by git](../.gitignore).
 
 ### Via ENV vars
 

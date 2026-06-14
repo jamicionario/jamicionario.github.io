@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-   <Content Include="config.sample.json">
+   <Content Include="config*.json">
       <CopyToOutputDirectory>IfDifferent</CopyToOutputDirectory>
    </Content>
   </ItemGroup>
