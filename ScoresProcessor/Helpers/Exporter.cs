@@ -21,6 +21,17 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Export
     }
 
     /// <summary>
+    ///     Cleans any data from a previous Export process.
+    /// </summary>
+    public void CleanPreviousData()
+    {
+        if (Directory.Exists(config.TargetFolder))
+        {
+            Directory.Delete(config.TargetFolder, recursive: true);
+        }
+    }
+
+    /// <summary>
     ///     Exports the <paramref name="targets"/> into the <see cref="ScoresConfig.JamicionarioPublicFolder"/>.
     ///     Exports as PNG, PDF, and MSCZ.
     /// </summary>

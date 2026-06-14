@@ -19,6 +19,10 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
         Exporter exporter = new(config, dataFinder, CreateLogger<Exporter>());
         FileParser parser = new(exporter, CreateLogger<FileParser>());
 
+        if (instructions.HasFlag(ProcessingSteps.CleanPreviousData))
+        {
+            exporter.CleanPreviousData();
+        }
         if (instructions.HasFlag(ProcessingSteps.ExportScores))
         {
             Stopwatch exportingCounter = Stopwatch.StartNew();

@@ -4,10 +4,13 @@ namespace ScoresProcessor.Model;
 public enum ProcessingSteps
 {
     None = 0,
-    ExportScores = 1,
-    RebuildMetadata = 2,
-    ExportJamicionarioPdf = 4,
-    All = ExportScores
+    CleanPreviousData = 1,
+    ExportScores = 2,
+    RebuildMetadata = 4,
+    ExportJamicionarioPdf = 8,
+    All = 0
+        | CleanPreviousData
+        | ExportScores
         | RebuildMetadata
         | ExportJamicionarioPdf
         ,

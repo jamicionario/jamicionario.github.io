@@ -8,6 +8,8 @@ public record class ScoresConfig
         JamicionarioDataFolder = "~/code/jamicionario-data",
     };
 
+    // Make sure that this is a folder that does not contain other non-temporary data.
+    // It is cleaned up during the deploy.
     public const string TargetFolderName = "files";
 
     /// <summary>
