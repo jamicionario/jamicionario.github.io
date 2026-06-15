@@ -29,7 +29,7 @@ This can also be run in [VS Code](https://code.visualstudio.com/), which allows 
 
 ## Installing
 
-To run the project, you will need to have the [.Net SDK](https://dotnet.microsoft.com/download).
+To run the project, you will need to have the [.Net **SDK**](https://dotnet.microsoft.com/download) (not the _runtime_).
 
 ## Configuring
 
@@ -40,9 +40,10 @@ They are documented.
 
 ### Via JSON file
 
-To configure via JSON file, create a `config.json` file and add the relevant setting there.
+To configure via JSON file, create a `config.json` file and add the relevant setting there:
 
-Copy into it the contents of file [config.sample.json](config.sample.json), and edit as needed.
+- Create a `config.json` by copying [config.sample.json](config.sample.json) .
+- Edit the properties as needed.
 
 The config file you created will be included when you build, but it is local to your machine: it is [ignored by git](../.gitignore).
 

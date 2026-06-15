@@ -1,16 +1,30 @@
 
 # Jamicionario
 
+This technical README explains how to run the project locally, and how to deploy it.
+
 See also [the README file of the ScoresProcessor](ScoresProcessor/README.md) sub-project.
+
+Contents:
+
+- [Deploying](#deploying)
+- [Running locally](#running-locally)
+  - [Running from console](#running-from-console)
+  - [Running from VS Code](#running-from-vs-code)
+- [Installing](#installing)
+  - [MacOS](#macos)
+- [Code scaffolding](#code-scaffolding)
 
 ## Deploying
 
 When data is updated, it's necessary to update and deploy:
 
 1. Update data with the Scores Processor — see the [README](ScoresProcessor/README.md) file there.
-2. Save changes with git: commit, push.
+2. Check the website [locally on your machine](#running-locally), and verify that the website and the data are OK.
 3. Then deploy with:  
-`ng deploy`
+   `ng deploy`
+
+Note that the deploy process publishes exactly what you have locally, **even changes that are not comitted**.
 
 For more information, see the [angular-cli-ghpages documentation](https://www.npmjs.com/package/angular-cli-ghpages).
 
@@ -21,19 +35,22 @@ It can be run from the console or from VS Code.
 
 First, you will need to:
 
-- Install the needed tools — see the section _Installing_ below.
+- Install the needed tools — see the section "[Installing](#installing)" below.
 - Generate the data using the Scores Processor — check the information on [its README](ScoresProcessor/README.md) file.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then you can run it with the instructions that follow.
 
-### From console
+Once the server is running, open your browser and navigate to <http://localhost:4200/>.  
+The application automatically reloads whenever you modify any of the source files.
+
+### Running from console
 
 To run the Jamicionário from console:
 
 - Open a terminal;
 - run with `ng serve`
 
-### From VS Code
+### Running from VS Code
 
 To run or debug the Jamicionário from VS Code:
 
@@ -41,7 +58,7 @@ To run or debug the Jamicionário from VS Code:
   2. Choose the option "ng serve" on the dropdown.
   3. Start debugging with the green ▶️ "Run" button.
 
-![screenshot of running in VS Code from the root folder](../docs/processing%20data%20from%20VS%20Code.png)
+![screenshot of running in VS Code from the root folder](docs/processing%20data%20from%20VS%20Code.png)
 
 ## Installing
 
@@ -70,7 +87,9 @@ You can see the NPM installed packages with `npm list -g`
 
 ## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular CLI has good code scaffolding tools.
+
+For example, to generate a new component run:
 
 ```bash
 ng generate component component-name
@@ -81,35 +100,3 @@ For a complete list of available schematics (such as `components`, `directives`,
 ```bash
 ng generate --help
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -8,10 +8,6 @@ public record class ScoresConfig
         JamicionarioDataFolder = "~/code/jamicionario-data",
     };
 
-    // Make sure that this is a folder that does not contain other non-temporary data.
-    // It is cleaned up during the deploy.
-    public const string TargetFolderName = "files";
-
     /// <summary>
     ///     The executable path of the MuseScore application,
     ///     which is used to process the MSCZ files
@@ -40,6 +36,16 @@ public record class ScoresConfig
     public required string JamicionarioDataFolder { get; set; }
 
 
+    /// <summary>
+    ///     The name of the folder where the processed score-files are placed.
+    /// 
+    ///     This value is not configurable.
+    /// </summary>
+    /// <remarks>
+    ///     This folder is cleaned up during the deploy,
+    ///     so make sure that this is a folder that does not contain other non-temporary data.
+    /// </remarks>
+    public const string TargetFolderName = "files";
 
     // The remaining properties are automatically calculated:
     #region Calculated properties
@@ -62,6 +68,7 @@ public record class ScoresConfig
     /// The path for zip with all the MSCZ files for the Jamicionário.
     /// </summary>
     public string JamicionarioZipFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario - all MSCZ.zip");
+
 
     /// <summary>
     /// The folder in Jamicionario where the generated data will be saved.
