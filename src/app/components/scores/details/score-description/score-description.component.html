@@ -23,7 +23,13 @@
     <dl>
         @for (label of score.labels; track $index) {
             <dt [class.important]="label[0] == 'License'">{{label[0]}}</dt>
-            <dd>{{label[1]}}</dd>
+            <dd>
+                @if (label[1] | isLink) {
+                    <a class="external" [href]="label[1]">{{label[1] }}</a>
+                } @else {
+                    {{label[1] }}
+                }
+            </dd>
         }
     </dl>
 }
