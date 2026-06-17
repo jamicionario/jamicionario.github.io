@@ -35,7 +35,7 @@ export class TimeAgoPipe implements PipeTransform {
 
         const timeAgoDays = Math.floor(timeAgoHours / 24);
         if (timeAgoDays < daysPerMonth) {
-            return pluralize(timeAgoDays, 'day') + " ago";
+            return pluralize(timeAgoDays, 'day', 'days') + " ago";
         }
 
         const timeAgoMonths = Math.floor(timeAgoDays / daysPerMonth);
