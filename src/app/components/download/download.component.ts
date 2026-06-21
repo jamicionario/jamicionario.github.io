@@ -13,4 +13,7 @@ import { TimeAgoPipe } from "@utils/time-ago.pipe";
   styleUrl: './download.component.scss'
 })
 export class DownloadComponent extends VersionComponent {
+  public get pdfFileName(): string {
+    return `Jamictionary v${ this.versionNumber }.pdf`;
+  }
 }

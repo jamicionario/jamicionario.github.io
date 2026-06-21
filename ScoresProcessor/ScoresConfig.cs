@@ -56,10 +56,6 @@ public record class ScoresConfig
     public string JamictionaryPublicFolder => Path.Combine(JamictionaryWebsiteFolder, "public");
 
     /// <summary>
-    /// The path for the Jamictionary itself, the PDF with all the scores.
-    /// </summary>
-    public string JamictionaryPdfFileName => Path.Combine(JamictionaryPublicFolder, "Jamictionary.pdf");
-    /// <summary>
     /// The path for the metadata about the Jamictionary PDF: version, generation date, etc.
     /// </summary>
     public string JamictionaryMetadataFileName => Path.Combine(JamictionaryPublicFolder, "Jamictionary.metadata.json");

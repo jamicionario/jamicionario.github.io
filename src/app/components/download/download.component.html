@@ -8,7 +8,9 @@
     Data <strong>version {{ versionNumber }}</strong>
     was generated <time dateTime="{{ versionDate.toISOString() }}">{{ versionDate | timeAgo }}</time> —
     on {{ readableDate }}.<br />
-    <a href="Jamictionary.pdf" target="_blank" class="main-download">Download PDF</a>
+    <a [href]="pdfFileName" target="_blank" class="main-download">
+        Download as PDF
+    </a>
 </p>
 
 <p>
@@ -16,7 +18,7 @@
 </p>
 <ul id="files">
     <li>
-        <a href="Jamictionary.pdf" target="_blank">As PDF</a>, ~10 MB
+        <a [href]="pdfFileName">As PDF</a>, ~10 MB
          — the full Jamictionary, with bookmarks.
     </li>
     <li>

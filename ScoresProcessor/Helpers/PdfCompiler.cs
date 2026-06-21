@@ -51,8 +51,9 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
                 AddPdfTo(jamictionary, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
             }
         }
-        jamictionary.Save(config.JamictionaryPdfFileName);
         string jsonVersion = JsonHelper.Serialize(version);
+        string filename = $"Jamictionary v{version.Version}.pdf";
+        jamictionary.Save(Path.Combine(config.JamictionaryPublicFolder, filename));
         File.WriteAllText(config.JamictionaryMetadataFileName, jsonVersion, System.Text.Encoding.UTF8);
 
         if (added == 0)
