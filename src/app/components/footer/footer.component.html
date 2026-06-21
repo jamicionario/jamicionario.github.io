@@ -3,7 +3,10 @@
         version {{ versionNumber }},
         updated <time dateTime="{{ versionDate.toISOString() }}">{{ versionDate | timeAgo }}</time>
     </div>
-    <div>
-        <a href="{{ sourceInfo.source.url }}">Site</a> by {{contributors}}. <a href="{{ sourceInfo.data.url }}">Data</a> by {{dataContributors}}.
-    </div>
+    <span>
+        <a href="{{ sourceInfo.source.url }}">Site</a> by {{contributors}}.
+    <!-- </span>
+    <span> -->
+        <a href="{{ sourceInfo.data.url }}">Data</a> by {{dataContributors}}.
+    </span>
 </footer>
