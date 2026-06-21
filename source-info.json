@@ -1,13 +1,13 @@
 {
     "source": {
-        "url": "https://github.com/jamicionario/jamicionario.github.io",
+        "url": "https://github.com/jamictionary/jamictionary.github.io",
         "license": "Open Source",
         "contributors": [
             "André"
         ]
     },
     "data": {
-        "url": "https://github.com/jamicionario/jamicionario-data",
+        "url": "https://github.com/jamictionary/jamictionary-data",
         "license": "Free Access",
         "contributors": [
             "João Valente"
