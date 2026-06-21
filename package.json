@@ -1,5 +1,5 @@
 {
-  "name": "jamicionario",
+  "name": "jamictionary",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:jamicionario": "node dist/jamicionario/server/server.mjs"
+    "serve:ssr:jamictionary": "node dist/jamictionary/server/server.mjs"
   },
   "private": true,
   "dependencies": {

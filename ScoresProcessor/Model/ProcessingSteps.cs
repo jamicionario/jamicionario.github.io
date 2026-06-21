@@ -7,11 +7,11 @@ public enum ProcessingSteps
     CleanPreviousData = 1,
     ExportScores = 2,
     RebuildMetadata = 4,
-    ExportJamicionarioPdf = 8,
+    ExportJamictionaryPdf = 8,
     All = 0
         | CleanPreviousData
         | ExportScores
         | RebuildMetadata
-        | ExportJamicionarioPdf
+        | ExportJamictionaryPdf
         ,
 }

@@ -4,14 +4,14 @@ public record class ScoresConfig
 {
     public static ScoresConfig Default => new()
     {
-        JamicionarioWebsiteFolder = "~/code/jamicionario.github.io",
-        JamicionarioDataFolder = "~/code/jamicionario-data",
+        JamictionaryWebsiteFolder = "~/code/jamictionary.github.io",
+        JamictionaryDataFolder = "~/code/jamictionary-data",
     };
 
     /// <summary>
     ///     The executable path of the MuseScore application,
     ///     which is used to process the MSCZ files
-    ///     to include their data in the Jamicionário.
+    ///     to include their data in the Jamictionary.
     /// </summary>
     /// <remarks>
     ///     If not supplied, "mscore" is assumed to be on $PATH.
@@ -19,21 +19,21 @@ public record class ScoresConfig
     public string? MuseScoreExecutablePath { get; set; }
 
     /// <summary>
-    ///     The folder of the project for the Jamicionário's website, such as "~/code/jamicionario.github.io". <br />
+    ///     The folder of the project for the Jamictionary's website, such as "~/code/jamictionary.github.io". <br />
     ///     The ScoresProcessor will put the generated data there, in the public folder.
     /// </summary>
     /// <remarks>
     ///     It can be a unix relative path such as "~/foo".
     /// </remarks>
-    public required string JamicionarioWebsiteFolder { get; set; }
+    public required string JamictionaryWebsiteFolder { get; set; }
 
     /// <summary>
-    ///     The folder of the jamicionario-data project, where the original MSCZ files are — the "master" files.
+    ///     The folder of the jamictionary-data project, where the original MSCZ files are — the "master" files.
     /// </summary>
     /// <remarks>
-    ///     It can be a unix relative path such as "~/code/jamicionario-data".
+    ///     It can be a unix relative path such as "~/code/jamictionary-data".
     /// </remarks>
-    public required string JamicionarioDataFolder { get; set; }
+    public required string JamictionaryDataFolder { get; set; }
 
 
     /// <summary>
@@ -51,40 +51,40 @@ public record class ScoresConfig
     #region Calculated properties
 
     /// <summary>
-    /// The path for the "public" folder in the jamicionario's website repository.
+    /// The path for the "public" folder in the jamictionary's website repository.
     /// </summary>
-    public string JamicionarioPublicFolder => Path.Combine(JamicionarioWebsiteFolder, "public");
+    public string JamictionaryPublicFolder => Path.Combine(JamictionaryWebsiteFolder, "public");
 
     /// <summary>
-    /// The path for the Jamicionário itself, the PDF with all the scores.
+    /// The path for the Jamictionary itself, the PDF with all the scores.
     /// </summary>
-    public string JamicionarioPdfFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.pdf");
+    public string JamictionaryPdfFileName => Path.Combine(JamictionaryPublicFolder, "Jamictionary.pdf");
     /// <summary>
-    /// The path for the metadata about the Jamicionário PDF: version, generation date, etc.
+    /// The path for the metadata about the Jamictionary PDF: version, generation date, etc.
     /// </summary>
-    public string JamicionarioMetadataFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario.metadata.json");
+    public string JamictionaryMetadataFileName => Path.Combine(JamictionaryPublicFolder, "Jamictionary.metadata.json");
 
     /// <summary>
-    /// The path for zip with all the MSCZ files for the Jamicionário.
+    /// The path for zip with all the MSCZ files for the Jamictionary.
     /// </summary>
-    public string JamicionarioZipFileName => Path.Combine(JamicionarioPublicFolder, "Jamicionario - all MSCZ.zip");
+    public string JamictionaryZipFileName => Path.Combine(JamictionaryPublicFolder, "Jamictionary - all MSCZ.zip");
 
 
     /// <summary>
-    /// The folder in Jamicionario where the generated data will be saved.
+    /// The folder in Jamictionary where the generated data will be saved.
     /// </summary>
-    public string TargetFolder => Path.Combine(JamicionarioPublicFolder, TargetFolderName);
+    public string TargetFolder => Path.Combine(JamictionaryPublicFolder, TargetFolderName);
 
     /// <summary>
     /// The path for the file where the scores' metadata is saved (number, name, images, etc).
     /// </summary>
-    public string MetadataFileName => Path.Combine(JamicionarioPublicFolder, "score-metadata.json");
+    public string MetadataFileName => Path.Combine(JamictionaryPublicFolder, "score-metadata.json");
 
     /// <summary>
     /// The path for the file where the scores' search categories is saved.
     /// It saves the interesting categories (country, type, etc) and their values present in the data.
     /// </summary>
-    public string SearchCategoriesFileName => Path.Combine(JamicionarioPublicFolder, "search-categories.json");
+    public string SearchCategoriesFileName => Path.Combine(JamictionaryPublicFolder, "search-categories.json");
 
     #endregion
 }

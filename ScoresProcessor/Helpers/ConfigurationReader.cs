@@ -19,9 +19,9 @@ public class ConfigurationReader(ILogger logger)
         IConfigurationRoot built = new ConfigurationBuilder()
             .AddJsonFile(ConfigFile, optional: true)
             // Settings can be configured with env vars.
-            // Example: set "JAMICIONARIO__MuseScoreExecutablePath" to "<...>/MuseScore4".
+            // Example: set "JAMICTIONARY__MuseScoreExecutablePath" to "<...>/MuseScore4".
             // It should be case insensitive, but that has not been tested.
-            .AddEnvironmentVariables(prefix: "jamicionario")
+            .AddEnvironmentVariables(prefix: "jamictionary")
             .Build();
         ScoresConfig? config = built.Get<ScoresConfig>();
         if (config != null)
@@ -39,8 +39,8 @@ public class ConfigurationReader(ILogger logger)
         var converted = config with
         {
             MuseScoreExecutablePath = UnixSafeOptional(config.MuseScoreExecutablePath),
-            JamicionarioWebsiteFolder = UnixSafe(config.JamicionarioWebsiteFolder),
-            JamicionarioDataFolder = UnixSafe(config.JamicionarioDataFolder),
+            JamictionaryWebsiteFolder = UnixSafe(config.JamictionaryWebsiteFolder),
+            JamictionaryDataFolder = UnixSafe(config.JamictionaryDataFolder),
         };
         logger.LogTrace("Configuration value read: {config}", converted);
         Validate(converted);
@@ -57,23 +57,23 @@ public class ConfigurationReader(ILogger logger)
         // Otherwise we would use the regular automatic validation provided by the framework:
         // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-9.0#options-validation
 
-        if (!Directory.Exists(config.JamicionarioPublicFolder))
+        if (!Directory.Exists(config.JamictionaryPublicFolder))
         {
-            logger.LogError("The configured Jamicionário public folder does not seem to exist.");
-            throw new ConfigurationException("The configured JamicionarioPublicFolder does not exist.");
+            logger.LogError("The configured Jamictionary public folder does not seem to exist.");
+            throw new ConfigurationException("The configured JamictionaryPublicFolder does not exist.");
         }
 
-        if (!Directory.Exists(config.JamicionarioDataFolder))
+        if (!Directory.Exists(config.JamictionaryDataFolder))
         {
             logger.LogError("The configured master data folder does not seem to exist.");
-            throw new ConfigurationException("The configured JamicionarioDataFolder does not exist.");
+            throw new ConfigurationException("The configured JamictionaryDataFolder does not exist.");
         }
 
 
-        if (!config.JamicionarioPublicFolder.Contains("/public/")
-            && !config.JamicionarioPublicFolder.EndsWith("/public"))
+        if (!config.JamictionaryPublicFolder.Contains("/public/")
+            && !config.JamictionaryPublicFolder.EndsWith("/public"))
         {
-            logger.LogWarning("The configured Jamicionario public folder does not seem to be a path like .../public . This may cause errors.");
+            logger.LogWarning("The configured Jamictionary public folder does not seem to be a path like .../public . This may cause errors.");
         }
     }
 

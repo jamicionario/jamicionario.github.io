@@ -8,8 +8,8 @@ public static partial class FileHelper
 {
     private static readonly OrderedDictionary<string, string> NecessaryReplacements = new() {
         // This is just organizational and internal to the work of the "Data Team".
-        { " (Jamicionario)", "" },
-        { "(Jamicionario)", "" },
+        { " (Jamictionary)", "" },
+        { "(Jamictionary)", "" },
         // "#" in filenames creates problems when serving files in web.
         // URL "/files/image#41.png" will request "/files/image" only! :/
         { "#", "No." },
@@ -39,21 +39,21 @@ public static partial class FileHelper
     }
 
     /// <summary>
-    /// Removes the suffix "(Jamicionario)" from the end of the filename.
+    /// Removes the suffix "(Jamictionary)" from the end of the filename.
     /// </summary>
-    public static string ClearSuffixFrom(string jamicionarioFileName)
+    public static string ClearSuffixFrom(string jamictionaryFileName)
     {
-        // Remove "(Jamicionario)" from the end of the filename.
-        return FilenameRegex().Replace(jamicionarioFileName, "");
+        // Remove "(Jamictionary)" from the end of the filename.
+        return FilenameRegex().Replace(jamictionaryFileName, "");
     }
     /// <summary>
-    /// Finds " (Jamicionário)" at the end of a string.
+    /// Finds " (Jamictionary)" at the end of a string.
     /// </summary>
     /// <remarks>
     /// Allows variations:
-    /// - Extra whitespace anywhere, from "(Jamicionario)" to " ( Jamicionario   ) ".
-    /// - A dash before, e.g. " - Jamicionario".
-    /// - Uppercase or lowercase J, with or without accent on the a: "Jamicionário", "jamicionario", etc.
+    /// - Extra whitespace anywhere, from "(Jamictionary)" to " ( Jamictionary   ) ".
+    /// - A dash before, e.g. " - Jamictionary".
+    /// - Uppercase or lowercase J, with or without accent on the a: "Jamictionary", "jamictionary", etc.
     /// - With parenthesis or not.
     /// </remarks>
     [GeneratedRegex(@"\s*[-–—]\s*\(?\s*[Jj]amicion[aá]rio\s*\)?\s*$")]

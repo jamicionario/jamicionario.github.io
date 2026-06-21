@@ -41,9 +41,9 @@ public record class Target(string ScoreName, string FilenameForExporting, string
 		cleanScoreName = FileHelper.CleanNameForUri(cleanScoreName);
 		// We have character encoding issues when serving files with non-ASCII characters.
 		// Even if we HTML-encode it, something is not right and we get a 404.
-		// See for example https://jamicionario.github.io/scores/12
+		// See for example https://jamictionary.github.io/scores/12
 		// Its named "Bourrée 2T - à Malochet", and this URL would fail to download from github... but it works locally.
-		// https://jamicionario.github.io/files/Bourrée%202T%20-%20%C3%A0%20Malochet.pdf
+		// https://jamictionary.github.io/files/Bourrée%202T%20-%20%C3%A0%20Malochet.pdf
 		// So we're opting to implify the filename down to ASCII, removing diacritics and then all special characters.
 		string filenameForExporting = FileHelper.SimplifyToUseAsWebFilename(cleanScoreName);
 		return new(cleanScoreName, filenameForExporting, mscz);

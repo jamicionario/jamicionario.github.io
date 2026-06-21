@@ -32,7 +32,7 @@ public class Exporter(ScoresConfig config, DataFinder dataFinder, ILogger<Export
     }
 
     /// <summary>
-    ///     Exports the <paramref name="targets"/> into the <see cref="ScoresConfig.JamicionarioPublicFolder"/>.
+    ///     Exports the <paramref name="targets"/> into the <see cref="ScoresConfig.JamictionaryPublicFolder"/>.
     ///     Exports as PNG, PDF, and MSCZ.
     /// </summary>
     public void ExportToPublicFolder(Target[] targets)

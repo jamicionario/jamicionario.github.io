@@ -21,6 +21,6 @@ public static class Program
         ILogger logger = loggerFactory.CreateLogger<ScoresProcessor>();
 
         ScoresProcessor processor = new(ProcessingSteps.All, config, logger, loggerFactory);
-        processor.ProcessJamicionarioData();
+        processor.ProcessJamictionaryData();
     }
 }

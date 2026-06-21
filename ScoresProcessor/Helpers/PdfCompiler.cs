@@ -7,11 +7,11 @@ namespace ScoresProcessor.Helpers;
 
 public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
 {
-    private static readonly IIntroPage[] JamicionarioIntroPages = [
+    private static readonly IIntroPage[] JamictionaryIntroPages = [
         // new IntroPage("Index", "01 index.pdf"),
         new IntroPage("Intro", "01 Intro to Jamictionary.pdf"),
         // new PageGroup("Intro", [
-        //     new IntroPage("Português", "02 Intro/01a Intro ao Jamicionario (PT).pdf"),
+        //     new IntroPage("Português", "02 Intro/01a Intro ao Jamictionary (PT).pdf"),
         //     new IntroPage("English", "02 Intro/01b Intro to Jamictionary (EN).pdf"),
         //     new IntroPage("Français", "02 Intro/01c Intro au Jamiccionaire (FR).pdf"),
         //     new IntroPage("Deutsch", "02 Intro/01d Einfürung zum Jam-Worterbuch (DE).pdf"),
@@ -23,13 +23,13 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     /// <remarks>
     ///     Includes a landing page, an index, and bookmarks for all scores.
     /// </remarks>
-    public VersionInfo CompileJamicionario(ExportedResult[] targets)
+    public VersionInfo CompileJamictionary(ExportedResult[] targets)
     {
-        using PdfDocument jamicionario = new();
+        using PdfDocument jamictionary = new();
 
-        AddAuthoringTo(jamicionario, out VersionInfo version);
+        AddAuthoringTo(jamictionary, out VersionInfo version);
 
-        AddStartingPagesTo(jamicionario);
+        AddStartingPagesTo(jamictionary);
 
         // Add all the scores.
         var targetsByTypeOfDance = targets
@@ -48,21 +48,21 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
                     continue;
                 }
                 added++;
-                AddPdfTo(jamicionario, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
+                AddPdfTo(jamictionary, target.ScorePdf, bookmarkGroup: typeOfDance, bookmarkName: target.ScoreName);
             }
         }
-        jamicionario.Save(config.JamicionarioPdfFileName);
+        jamictionary.Save(config.JamictionaryPdfFileName);
         string jsonVersion = JsonHelper.Serialize(version);
-        File.WriteAllText(config.JamicionarioMetadataFileName, jsonVersion, System.Text.Encoding.UTF8);
+        File.WriteAllText(config.JamictionaryMetadataFileName, jsonVersion, System.Text.Encoding.UTF8);
 
         if (added == 0)
         {
-            throw new PdfCompilationException("No score PDF files were found to include in the Jamicionário PDF.");
+            throw new PdfCompilationException("No score PDF files were found to include in the Jamictionary PDF.");
         }
         if (added != targets.Length)
         {
             logger.LogWarning(
-                "⚠️ {MissingPdfCount} PDFs seem to be missing and were not included in the Jamicionário PDF.",
+                "⚠️ {MissingPdfCount} PDFs seem to be missing and were not included in the Jamictionary PDF.",
                 targets.Length - added
                 );
         }
@@ -70,12 +70,12 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         return version;
     }
 
-    private void AddAuthoringTo(PdfDocument jamicionario, out VersionInfo versionInfo)
+    private void AddAuthoringTo(PdfDocument jamictionary, out VersionInfo versionInfo)
     {
         int previousVersion = 0;
-        if (File.Exists(config.JamicionarioMetadataFileName))
+        if (File.Exists(config.JamictionaryMetadataFileName))
         {
-            string data = File.ReadAllText(config.JamicionarioMetadataFileName);
+            string data = File.ReadAllText(config.JamictionaryMetadataFileName);
             VersionInfo? read = JsonHelper.Deserialize<VersionInfo>(data);
             if (read != null)
             {
@@ -87,21 +87,21 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             SystemClock.Instance.GetCurrentInstant()
             );
 
-        jamicionario.Info.Creator = "";
-        // jamicionario.Info.Producer = "";
-        jamicionario.Info.Elements.SetString("/Producer", "");
-        jamicionario.Info.Title = $"Jamicionário v{versionInfo.Version}";
-        jamicionario.Info.CreationDate = versionInfo.GenerationDate.ToDateTimeUtc();
+        jamictionary.Info.Creator = "";
+        // jamictionary.Info.Producer = "";
+        jamictionary.Info.Elements.SetString("/Producer", "");
+        jamictionary.Info.Title = $"Jamictionary v{versionInfo.Version}";
+        jamictionary.Info.CreationDate = versionInfo.GenerationDate.ToDateTimeUtc();
     }
 
-    private void AddPdfTo(PdfDocument jamicionario, string path, string? bookmarkGroup, string bookmarkName)
+    private void AddPdfTo(PdfDocument jamictionary, string path, string? bookmarkGroup, string bookmarkName)
     {
         using PdfDocument pdf = PdfReader.Open(path, PdfDocumentOpenMode.Import);
 
         PdfPage? firstPage = null;
         foreach (PdfPage page in pdf.Pages)
         {
-            var added = jamicionario.AddPage(page);
+            var added = jamictionary.AddPage(page);
             firstPage ??= added;
         }
 
@@ -111,7 +111,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             throw new ConfigurationException("The pdf has no pages.");
         }
 
-        AddOutline(jamicionario, bookmarkGroup, bookmarkName, firstPage);
+        AddOutline(jamictionary, bookmarkGroup, bookmarkName, firstPage);
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
     ///     with the chosen name,
     ///     and under the header with the title of the <paramref name="bookmarkGroup"/>.
     /// </summary>
-    private void AddOutline(PdfDocument jamicionario,
+    private void AddOutline(PdfDocument jamictionary,
         string? bookmarkGroup, string bookmarkName,
         PdfPage targetPage)
     {
@@ -128,11 +128,11 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         {
             if (bookmarkGroup == null)
             {
-                return jamicionario.Outlines;
+                return jamictionary.Outlines;
             }
-            PdfOutline? existing = jamicionario.Outlines
+            PdfOutline? existing = jamictionary.Outlines
                 .FirstOrDefault(outline => outline.Title == bookmarkGroup);
-            existing ??= jamicionario.Outlines.Add(bookmarkGroup, targetPage);
+            existing ??= jamictionary.Outlines.Add(bookmarkGroup, targetPage);
             return existing.Outlines;
         }
 
@@ -140,14 +140,14 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
         outlines.Add(bookmarkName, targetPage);
     }
 
-    private void AddStartingPagesTo(PdfDocument jamicionario)
+    private void AddStartingPagesTo(PdfDocument jamictionary)
     {
-        foreach (IIntroPage item in JamicionarioIntroPages)
+        foreach (IIntroPage item in JamictionaryIntroPages)
         {
             if (item is IntroPage extraPage)
             {
-                string path = Path.Combine(config.JamicionarioDataFolder, extraPage.RelativePath);
-                AddPdfTo(jamicionario, path, null, extraPage.BookmarkName);
+                string path = Path.Combine(config.JamictionaryDataFolder, extraPage.RelativePath);
+                AddPdfTo(jamictionary, path, null, extraPage.BookmarkName);
                 continue;
             }
 
@@ -155,8 +155,8 @@ public class PdfCompiler(ScoresConfig config, ILogger<PdfCompiler> logger)
             PageGroup group = (PageGroup)item;
             foreach (var page in group.Children)
             {
-                string path = Path.Combine(config.JamicionarioDataFolder, page.RelativePath);
-                AddPdfTo(jamicionario, path, group.BookmarkName, page.BookmarkName);
+                string path = Path.Combine(config.JamictionaryDataFolder, page.RelativePath);
+                AddPdfTo(jamictionary, path, group.BookmarkName, page.BookmarkName);
             }
         }
     }

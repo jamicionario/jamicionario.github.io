@@ -1,7 +1,7 @@
 
 # Scores Processor
 
-This C# console application updates the local Jamicionário data from your `*.mscz` MuseScore files.
+This C# console application updates the local Jamictionary data from your `*.mscz` MuseScore files.
 
 It reads the MSCZ files from the configured folder, and exports the data to the public folder.
 
@@ -51,4 +51,4 @@ The config file you created will be included when you build, but it is local to 
 
 To configure via environment variables, set them in the operating system.
 
-They use a prefix "jamicionario__", such as "jamicionario__MuseScoreExecutablePath".
+They use a prefix "jamictionary__", such as "jamictionary__MuseScoreExecutablePath".

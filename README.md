@@ -1,5 +1,5 @@
 
-# Jamicionario
+# Jamictionary
 
 This technical README explains how to run the project locally, and how to deploy it.
 
@@ -30,7 +30,7 @@ For more information, see the [angular-cli-ghpages documentation](https://www.np
 
 ## Running locally
 
-You can run the Jamicionário on your local machine.  
+You can run the Jamictionary on your local machine.  
 It can be run from the console or from VS Code.
 
 First, you will need to:
@@ -45,14 +45,14 @@ The application automatically reloads whenever you modify any of the source file
 
 ### Running from console
 
-To run the Jamicionário from console:
+To run the Jamictionary from console:
 
 - Open a terminal;
 - run with `ng serve`
 
 ### Running from VS Code
 
-To run or debug the Jamicionário from VS Code:
+To run or debug the Jamictionary from VS Code:
 
   1. Select the "Run and Debug" tab on the left;
   2. Choose the option "ng serve" on the dropdown.

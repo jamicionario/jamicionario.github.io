@@ -1,7 +1,7 @@
 namespace ScoresProcessor.Helpers;
 
 /// <summary>
-/// An introductory page to be added at the start of the Jamicionário PDF.
+/// An introductory page to be added at the start of the Jamictionary PDF.
 /// </summary>
 public interface IIntroPage
 {
@@ -9,7 +9,7 @@ public interface IIntroPage
 }
 
 /// <inheritdoc cref="IIntroPage" />
-/// <param name="RelativePath">The path to the PDF, relative to <see cref="ScoresConfig.JamicionarioDataFolder"/> .</param>
+/// <param name="RelativePath">The path to the PDF, relative to <see cref="ScoresConfig.JamictionaryDataFolder"/> .</param>
 public record class IntroPage(string BookmarkName, string RelativePath) : IIntroPage;
 
 /// <summary>

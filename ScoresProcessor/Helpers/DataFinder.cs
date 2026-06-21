@@ -7,7 +7,7 @@ public class DataFinder(ScoresConfig config, ILogger<DataFinder> logger)
 {
 	public Target[] FindData()
 	{
-		string[] files = Directory.GetFiles(config.JamicionarioDataFolder, "*.mscz", SearchOption.AllDirectories);
+		string[] files = Directory.GetFiles(config.JamictionaryDataFolder, "*.mscz", SearchOption.AllDirectories);
 		return files
 			// Exclude temporary debug folders.
 			.Where(file => !file.Contains("/tmp/", StringComparison.InvariantCultureIgnoreCase))

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jamicionario": {
+    "jamictionary": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/jamicionario",
+            "outputPath": "dist/jamictionary",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -70,10 +70,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "jamicionario:build:production"
+              "buildTarget": "jamictionary:build:production"
             },
             "development": {
-              "buildTarget": "jamicionario:build:development"
+              "buildTarget": "jamictionary:build:development"
             }
           },
           "defaultConfiguration": "development"

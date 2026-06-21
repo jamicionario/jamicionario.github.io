@@ -8,7 +8,7 @@
   - Add a front-end test, a hidden page with a more complex URL like "Bourrée 2T - à Malochet.txt".
         This will allow testing without regenerating the data.
         Then it's easier to play-test with possible solutions.
-        Ideally we deploy not to live, but to an alternative URL like <https://jamicionario.github.io/jamicionario-staging/> or wherever else.
+        Ideally we deploy not to live, but to an alternative URL like <https://jamictionary.github.io/jamictionary-staging/> or wherever else.
 - Tests are not running. Fix that.
   - After that, add tests for TimeAgoPipe.
 

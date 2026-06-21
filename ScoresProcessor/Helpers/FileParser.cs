@@ -8,7 +8,7 @@ public class FileParser(Exporter exporter, ILogger<FileParser> logger)
     private static readonly Regex MetadataParser = new(@"<metaTag name=""(?<name>[\w\s]+)"">(?<value>[^<]*)</metaTag>", RegexOptions.Compiled);
     public TargetWithLabels[] LoadLabelInfoFor(Target[] targets)
     {
-        DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamicionario");
+        DirectoryInfo tempDir = Directory.CreateTempSubdirectory("jamictionary");
         string[] path = [tempDir.FullName];
 
         exporter.ExportFilesAs(targets, target =>

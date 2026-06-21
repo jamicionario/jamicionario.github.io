@@ -7,7 +7,7 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
 {
     private ILogger<T> CreateLogger<T>() => loggerFactory.CreateLogger<T>();
 
-    public void ProcessJamicionarioData()
+    public void ProcessJamictionaryData()
     {
         Stopwatch counter = Stopwatch.StartNew();
 
@@ -47,13 +47,13 @@ public class ScoresProcessor(ProcessingSteps instructions, ScoresConfig config, 
             metaBuilder.ExportMetadataFor(exportedResults.Value);
         }
 
-        if (instructions.HasFlag(ProcessingSteps.ExportJamicionarioPdf))
+        if (instructions.HasFlag(ProcessingSteps.ExportJamictionaryPdf))
         {
-            Logger.LogDebug("Generating and exporting Jamicionário PDF.");
+            Logger.LogDebug("Generating and exporting Jamictionary PDF.");
             PdfCompiler pdfCompiler = new(config, CreateLogger<PdfCompiler>());
-            VersionInfo version = pdfCompiler.CompileJamicionario(exportedResults.Value);
+            VersionInfo version = pdfCompiler.CompileJamictionary(exportedResults.Value);
 
-            Logger.LogDebug("Generating and exporting Jamicionário MSCZ zip.");
+            Logger.LogDebug("Generating and exporting Jamictionary MSCZ zip.");
             MsczZipper zipper = new(
                 config
                 );

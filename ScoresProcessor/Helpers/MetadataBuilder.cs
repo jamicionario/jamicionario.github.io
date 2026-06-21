@@ -42,7 +42,7 @@ public class MetadataBuilder(ScoresConfig config)
     {
         string[] GetFolderStructureFor(Target item)
         {
-            string relativeMsczPath = Path.GetRelativePath(config.JamicionarioDataFolder, item.Mscz);
+            string relativeMsczPath = Path.GetRelativePath(config.JamictionaryDataFolder, item.Mscz);
             string dirName = Path.GetDirectoryName(relativeMsczPath)
                 ?? throw new FolderException("Could not parse folder path into separate folder names.");
             string[] folders = dirName
@@ -58,7 +58,7 @@ public class MetadataBuilder(ScoresConfig config)
         object ProcessInfo(ExportedResult item, int index)
         {
             string[] folderStructure = GetFolderStructureFor(item.Source);
-            var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamicionarioPublicFolder, score));
+            var pages = item.ScoreImages.Select(score => Path.GetRelativePath(config.JamictionaryPublicFolder, score));
 
             // Get the dance geometry and type of dance for this score.
             item.Source.Labels.TryGetValue(Categories.DanceGeometry, out string? danceGeometry);
@@ -134,7 +134,7 @@ public class MetadataBuilder(ScoresConfig config)
         return corrected;
     }
 
-    // These labels/metaTags are of no interest to Jamicionário.
+    // These labels/metaTags are of no interest to Jamictionary.
     private static readonly HashSet<string> LabelNamesToSkip = [
         "mscVersion",
         "platform",

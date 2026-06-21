@@ -20,13 +20,13 @@ export const menuItems = Object.freeze([
   ]);
 
 export const routes: Routes = [
-    { path: '', title: 'Jamicionário', component: ListCategoriesComponent, pathMatch: 'full' },
-    { path: 'scores', title: 'All scores — Jamicionário', component: ListComponent },
-    { path: 'scores/:number', title: 'Score details — Jamicionário', component: DetailsComponent },
-    { path: 'categories', title: 'Categories — Jamicionário', component: ListCategoriesComponent },
-    { path: 'categories/:name', title: 'Scores for a category — Jamicionário', component: CategoryDetailsComponent },
-    { path: 'download', title: 'Download — Jamicionário', component: DownloadComponent },
-    { path: 'about', title: 'About — Jamicionário', component: AboutComponent },
+    { path: '', title: 'Jamictionary', component: ListCategoriesComponent, pathMatch: 'full' },
+    { path: 'scores', title: 'All scores — Jamictionary', component: ListComponent },
+    { path: 'scores/:number', title: 'Score details — Jamictionary', component: DetailsComponent },
+    { path: 'categories', title: 'Categories — Jamictionary', component: ListCategoriesComponent },
+    { path: 'categories/:name', title: 'Scores for a category — Jamictionary', component: CategoryDetailsComponent },
+    { path: 'download', title: 'Download — Jamictionary', component: DownloadComponent },
+    { path: 'about', title: 'About — Jamictionary', component: AboutComponent },
     // Handle any broken paths.
-    { path: '**', title: '404 — Not Found — Jamicionário', component: NotFoundComponent },
+    { path: '**', title: '404 — Not Found — Jamictionary', component: NotFoundComponent },
 ];

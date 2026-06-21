@@ -1,7 +1,7 @@
 
 import { describeContributors } from '@components/about/about.component';
 import { SourceInfo } from '@models/source-info';
-import versionInfo from '@public/Jamicionario.metadata.json';
+import versionInfo from '@public/Jamictionary.metadata.json';
 import sourceInfo from '@public/source-info.json';
 
 export class VersionComponent {
