@@ -11,3 +11,19 @@
     outline: dashed 2px lightgray;
     outline-offset: 2px;
 }
+
+a.main-download {
+    all: unset;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(41, 144, 59);
+    border: solid 1px rgba(255, 255, 255, 0.15);
+    &:focus,
+    &:hover {
+        background-color: rgb(35, 134, 54);
+    }
+    border-radius: 6px;
+    padding: 0.3em 1em;
+    display: inline-block;
+    margin-top: 0.2em;
+}

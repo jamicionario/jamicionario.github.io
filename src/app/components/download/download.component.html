@@ -8,9 +8,12 @@
     Data <strong>version {{ versionNumber }}</strong>
     was generated <time dateTime="{{ versionDate.toISOString() }}">{{ versionDate | timeAgo }}</time> —
     on {{ readableDate }}.<br />
-    It can be downloaded:
+    <a href="Jamictionary.pdf" target="_blank" class="main-download">Download PDF</a>
 </p>
 
+<p>
+    It can be downloaded:
+</p>
 <ul id="files">
     <li>
         <a href="Jamicionario.pdf" target="_blank">As PDF</a>, ~10 MB
@@ -18,7 +21,8 @@
     </li>
     <li>
         <a href="Jamicionario - all MSCZ.zip" target="_blank">As MSCZ</a>, ~9 MB
-         — a zip file with the MuseScore<a routerLink="/download" fragment="footnote-1" class="footnote"> ¹</a> files for all the available scores.
+         — a zip file with the MuseScore<a routerLink="/download" fragment="footnote-1" class="footnote">¹</a> files for all the available scores;<br />
+        These are available in the <a href="{{ sourceInfo.data.url }}">jamicionario-data</a> repository.
     </li>
 </ul>
 
