@@ -5,3 +5,9 @@
     padding: 0.5em;
     padding-left: 1em;
 }
+
+.mat-mdc-slide-toggle-checked {
+    span.description {
+        display: none;
+    }
+}
